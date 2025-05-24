@@ -1,0 +1,9 @@
+{
+  "name": "@jsix/api",
+  "version": "0.0.1",
+  "private": true,
+  "packageManager": "yarn@4.9.1",
+  "dependencies": {
+    "js-logger": "^1.6.1"
+  }
+}

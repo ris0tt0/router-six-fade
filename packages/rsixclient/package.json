@@ -1,20 +1,12 @@
 {
-  "name": "jay-mono-repo",
+  "name": "@jsix/client",
   "version": "0.0.1",
   "private": true,
   "packageManager": "yarn@4.9.1",
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.7",
     "js-logger": "^1.6.1",
     "postcss": "^8.5.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.7"
-  },
-  "devDependencies": {
-    "typescript": "^5.8.3"
   }
 }
