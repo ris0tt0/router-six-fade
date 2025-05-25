@@ -1,5 +1,5 @@
 {
-  "name": "@jsix/client",
+  "name": "@jsix/ws",
   "version": "0.0.1",
   "private": true,
   "packageManager": "yarn@4.9.1",
@@ -7,8 +7,6 @@
     "dev": "null"
   },
   "dependencies": {
-    "@node-rpc/client": "^2.3.1",
-    "axios": "0.19.0",
     "js-logger": "^1.6.1"
   },
   "devDependencies": {

@@ -1,3 +1,3 @@
-# proof of concept
+# demostrates a mono repo
 
-This project is a POC to add fade in/out transitions to the route.
+mono repo example
