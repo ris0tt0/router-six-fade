@@ -7,7 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspaces foreach -Ap run dev"
+    "dev": "yarn workspaces foreach -Ap run dev",
+    "build": "yarn workspaces foreach -Ap run build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -16,7 +17,10 @@
     "@mui/material": "^7.1.0",
     "@mui/system": "^7.1.0",
     "@node-rpc/client": "^2.3.1",
+    "@node-rpc/server": "^2.2.0",
     "axios": "0.19.0",
+    "co-body": "^6.2.0",
+    "formidable": "1.2.1",
     "js-logger": "^1.6.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

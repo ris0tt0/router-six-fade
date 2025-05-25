@@ -5,11 +5,15 @@
   "main": "./src/index.ts",
   "packageManager": "yarn@4.9.1",
   "scripts": {
-    "dev": "null",
+    "dev": "nodemon --watch src --exec ts-node src/app.ts",
+    "start": "yarn build && node dist/app.js",
     "build": "tsc"
   },
   "dependencies": {
+    "@node-rpc/server": "^2.2.0",
     "axios": "0.19.0",
+    "co-body": "^6.2.0",
+    "formidable": "1.2.1",
     "js-logger": "^1.6.1"
   },
   "devDependencies": {

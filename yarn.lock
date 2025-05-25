@@ -1336,6 +1336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/bourne@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@hapi/bourne@npm:3.0.0"
+  checksum: 10c0/2e2df62f6bc6f32b980ba5bbdc09200c93c55c8306399ec0f2781da088a82aab699498c89fe94fec4acf770210f9aee28c75bfc2f04044849ac01b034134e717
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -1425,8 +1432,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jsix/api@workspace:packages/rsixapi"
   dependencies:
+    "@node-rpc/server": "npm:^2.2.0"
     "@types/node": "npm:^22.15.21"
     axios: "npm:0.19.0"
+    co-body: "npm:^6.2.0"
+    formidable: "npm:1.2.1"
     js-logger: "npm:^1.6.1"
     nodemon: "npm:^3.1.10"
     ts-node: "npm:^10.9.2"
@@ -1710,6 +1720,16 @@ __metadata:
   peerDependencies:
     axios: ^0.19.0
   checksum: 10c0/4011c534b9a6cf878ecd4524058671a71c85e77d8693abf73fc7c6595c69ad3f25c9102ea84dec5336aa5f56c228a49967754dd0f28d5c872aecebceaa3931a3
+  languageName: node
+  linkType: hard
+
+"@node-rpc/server@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@node-rpc/server@npm:2.2.0"
+  peerDependencies:
+    co-body: ^6.0.0
+    formidable: ^1.2.1
+  checksum: 10c0/981adbd90f275b3976d52503264a61172b76570addc3635c439f4da49a168a6b494c940c6cecaa10be4507086d2d7f02948f3c9ff5b2e86fdec8d0346a23d339
   languageName: node
   linkType: hard
 
@@ -2720,6 +2740,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"co-body@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "co-body@npm:6.2.0"
+  dependencies:
+    "@hapi/bourne": "npm:^3.0.0"
+    inflation: "npm:^2.0.0"
+    qs: "npm:^6.5.2"
+    raw-body: "npm:^2.3.3"
+    type-is: "npm:^1.6.16"
+  checksum: 10c0/3a320d8b324abc14031243f427d2584cfe8f61562204f1a45d0a08bba20fff7122a04883f4d312ba648fb455246030916cacb92c19c6f7b329aaf1de70045e37
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^2.0.1":
   version: 2.0.1
   resolution: "color-convert@npm:2.0.1"
@@ -3526,6 +3559,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"formidable@npm:1.2.1":
+  version: 1.2.1
+  resolution: "formidable@npm:1.2.1"
+  checksum: 10c0/ea0e53492150f16da80401c6aeaca534e37246eabf9a181215e3fb79a126e3631810fc045fe297797156a032ce0fbd5abd17971c3d585f30bf29f62d19bcfe51
+  languageName: node
+  linkType: hard
+
 "forwarded@npm:0.2.0":
   version: 0.2.0
   resolution: "forwarded@npm:0.2.0"
@@ -3936,6 +3976,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"inflation@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "inflation@npm:2.1.0"
+  checksum: 10c0/aadfcb8047a7e00d644e2e195f901dd9d7266c2be2326b7f8f6a99298f14916f1e322d00108a7e2778d6e76a8dc2174ddb9ac14bcdfe4f4866dfd612b695ab5d
+  languageName: node
+  linkType: hard
+
 "inherits@npm:2.0.3":
   version: 2.0.3
   resolution: "inherits@npm:2.0.3"
@@ -4200,12 +4247,15 @@ __metadata:
     "@mui/material": "npm:^7.1.0"
     "@mui/system": "npm:^7.1.0"
     "@node-rpc/client": "npm:^2.3.1"
+    "@node-rpc/server": "npm:^2.2.0"
     "@types/node": "npm:^22.15.21"
     "@types/react": "npm:^19.1.5"
     "@types/react-dom": "npm:^19.1.5"
     axios: "npm:0.19.0"
     babel-loader: "npm:^10.0.0"
+    co-body: "npm:^6.2.0"
     dotenv-webpack: "npm:^8.1.0"
+    formidable: "npm:1.2.1"
     html-webpack-plugin: "npm:^5.6.3"
     js-logger: "npm:^1.6.1"
     nodemon: "npm:^3.1.10"
@@ -5046,6 +5096,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qs@npm:^6.5.2":
+  version: 6.14.0
+  resolution: "qs@npm:6.14.0"
+  dependencies:
+    side-channel: "npm:^1.1.0"
+  checksum: 10c0/8ea5d91bf34f440598ee389d4a7d95820e3b837d3fd9f433871f7924801becaa0cd3b3b4628d49a7784d06a8aea9bc4554d2b6d8d584e2d221dc06238a42909c
+  languageName: node
+  linkType: hard
+
 "randombytes@npm:^2.1.0":
   version: 2.1.0
   resolution: "randombytes@npm:2.1.0"
@@ -5062,7 +5121,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raw-body@npm:2.5.2":
+"raw-body@npm:2.5.2, raw-body@npm:^2.3.3":
   version: 2.5.2
   resolution: "raw-body@npm:2.5.2"
   dependencies:
@@ -5565,7 +5624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"side-channel@npm:^1.0.6":
+"side-channel@npm:^1.0.6, side-channel@npm:^1.1.0":
   version: 1.1.0
   resolution: "side-channel@npm:1.1.0"
   dependencies:
@@ -6005,7 +6064,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-is@npm:~1.6.18":
+"type-is@npm:^1.6.16, type-is@npm:~1.6.18":
   version: 1.6.18
   resolution: "type-is@npm:1.6.18"
   dependencies:
