@@ -1,1 +1,1 @@
-export const Hello = 'hello';
+import('./bootstrap');

@@ -1,3 +1,9 @@
+import Logger from 'js-logger';
+
+Logger.useDefaults();
+
+Logger.info('hello');
+
 export const API = 'six';
 
 export interface IApi {
