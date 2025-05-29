@@ -63,7 +63,7 @@ const config = {
         target: 'http://localhost:5004',
       },
     ],
-    port: 9002,
+    port: 5002,
   },
   plugins: [
     new HtmlWebpackPlugin({

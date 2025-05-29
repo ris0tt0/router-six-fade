@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { IApi } from '@jsix/api';
 import { createClient } from '@node-rpc/client';
@@ -33,6 +33,9 @@ const CallRPC = async () => {
 };
 
 export const Root: FC = () => {
+  useEffect(() => {
+    Logger.info('Root component');
+  }, []);
   const handleClick = () => {
     CallRPC().then(() => Logger.info('completes'));
   };

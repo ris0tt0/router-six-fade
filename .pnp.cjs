@@ -58,6 +58,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:22.15.21"],\
           ["@types/react", "npm:19.1.5"],\
           ["@types/react-dom", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:19.1.5"],\
+          ["@types/ws", "npm:8.18.1"],\
           ["axios", "npm:0.19.0"],\
           ["babel-loader", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.0.0"],\
           ["co-body", "npm:6.2.0"],\
@@ -77,6 +78,7 @@ const RAW_RUNTIME_STATE =
           ["webpack", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.99.9"],\
           ["webpack-cli", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:6.0.1"],\
           ["webpack-dev-server", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.2.1"],\
+          ["ws", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2"],\
           ["zustand", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.0.5"]\
         ],\
         "linkType": "SOFT"\
@@ -2544,8 +2546,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/rsixws/",\
         "packageDependencies": [\
           ["@jsix/ws", "workspace:packages/rsixws"],\
+          ["@types/node", "npm:22.15.21"],\
+          ["@types/ws", "npm:8.18.1"],\
           ["js-logger", "npm:1.6.1"],\
-          ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"]\
+          ["nodemon", "npm:3.1.10"],\
+          ["ts-node", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.9.2"],\
+          ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
+          ["ws", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -6281,6 +6288,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:22.15.21"],\
           ["@types/react", "npm:19.1.5"],\
           ["@types/react-dom", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:19.1.5"],\
+          ["@types/ws", "npm:8.18.1"],\
           ["axios", "npm:0.19.0"],\
           ["babel-loader", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.0.0"],\
           ["co-body", "npm:6.2.0"],\
@@ -6300,6 +6308,7 @@ const RAW_RUNTIME_STATE =
           ["webpack", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.99.9"],\
           ["webpack-cli", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:6.0.1"],\
           ["webpack-dev-server", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.2.1"],\
+          ["ws", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2"],\
           ["zustand", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.0.5"]\
         ],\
         "linkType": "SOFT"\
@@ -9018,7 +9027,7 @@ const RAW_RUNTIME_STATE =
           ["webpack-cli", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:6.0.1"],\
           ["webpack-dev-middleware", "virtual:1ef90d6a460849898065e4498b8d56f767f1687386fe907bf7b9ebb71abb3bf78716fabca13c6f60bc71ba5cadb193a74be8ca67d953a30aa7ee5426a3ae9f41#npm:7.4.2"],\
           ["webpack-dev-server", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.2.1"],\
-          ["ws", "virtual:1ef90d6a460849898065e4498b8d56f767f1687386fe907bf7b9ebb71abb3bf78716fabca13c6f60bc71ba5cadb193a74be8ca67d953a30aa7ee5426a3ae9f41#npm:8.18.2"]\
+          ["ws", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2"]\
         ],\
         "packagePeers": [\
           "@types/webpack-cli",\
@@ -9063,7 +9072,7 @@ const RAW_RUNTIME_STATE =
           ["webpack-cli", "virtual:d273e6f4f853533edfda33b73b4025e4c04d82f19033dfea8da41b7d97c52b10289b6e2ff84c38851ae4b19ffe382db2b852446743ba02ad8a9227f51c598a4b#npm:6.0.1"],\
           ["webpack-dev-middleware", "virtual:9422c531875ccb8944f25973565eca95f33efebe58813d3b360209f7207bf4d892f0c787d9316da86b1c745f0dd61b9c34bd2c762d1f339317c25041bb593245#npm:7.4.2"],\
           ["webpack-dev-server", "virtual:d273e6f4f853533edfda33b73b4025e4c04d82f19033dfea8da41b7d97c52b10289b6e2ff84c38851ae4b19ffe382db2b852446743ba02ad8a9227f51c598a4b#npm:5.2.1"],\
-          ["ws", "virtual:1ef90d6a460849898065e4498b8d56f767f1687386fe907bf7b9ebb71abb3bf78716fabca13c6f60bc71ba5cadb193a74be8ca67d953a30aa7ee5426a3ae9f41#npm:8.18.2"]\
+          ["ws", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2"]\
         ],\
         "packagePeers": [\
           "@types/webpack-cli",\
@@ -9193,14 +9202,14 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:1ef90d6a460849898065e4498b8d56f767f1687386fe907bf7b9ebb71abb3bf78716fabca13c6f60bc71ba5cadb193a74be8ca67d953a30aa7ee5426a3ae9f41#npm:8.18.2", {\
-        "packageLocation": "./.yarn/__virtual__/ws-virtual-ba27757dae/4/.yarn/berry/cache/ws-npm-8.18.2-664b945bea-10c0.zip/node_modules/ws/",\
+      ["virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2", {\
+        "packageLocation": "./.yarn/__virtual__/ws-virtual-6cdeef5086/4/.yarn/berry/cache/ws-npm-8.18.2-664b945bea-10c0.zip/node_modules/ws/",\
         "packageDependencies": [\
           ["@types/bufferutil", null],\
           ["@types/utf-8-validate", null],\
           ["bufferutil", null],\
           ["utf-8-validate", null],\
-          ["ws", "virtual:1ef90d6a460849898065e4498b8d56f767f1687386fe907bf7b9ebb71abb3bf78716fabca13c6f60bc71ba5cadb193a74be8ca67d953a30aa7ee5426a3ae9f41#npm:8.18.2"]\
+          ["ws", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.18.2"]\
         ],\
         "packagePeers": [\
           "@types/bufferutil",\
