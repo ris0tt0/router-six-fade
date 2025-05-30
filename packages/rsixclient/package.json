@@ -2,6 +2,7 @@
   "name": "@jsix/client",
   "version": "0.0.1",
   "private": true,
+  "main": "./src/index.ts",
   "packageManager": "yarn@4.9.1",
   "scripts": {
     "build:dev": "webpack --mode=development",

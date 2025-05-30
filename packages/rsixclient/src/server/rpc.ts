@@ -6,11 +6,12 @@ import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 
 export interface ClientRPC extends Initable {
-  subtrack(item1: number, item2: number): Promise<number>;
+  loadPlayers(): Promise<string[]>;
 }
 
 export class ClientRPCImpl implements ClientRPC {
   private api: Callables<IApi> | null = null;
+
   async init() {
     Logger.info('ClientRPC::init');
     this.api = createClient<IApi>({
@@ -21,9 +22,9 @@ export class ClientRPCImpl implements ClientRPC {
     return null;
   }
 
-  async subtrack(item1: number, item2: number) {
+  async loadPlayers() {
     if (this.api) {
-      const response = await this.api.subtract(item1, item2).call();
+      const response = await this.api.loadPlayers().call();
 
       switch (response.type) {
         case 'fail': {

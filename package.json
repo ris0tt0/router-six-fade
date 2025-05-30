@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspaces foreach -Ap run dev",
+    "dev": "yarn workspaces foreach -Apvi run dev",
     "build": "yarn workspaces foreach -Ap run build"
   },
   "dependencies": {
