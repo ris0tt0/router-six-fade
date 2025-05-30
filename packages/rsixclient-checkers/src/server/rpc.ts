@@ -1,16 +1,15 @@
-import React, { FC, useEffect } from 'react';
-import { RSIXCHAT, HelloChat } from '@jsix/client-chat';
-import { RSIXCHECKOUTS } from '@jsix/client-checkers';
-import { RSIXCHESS } from '@jsix/client-chess';
 import { IApi } from '@jsix/api';
 import { Initable } from '@jsix/db';
-import { Button } from '@mui/material';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 
-class ClientRPC implements Initable {
+export interface ClientRPC extends Initable {
+  subtrack(item1: number, item2: number): Promise<number>;
+}
+
+export class ClientRPCImpl implements ClientRPC {
   private api: Callables<IApi> | null = null;
   async init() {
     Logger.info('ClientRPC::init');
@@ -29,35 +28,20 @@ class ClientRPC implements Initable {
       switch (response.type) {
         case 'fail': {
           Logger.log('error', response.code, response.error);
-          break;
+          throw new Error(response.error);
         }
         case 'noResponse': {
           Logger.log('no response');
-          break;
+          throw new Error('no response');
         }
         case 'success': {
           Logger.log('success', response.code, response.data);
-          break;
+          return response.data;
         }
       }
     }
+    {
+      throw new Error('no api  yo');
+    }
   }
 }
-
-export const Root: FC = () => {
-  // useEffect(() => {
-  //   Logger.info('Root component');
-  // }, []);
-  // const handleClick = () => {
-  //   CallRPC().then(() => Logger.info('completes'));
-  // };
-  const handleClick = () => null;
-  return (
-    <div>
-      root:<Button onClick={handleClick}>click</Button>
-      <div>
-        <HelloChat />
-      </div>
-    </div>
-  );
-};

@@ -1,7 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { RSIXCHAT, HelloChat } from '@jsix/client-chat';
-import { RSIXCHECKOUTS } from '@jsix/client-checkers';
-import { RSIXCHESS } from '@jsix/client-chess';
+
 import { IApi } from '@jsix/api';
 import { Initable } from '@jsix/db';
 import { Button } from '@mui/material';
@@ -55,9 +53,6 @@ export const Root: FC = () => {
   return (
     <div>
       root:<Button onClick={handleClick}>click</Button>
-      <div>
-        <HelloChat />
-      </div>
     </div>
   );
 };
