@@ -1,0 +1,24 @@
+{
+  "name": "@jsix/db",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "packageManager": "yarn@4.9.1",
+  "scripts": {
+    "dev": "nodemon --watch src --exec ts-node src/app.ts",
+    "start": "yarn build && node dist/app.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "js-logger": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.21",
+    "@types/ws": "^8.18.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

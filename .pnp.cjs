@@ -23,6 +23,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:packages/rsixclient"\
     },\
     {\
+      "name": "@jsix/db",\
+      "reference": "workspace:packages/rsixdb"\
+    },\
+    {\
       "name": "@jsix/ws",\
       "reference": "workspace:packages/rsixws"\
     }\
@@ -33,6 +37,7 @@ const RAW_RUNTIME_STATE =
   "fallbackExclusionList": [\
     ["@jsix/api", ["workspace:packages/rsixapi"]],\
     ["@jsix/client", ["workspace:packages/rsixclient"]],\
+    ["@jsix/db", ["workspace:packages/rsixdb"]],\
     ["@jsix/ws", ["workspace:packages/rsixws"]],\
     ["jsix", ["workspace:."]]\
   ],\
@@ -2515,6 +2520,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/styled", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:11.14.0"],\
           ["@jsix/api", "workspace:packages/rsixapi"],\
           ["@jsix/client", "workspace:packages/rsixclient"],\
+          ["@jsix/db", "workspace:packages/rsixdb"],\
           ["@module-federation/typescript", "virtual:d273e6f4f853533edfda33b73b4025e4c04d82f19033dfea8da41b7d97c52b10289b6e2ff84c38851ae4b19ffe382db2b852446743ba02ad8a9227f51c598a4b#npm:3.1.3"],\
           ["@mui/icons-material", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:7.1.0"],\
           ["@mui/material", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:7.1.0"],\
@@ -2537,6 +2543,23 @@ const RAW_RUNTIME_STATE =
           ["webpack-cli", "virtual:d273e6f4f853533edfda33b73b4025e4c04d82f19033dfea8da41b7d97c52b10289b6e2ff84c38851ae4b19ffe382db2b852446743ba02ad8a9227f51c598a4b#npm:6.0.1"],\
           ["webpack-dev-server", "virtual:d273e6f4f853533edfda33b73b4025e4c04d82f19033dfea8da41b7d97c52b10289b6e2ff84c38851ae4b19ffe382db2b852446743ba02ad8a9227f51c598a4b#npm:5.2.1"],\
           ["zustand", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:5.0.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@jsix/db", [\
+      ["workspace:packages/rsixdb", {\
+        "packageLocation": "./packages/rsixdb/",\
+        "packageDependencies": [\
+          ["@jsix/db", "workspace:packages/rsixdb"],\
+          ["@types/express", "npm:5.0.2"],\
+          ["@types/node", "npm:22.15.21"],\
+          ["@types/ws", "npm:8.18.1"],\
+          ["express", "npm:5.1.0"],\
+          ["js-logger", "npm:1.6.1"],\
+          ["nodemon", "npm:3.1.10"],\
+          ["ts-node", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.9.2"],\
+          ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"]\
         ],\
         "linkType": "SOFT"\
       }]\
