@@ -3,14 +3,24 @@ import Logger from 'js-logger';
 import { RCPRequest } from '../request';
 
 const port = process.env.PORT || 5004;
+export class ExpressServer {
+  private app: express.Application | null = null;
 
-export const app: express.Application = express();
-const v1Router = Router();
+  init() {
+    const retVal = new Promise<null>((resolve, reject) => {
+      const v1Router = Router();
 
-app.use('/api/v1', v1Router);
+      this.app = express();
+      this.app.use('/api/v1', v1Router);
 
-v1Router.post('/', RCPRequest);
+      v1Router.post('/', RCPRequest);
 
-app.listen(port, () => {
-  Logger.log(`listening on port ${port}`);
-});
+      this.app.listen(port, () => {
+        Logger.log(`express listening on port ${port}`);
+        resolve(null);
+      });
+    });
+
+    return retVal;
+  }
+}

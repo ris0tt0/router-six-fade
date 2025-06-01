@@ -14,6 +14,8 @@ export class Commands implements ClientCommands {
     return null;
   }
   async loadPlayers() {
-    return null;
+    const result = await this.rpc.loadPlayers();
+
+    return result;
   }
 }

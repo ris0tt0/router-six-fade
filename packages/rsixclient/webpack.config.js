@@ -9,7 +9,6 @@ const config = {
     filename: 'rsixclient-[name].js',
     clean: true,
     library: {
-      // note there's no `name` here
       type: 'umd',
     },
   },

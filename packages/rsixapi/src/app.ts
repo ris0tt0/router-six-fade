@@ -1,8 +1,12 @@
 import Logger from 'js-logger';
-import { app } from './server/express';
+import { ExpressServer } from './server/express';
 
 Logger.useDefaults();
 
-Logger.info('hello', app);
-
-export const APP = 'aa';
+const server = new ExpressServer();
+server
+  .init()
+  .then(() => {
+    Logger.info('Express Server started');
+  })
+  .catch((e) => Logger.error(e));

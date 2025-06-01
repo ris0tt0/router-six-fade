@@ -1,7 +1,6 @@
 import { Button, styled } from '@mui/material';
 import Logger from 'js-logger';
-import React, { FC } from 'react';
-import { useRPC } from '../../hooks/useRPC';
+import React, { FC, useState } from 'react';
 import { useCommands } from '../../hooks/useCommands';
 
 const RootRouteStyled = styled('div')`
@@ -9,17 +8,28 @@ const RootRouteStyled = styled('div')`
 `;
 
 export const Root: FC = () => {
-  const rpc = useRPC();
   const commands = useCommands();
+  const [error, setError] = useState(false);
 
   const handleClick = () => {
-    rpc
+    commands
       .loadPlayers()
       .then((result) => {
-        Logger.info('resiltss', result, commands);
+        Logger.info('loadplauers', result, commands);
       })
-      .catch((e) => Logger.warn(e));
+      .catch((e) => {
+        Logger.error(e);
+        setError(true);
+      });
   };
+
+  if (error) {
+    return (
+      <div>
+        <h3>root error</h3>
+      </div>
+    );
+  }
 
   return (
     <RootRouteStyled>
