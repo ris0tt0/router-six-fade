@@ -1,5 +1,5 @@
 {
-  "name": "@jsix/client-checkers",
+  "name": "@jsix/fe-chat",
   "version": "0.0.1",
   "private": true,
   "main": "./src/index.ts",
@@ -12,8 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@jsix/api": "workspaces:*",
-    "@jsix/db": "workspaces:*",
+    "@jsix/be-api": "workspaces:*",
+    "@jsix/be-db": "workspaces:*",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "@mui/system": "^7.1.0",
