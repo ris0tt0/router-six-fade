@@ -1,10 +1,19 @@
+import { Initable } from '@jsix/be-db';
 import express, { Router } from 'express';
 import Logger from 'js-logger';
-import { RCPRequest } from '../request';
+import { ClientRPC } from '../rpc/client';
+import { ServerRPC } from '../rpc/server';
 
 const port = process.env.PORT || 5004;
-export class ExpressServer {
+export class ExpressServer implements Initable {
   private app: express.Application | null = null;
+  private rcpServer: ServerRPC;
+  private rcpClient: ClientRPC;
+
+  constructor(rcpServer: ServerRPC, rcpClient: ClientRPC) {
+    this.rcpClient = rcpClient;
+    this.rcpServer = rcpServer;
+  }
 
   init() {
     const retVal = new Promise<null>((resolve, reject) => {
@@ -13,7 +22,7 @@ export class ExpressServer {
       this.app = express();
       this.app.use('/api/v1', v1Router);
 
-      v1Router.post('/', RCPRequest);
+      v1Router.post('/', this.rcpServer.request);
 
       this.app.listen(port, () => {
         Logger.log(`express on port ${port}`);

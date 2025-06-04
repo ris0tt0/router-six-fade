@@ -4,6 +4,9 @@ import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 import { IApi } from '../common';
+
+const Endpoint = 'http://localhost:5005/api/v1';
+
 export interface ClientRPC extends Initable {
   loadPlayers(): Promise<string[]>;
 }
@@ -14,7 +17,7 @@ export class ClientRPCImpl implements ClientRPC {
   async init() {
     Logger.info('ClientRPC::init');
     this.api = createClient<IApi>({
-      endpoint: 'api/v1',
+      endpoint: Endpoint,
       serializer: jsonSerializer,
       xhr: axiosXHR,
     });
