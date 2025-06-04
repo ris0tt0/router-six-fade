@@ -16,7 +16,7 @@ export class ExpressServer {
       v1Router.post('/', RCPRequest);
 
       this.app.listen(port, () => {
-        Logger.log(`express listening on port ${port}`);
+        Logger.log(`express on port ${port}`);
         resolve(null);
       });
     });

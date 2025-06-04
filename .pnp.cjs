@@ -2509,6 +2509,11 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/rsix-be-api/",\
         "packageDependencies": [\
           ["@jsix/be-api", "workspace:packages/rsix-be-api"],\
+          ["@jsix/be-db", "workspace:packages/rsix-be-db"],\
+          ["@jsix/fe-chat", "workspace:packages/rsix-fe-chat"],\
+          ["@jsix/fe-checkers", "workspace:packages/rsix-fe-checkers"],\
+          ["@jsix/fe-chess", "workspace:packages/rsix-fe-chess"],\
+          ["@node-rpc/client", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:2.3.1"],\
           ["@node-rpc/server", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:2.2.0"],\
           ["@types/express", "npm:5.0.2"],\
           ["@types/node", "npm:22.15.21"],\
@@ -2528,7 +2533,12 @@ const RAW_RUNTIME_STATE =
       ["workspace:packages/rsix-be-db", {\
         "packageLocation": "./packages/rsix-be-db/",\
         "packageDependencies": [\
+          ["@jsix/be-api", "workspace:packages/rsix-be-api"],\
           ["@jsix/be-db", "workspace:packages/rsix-be-db"],\
+          ["@jsix/fe-chat", "workspace:packages/rsix-fe-chat"],\
+          ["@jsix/fe-checkers", "workspace:packages/rsix-fe-checkers"],\
+          ["@jsix/fe-chess", "workspace:packages/rsix-fe-chess"],\
+          ["@node-rpc/server", "virtual:0033282e044fbdea6248e3ca3b484fb5ef8f593c51386126e01cfeddd43fc2fedddc8ef7ee0c3ea595a7d0a5bc9f029d96a3070989a79f3224508e9a8a521db9#npm:2.2.0"],\
           ["@types/express", "npm:5.0.2"],\
           ["@types/node", "npm:22.15.21"],\
           ["@types/ws", "npm:8.18.1"],\
@@ -3130,6 +3140,23 @@ const RAW_RUNTIME_STATE =
           ["@node-rpc/server", "npm:2.2.0"]\
         ],\
         "linkType": "SOFT"\
+      }],\
+      ["virtual:0033282e044fbdea6248e3ca3b484fb5ef8f593c51386126e01cfeddd43fc2fedddc8ef7ee0c3ea595a7d0a5bc9f029d96a3070989a79f3224508e9a8a521db9#npm:2.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/@node-rpc-server-virtual-66f0140ec5/4/.yarn/berry/cache/@node-rpc-server-npm-2.2.0-296f41d618-10c0.zip/node_modules/@node-rpc/server/",\
+        "packageDependencies": [\
+          ["@node-rpc/server", "virtual:0033282e044fbdea6248e3ca3b484fb5ef8f593c51386126e01cfeddd43fc2fedddc8ef7ee0c3ea595a7d0a5bc9f029d96a3070989a79f3224508e9a8a521db9#npm:2.2.0"],\
+          ["@types/co-body", null],\
+          ["@types/formidable", null],\
+          ["co-body", null],\
+          ["formidable", null]\
+        ],\
+        "packagePeers": [\
+          "@types/co-body",\
+          "@types/formidable",\
+          "co-body",\
+          "formidable"\
+        ],\
+        "linkType": "HARD"\
       }],\
       ["virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:2.2.0", {\
         "packageLocation": "./.yarn/__virtual__/@node-rpc-server-virtual-7a9a1e0a1c/4/.yarn/berry/cache/@node-rpc-server-npm-2.2.0-296f41d618-10c0.zip/node_modules/@node-rpc/server/",\

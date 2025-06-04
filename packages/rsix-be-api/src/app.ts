@@ -7,6 +7,6 @@ const server = new ExpressServer();
 server
   .init()
   .then(() => {
-    Logger.info('Express Server started');
+    Logger.info('API Express Server started');
   })
   .catch((e) => Logger.error(e));

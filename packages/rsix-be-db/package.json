@@ -10,6 +10,12 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@jsix/be-api": "workspaces:*",
+    "@jsix/be-db": "workspaces:*",
+    "@jsix/fe-chat": "workspaces:*",
+    "@jsix/fe-checkers": "workspaces:*",
+    "@jsix/fe-chess": "workspaces:*",
+    "@node-rpc/server": "^2.2.0",
     "express": "^5.1.0",
     "js-logger": "^1.6.1"
   },

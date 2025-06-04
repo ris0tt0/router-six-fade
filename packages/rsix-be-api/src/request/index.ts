@@ -1,5 +1,24 @@
+import { createServer, RPCFunctions } from '@node-rpc/server';
+import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
-import { RpcServer } from '../server/rcp';
+import Logger from 'js-logger';
+import { IApi } from '../common';
+
+export interface APIContext {
+  lang: string;
+}
+
+export const api: RPCFunctions<IApi, APIContext> = {
+  loadPlayers: () => (context: APIContext) => {
+    Logger.info('RPCFunctions::loadPlaeyrs', context.lang);
+    return [];
+  },
+};
+
+export const RpcServer = createServer({
+  api,
+  deserializer: jsonDeserializer,
+});
 
 export const RCPRequest = async (req: Request, res: Response) => {
   try {
