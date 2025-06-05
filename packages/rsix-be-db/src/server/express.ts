@@ -3,20 +3,26 @@ import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import express, { Request, Response, Router } from 'express';
 import Logger from 'js-logger';
-import { Initable } from '../interface/initable';
+import { Initable } from '../interface';
+import { DataBaseSix } from '../db';
 
 const port = process.env.PORT || 5005;
 
 export interface DBContext {
-  lang: string;
+  db: DataBaseSix;
 }
 
 export const api: RPCFunctions<IApi, DBContext> = {
-  loadPlayers: () => (context: DBContext) => {
-    Logger.info('RPCFunctions::loadPlaeyrs', context.lang);
+  loadPlayers: () => (context) => {
+    // const results = context.db.getPlayers().
     return [
-      { id: 'rty', name: 'jay one' },
-      { id: 'rtydf', name: 'jay two', description: 'check  one two' },
+      { id: 'a', name: 'jay one', status: 'offlilne' },
+      {
+        id: 'b',
+        name: 'wall',
+        description: 'check  one two',
+        status: 'offlilne',
+      },
     ];
   },
 };
@@ -26,25 +32,30 @@ const RpcServer = createServer({
   deserializer: jsonDeserializer,
 });
 
-export const RCPRequest = async (req: Request, res: Response) => {
-  try {
-    // get the accepted language, use "en" as fallback
-    const lang = req.headers['accept-language']?.split(',')?.[0] || 'en';
+// export const RCPRequest = async (req: Request, res: Response) => {
+//   try {
+//     // get the accepted language, use "en" as fallback
+//     const lang = req.headers['accept-language']?.split(',')?.[0] || 'en';
 
-    // call the rpc function and pass the additional context
-    const result = await RpcServer.handleAPIRequest(req, { lang });
+//     // call the rpc function and pass the additional context
+//     const result = await RpcServer.handleAPIRequest(req, { db });
 
-    // send the result back to the client
-    await res.send(result);
-    return;
-  } catch (e) {
-    await res.send(res);
-    return;
-  }
-};
+//     // send the result back to the client
+//     await res.send(result);
+//     return;
+//   } catch (e) {
+//     await res.send(res);
+//     return;
+//   }
+// };
 
 export class ExpressServer implements Initable {
   private app: express.Application | null = null;
+  private db: DataBaseSix;
+
+  constructor(db: DataBaseSix) {
+    this.db = db;
+  }
 
   init(): Promise<null> {
     const retVal = new Promise<null>((resolve, reject) => {
@@ -52,7 +63,7 @@ export class ExpressServer implements Initable {
       const v1Router = Router();
       this.app.use('/api/v1', v1Router);
 
-      v1Router.post('/', RCPRequest);
+      v1Router.post('/', this.rcpRequest);
 
       this.app.listen(port, () => {
         Logger.log(`db on port ${port}`);
@@ -64,4 +75,21 @@ export class ExpressServer implements Initable {
 
     return retVal;
   }
+
+  rcpRequest = async (req: Request, res: Response) => {
+    try {
+      // get the accepted language, use "en" as fallback
+      const lang = req.headers['accept-language']?.split(',')?.[0] || 'en';
+
+      // call the rpc function and pass the additional context
+      const result = await RpcServer.handleAPIRequest(req, { db: this.db });
+
+      // send the result back to the client
+      await res.send(result);
+      return;
+    } catch (e) {
+      await res.send(res);
+      return;
+    }
+  };
 }

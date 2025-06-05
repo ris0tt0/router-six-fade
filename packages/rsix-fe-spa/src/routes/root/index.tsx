@@ -1,14 +1,18 @@
 import { Button, styled } from '@mui/material';
 import Logger from 'js-logger';
 import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useCommands } from '../../hooks/useCommands';
+import { AppDispatch } from '../../store/redux';
+import { addPlayers } from '../../store/slice/appSlice';
 
 const RootRouteStyled = styled('div')`
   margin: 15px;
 `;
 
 export const Root: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const commands = useCommands();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
@@ -17,6 +21,7 @@ export const Root: FC = () => {
     commands
       .loadPlayers()
       .then((result) => {
+        dispatch(addPlayers(result));
         navigate('choose', { replace: true });
       })
       .catch((e) => {
