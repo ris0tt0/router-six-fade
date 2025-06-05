@@ -1,4 +1,3 @@
 import { Initable } from './interface/initable';
-
-const API = 'asdf';
-export { Initable, API };
+import { Player } from './db';
+export { Initable, Player };

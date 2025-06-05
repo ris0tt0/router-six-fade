@@ -14,7 +14,10 @@ export interface DBContext {
 export const api: RPCFunctions<IApi, DBContext> = {
   loadPlayers: () => (context: DBContext) => {
     Logger.info('RPCFunctions::loadPlaeyrs', context.lang);
-    return ['1', '2', '3'];
+    return [
+      { id: 'rty', name: 'jay one' },
+      { id: 'rtydf', name: 'jay two', description: 'check  one two' },
+    ];
   },
 };
 

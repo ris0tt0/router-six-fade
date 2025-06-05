@@ -1,5 +1,5 @@
-import { Initable } from '@jsix/be-db';
+import { Initable, Player } from '@jsix/be-db';
 
 export interface ClientCommands extends Initable {
-  loadPlayers(): Promise<string[]>;
+  loadPlayers(): Promise<Player[]>;
 }

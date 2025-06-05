@@ -1,12 +1,12 @@
 import { IApi } from '@jsix/be-api';
-import { Initable } from '@jsix/be-db';
+import { Initable, Player } from '@jsix/be-db';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 
 export interface ClientRPC extends Initable {
-  loadPlayers(): Promise<string[]>;
+  loadPlayers(): Promise<Player[]>;
 }
 
 export class ClientRPCImpl implements ClientRPC {

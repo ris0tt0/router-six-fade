@@ -1,8 +1,8 @@
 import { Button, styled } from '@mui/material';
 import Logger from 'js-logger';
 import React, { FC, useState } from 'react';
-import { useCommands } from '../../hooks/useCommands';
 import { useNavigate } from 'react-router-dom';
+import { useCommands } from '../../hooks/useCommands';
 
 const RootRouteStyled = styled('div')`
   margin: 15px;
@@ -17,7 +17,6 @@ export const Root: FC = () => {
     commands
       .loadPlayers()
       .then((result) => {
-        Logger.info('loadplauers', result, commands);
         navigate('choose', { replace: true });
       })
       .catch((e) => {

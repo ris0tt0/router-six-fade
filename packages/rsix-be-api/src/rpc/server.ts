@@ -1,4 +1,4 @@
-import { Initable } from '@jsix/be-db';
+import { Initable, Player } from '@jsix/be-db';
 import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
@@ -13,7 +13,7 @@ export interface APIContext {
 
 const api: RPCFunctions<IApi, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
-    const retVal = new Promise<string[]>((resolve, reject) => {
+    const retVal = new Promise<Player[]>((resolve, reject) => {
       Logger.info('RPCFunctions::loadPlaeyrs', context.lang);
       context.client.loadPlayers().then((items) => resolve(items));
     });
