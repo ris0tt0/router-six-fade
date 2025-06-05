@@ -16,7 +16,9 @@
     "@jsix/fe-checkers": "workspaces:*",
     "@jsix/fe-chess": "workspaces:*",
     "@node-rpc/server": "^2.2.0",
+    "co-body": "^6.2.0",
     "express": "^5.1.0",
+    "formidable": "1.2.1",
     "js-logger": "^1.6.1"
   },
   "devDependencies": {

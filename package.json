@@ -18,6 +18,7 @@
     "@mui/system": "^7.1.0",
     "@node-rpc/client": "^2.3.1",
     "@node-rpc/server": "^2.2.0",
+    "@reduxjs/toolkit": "^2.8.2",
     "axios": "0.19.0",
     "co-body": "^6.2.0",
     "express": "^5.1.0",
@@ -25,6 +26,7 @@
     "js-logger": "^1.6.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.0",
     "ws": "^8.18.2",
     "zustand": "^5.0.5"
