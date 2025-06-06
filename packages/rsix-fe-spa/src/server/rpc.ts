@@ -1,4 +1,4 @@
-import { IApi } from '@jsix/be-api';
+import { ApiRPC } from '@jsix/be-api';
 import { Initable, Player } from '@jsix/be-db';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
@@ -10,11 +10,11 @@ export interface ClientRPC extends Initable {
 }
 
 export class ClientRPCImpl implements ClientRPC {
-  private api: Callables<IApi> | null = null;
+  private api: Callables<ApiRPC> | null = null;
 
   async init() {
     Logger.info('ClientRPC::init');
-    this.api = createClient<IApi>({
+    this.api = createClient<ApiRPC>({
       endpoint: 'api/v1',
       serializer: jsonSerializer,
       xhr: axiosXHR,

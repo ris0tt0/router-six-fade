@@ -1,2 +1,1 @@
-export { IApi } from './common';
-export const API = 'six';
+export * from './interface';

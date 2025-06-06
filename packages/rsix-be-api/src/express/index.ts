@@ -1,16 +1,16 @@
 import { Initable } from '@jsix/be-db';
 import express, { Router } from 'express';
 import Logger from 'js-logger';
-import { ClientRPC } from '../rpc/client';
+import { ClientDbRpc } from '../rpc/client';
 import { ServerRPC } from '../rpc/server';
 
 const port = process.env.PORT || 5004;
 export class ExpressServer implements Initable {
   private app: express.Application | null = null;
   private rcpServer: ServerRPC;
-  private rcpClient: ClientRPC;
+  private rcpClient: ClientDbRpc;
 
-  constructor(rcpServer: ServerRPC, rcpClient: ClientRPC) {
+  constructor(rcpServer: ServerRPC, rcpClient: ClientDbRpc) {
     this.rcpClient = rcpClient;
     this.rcpServer = rcpServer;
   }

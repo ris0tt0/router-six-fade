@@ -3,20 +3,20 @@ import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
-import { IApi } from '../common';
+import { ApiRPC } from '../interface';
 
 const Endpoint = 'http://localhost:5005/api/v1';
 
-export interface ClientRPC extends Initable {
+export interface ClientDbRpc extends Initable {
   loadPlayers(): Promise<Player[]>;
 }
 
-export class ClientRPCImpl implements ClientRPC {
-  private api: Callables<IApi> | null = null;
+export class ClientDbRpcImpl implements ClientDbRpc {
+  private api: Callables<ApiRPC> | null = null;
 
   async init() {
     Logger.info('ClientRPC::init');
-    this.api = createClient<IApi>({
+    this.api = createClient<ApiRPC>({
       endpoint: Endpoint,
       serializer: jsonSerializer,
       xhr: axiosXHR,

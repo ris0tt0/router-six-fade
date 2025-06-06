@@ -1,18 +1,18 @@
 import Logger from 'js-logger';
 import { ExpressServer } from './express';
 import { Initable } from '@jsix/be-db';
-import { ClientRPC, ClientRPCImpl } from './rpc/client';
+import { ClientDbRpc, ClientDbRpcImpl } from './rpc/client';
 import { ServerRPC } from './rpc/server';
 
 Logger.useDefaults();
 
 class App implements Initable {
   private express: ExpressServer;
-  private rcpClient: ClientRPC;
+  private rcpClient: ClientDbRpc;
   private rcpServer: ServerRPC;
 
   constructor() {
-    this.rcpClient = new ClientRPCImpl();
+    this.rcpClient = new ClientDbRpcImpl();
     this.rcpServer = new ServerRPC(this.rcpClient);
     this.express = new ExpressServer(this.rcpServer, this.rcpClient);
   }

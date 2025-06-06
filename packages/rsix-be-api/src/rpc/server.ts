@@ -3,30 +3,38 @@ import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
-import { IApi } from '../common';
-import { ClientRPC } from './client';
+import { ApiRPC } from '../interface';
+import { ClientDbRpc } from './client';
 
 export interface APIContext {
-  lang: string;
-  client: ClientRPC;
+  client: ClientDbRpc;
 }
 
-const api: RPCFunctions<IApi, APIContext> = {
+const api: RPCFunctions<ApiRPC, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
     const retVal = new Promise<Player[]>((resolve, reject) => {
-      Logger.info('RPCFunctions::loadPlaeyrs', context.lang);
-      context.client.loadPlayers().then((items) => resolve(items));
+      context.client
+        .loadPlayers()
+        .then((items) => resolve(items))
+        .catch((e) => reject(e));
     });
 
+    return retVal;
+  },
+  choosePlayer: (id) => (context: APIContext) => {
+    const retVal = new Promise<Player>((resolve, reject) => {
+      // context.client.?
+      resolve({} as Player);
+    });
     return retVal;
   },
 };
 
 export class ServerRPC implements Initable {
   private rpc: any | null = null;
-  private client: ClientRPC;
+  private client: ClientDbRpc;
 
-  constructor(rpcClient: ClientRPC) {
+  constructor(rpcClient: ClientDbRpc) {
     this.client = rpcClient;
   }
   async init() {
@@ -41,16 +49,10 @@ export class ServerRPC implements Initable {
 
   request = async (req: Request, res: Response) => {
     try {
-      // get the accepted language, use "en" as fallback
-      const lang = req.headers['accept-language']?.split(',')?.[0] || 'en';
-
-      // call the rpc function and pass the additional context
       const result = await this.rpc.handleAPIRequest(req, {
-        lang,
         client: this.client,
       });
 
-      // send the result back to the client
       await res.send(result);
       return;
     } catch (e) {

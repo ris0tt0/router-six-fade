@@ -1,4 +1,6 @@
 import { Player } from '@jsix/be-db';
-export interface IApi {
+
+export interface ApiRPC {
   loadPlayers: () => Player[];
+  choosePlayer: (id: string) => Player;
 }
