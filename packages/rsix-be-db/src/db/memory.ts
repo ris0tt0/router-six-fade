@@ -15,6 +15,10 @@ export class MemoryDB implements DataBaseSix {
     cc: { name: 'teh Pwnerer', id: 'cc', status: 'offline' },
     dd: { name: 'Mr Gray', id: 'dd', status: 'online' },
     ee: { name: 'Mr offline', id: 'ee', status: 'invisible' },
+    ca: { name: 'FPS Doug', id: 'ca', status: 'offline' },
+    cb: { name: 'the masterer', id: 'cb', status: 'offline' },
+    c3: { name: 'joy89', id: 'c3', status: 'offline' },
+    ck: { name: 'blue river73', id: 'ck', status: 'offline' },
   };
 
   async init() {

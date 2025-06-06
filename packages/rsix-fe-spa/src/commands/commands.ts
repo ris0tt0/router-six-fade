@@ -18,4 +18,7 @@ export class Commands implements ClientCommands {
 
     return result;
   }
+  async setPlayer() {
+    return null;
+  }
 }

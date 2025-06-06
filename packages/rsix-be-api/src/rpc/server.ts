@@ -21,7 +21,7 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
 
     return retVal;
   },
-  choosePlayer: (id) => (context: APIContext) => {
+  selectPlayer: (id) => (context: APIContext) => {
     const retVal = new Promise<Player>((resolve, reject) => {
       // context.client.?
       resolve({} as Player);

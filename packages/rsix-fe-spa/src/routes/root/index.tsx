@@ -11,7 +11,7 @@ const RootRouteStyled = styled('div')`
   margin: 15px;
 `;
 
-export const Root: FC = () => {
+export const RootRoute: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const commands = useCommands();
   const navigate = useNavigate();

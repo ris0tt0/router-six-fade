@@ -1,13 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import React, { FC } from 'react';
-import { About } from './about';
-import { Root } from './root';
-import { ChoosePlayer } from './choose';
+import { AboutRoute } from './about';
+import { RootRoute } from './root';
+import { ChoosePlayerRoute } from './choose';
+import { PlayerRoute } from './player';
 
 const router = createBrowserRouter([
-  { path: '/about', Component: About },
-  { path: '/choose', Component: ChoosePlayer },
-  { path: '/', Component: Root },
+  { path: '/about', Component: AboutRoute },
+  { path: '/choose', Component: ChoosePlayerRoute },
+  { path: '/player', Component: PlayerRoute },
+  { path: '/', Component: RootRoute },
 ]);
 
 export const Routes: FC = () => {
