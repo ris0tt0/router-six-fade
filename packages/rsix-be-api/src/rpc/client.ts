@@ -3,7 +3,7 @@ import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
-import { ApiRPC } from '../interface';
+import { DbRPC } from '@jsix/be-db';
 
 const Endpoint = 'http://localhost:5005/api/v1';
 
@@ -12,11 +12,11 @@ export interface ClientDbRpc extends Initable {
 }
 
 export class ClientDbRpcImpl implements ClientDbRpc {
-  private api: Callables<ApiRPC> | null = null;
+  private api: Callables<DbRPC> | null = null;
 
   async init() {
     Logger.info('ClientRPC::init');
-    this.api = createClient<ApiRPC>({
+    this.api = createClient<DbRPC>({
       endpoint: Endpoint,
       serializer: jsonSerializer,
       xhr: axiosXHR,
@@ -26,7 +26,7 @@ export class ClientDbRpcImpl implements ClientDbRpc {
 
   async loadPlayers() {
     if (this.api) {
-      const response = await this.api.loadPlayers().call();
+      const response = await this.api.getAllPlayers().call();
 
       switch (response.type) {
         case 'fail': {

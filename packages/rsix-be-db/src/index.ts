@@ -1,3 +1,3 @@
-import { Initable, Player, OnlineStatus } from './interface';
+import { Initable, Player, OnlineStatus, DbRPC } from './interface';
 
-export { Initable, Player, OnlineStatus };
+export { Initable, Player, OnlineStatus, DbRPC };
