@@ -1,5 +1,5 @@
 import { ClientCommands } from '.';
-import { ClientRPC } from '../server/rpc';
+import { ClientRPC } from '../rpc/client';
 
 export type CommandsParams = {
   rpc: ClientRPC;

@@ -1434,6 +1434,7 @@ __metadata:
   dependencies:
     "@jsix/be-api": "workspaces:*"
     "@jsix/be-db": "workspaces:*"
+    "@jsix/be-ws": "workspaces:*"
     "@jsix/fe-chat": "workspaces:*"
     "@jsix/fe-checkers": "workspaces:*"
     "@jsix/fe-chess": "workspaces:*"
@@ -1475,12 +1476,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jsix/be-ws@workspace:packages/rsix-be-ws":
+"@jsix/be-ws@workspace:packages/rsix-be-ws, @jsix/be-ws@workspaces:*":
   version: 0.0.0-use.local
   resolution: "@jsix/be-ws@workspace:packages/rsix-be-ws"
   dependencies:
+    "@jsix/be-db": "workspaces:*"
+    "@node-rpc/client": "npm:^2.3.1"
+    "@node-rpc/server": "npm:^2.2.0"
+    "@types/express": "npm:^5.0.2"
     "@types/node": "npm:^22.15.21"
     "@types/ws": "npm:^8.18.1"
+    axios: "npm:0.19.0"
+    co-body: "npm:^6.2.0"
+    express: "npm:^5.1.0"
+    formidable: "npm:1.2.1"
     js-logger: "npm:^1.6.1"
     nodemon: "npm:^3.1.10"
     ts-node: "npm:^10.9.2"

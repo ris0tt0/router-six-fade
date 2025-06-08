@@ -39,12 +39,12 @@ const config = {
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
-        exclude: [/node_modules/],
+        exclude: [/node_modules/, /\/\.yarn\/\_\_virtual\_\_/],
       },
       {
         test: /\.ts(x)?$/,
         loader: 'ts-loader',
-        exclude: [/node_modules/],
+        exclude: [/node_modules/, /\/\.yarn\/\_\_virtual\_\_/],
       },
     ],
   },

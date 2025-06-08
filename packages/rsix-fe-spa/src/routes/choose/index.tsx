@@ -5,14 +5,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/redux';
 import Logger from 'js-logger';
 
-const ChoosePlayersContainerStyled = styled('div')`
+const ChoosePlayersContainer = styled('div')`
   display: flex;
   flex-direction: column;
   padding: 10px;
   border: 1px red solid;
 `;
 
-const PlayerItemStyled = styled(Paper)`
+const PlayerItem = styled(Paper)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,26 +21,32 @@ const PlayerItemStyled = styled(Paper)`
   min-width: 100px;
   height: 150px;
   min-height: 100px;
-  pading: 10px;
+  padding: 10px;
   margin: 10px;
 `;
-const PlayerItemContainerStyled = styled('div')`
+const PlayerItemContainer = styled('div')`
   display: flex;
   flex-wrap: wrap;
   border: 1px purple solid;
 `;
 
+const OnlineStatusContainer = styled('div')`
+  display: flex;
+  border: 1px red solid;
+  margin: 10px 0;
+`;
+
 const OnlineStatus: FC<{ player: Player }> = ({ player }) => {
-  return <div>status: {player.status}</div>;
+  return <OnlineStatusContainer>status: {player.status}</OnlineStatusContainer>;
 };
 
 const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
   const handleSelect = () => {
-    Logger.info('handleclick', player.id);
+    Logger.info('handle-click', player.id);
   };
 
   return (
-    <PlayerItemStyled>
+    <PlayerItem>
       <h3>{player.name}</h3>
       <OnlineStatus player={player} />
       <div>
@@ -48,7 +54,7 @@ const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
           select
         </Button>
       </div>
-    </PlayerItemStyled>
+    </PlayerItem>
   );
 };
 
@@ -71,9 +77,9 @@ export const ChoosePlayerRoute: FC = () => {
   }, [players]);
 
   return (
-    <ChoosePlayersContainerStyled>
+    <ChoosePlayersContainer>
       <h2>Select a Player</h2>
-      <PlayerItemContainerStyled>{items}</PlayerItemContainerStyled>
-    </ChoosePlayersContainerStyled>
+      <PlayerItemContainer>{items}</PlayerItemContainer>
+    </ChoosePlayersContainer>
   );
 };

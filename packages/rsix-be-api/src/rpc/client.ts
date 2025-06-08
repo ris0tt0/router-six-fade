@@ -9,6 +9,7 @@ const Endpoint = 'http://localhost:5005/api/v1';
 
 export interface ClientDbRpc extends Initable {
   loadPlayers(): Promise<Player[]>;
+  getPlayer(id: string): Promise<Player>;
 }
 
 export class ClientDbRpcImpl implements ClientDbRpc {
@@ -27,6 +28,29 @@ export class ClientDbRpcImpl implements ClientDbRpc {
   async loadPlayers() {
     if (this.api) {
       const response = await this.api.getAllPlayers().call();
+
+      switch (response.type) {
+        case 'fail': {
+          Logger.log('error', response.code, response.error);
+          throw new Error(response.error);
+        }
+        case 'noResponse': {
+          Logger.log('no response');
+          throw new Error('no response');
+        }
+        case 'success': {
+          Logger.log('success', response.code, response.data);
+          return response.data;
+        }
+      }
+    }
+    {
+      throw new Error('no api  yo');
+    }
+  }
+  async getPlayer(id: string) {
+    if (this.api) {
+      const response = await this.api.selectPlayer(id).call();
 
       switch (response.type) {
         case 'fail': {

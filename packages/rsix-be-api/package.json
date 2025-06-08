@@ -12,6 +12,7 @@
   "dependencies": {
     "@jsix/be-api": "workspaces:*",
     "@jsix/be-db": "workspaces:*",
+    "@jsix/be-ws": "workspaces:*",
     "@jsix/fe-chat": "workspaces:*",
     "@jsix/fe-checkers": "workspaces:*",
     "@jsix/fe-chess": "workspaces:*",

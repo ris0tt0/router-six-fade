@@ -7,7 +7,7 @@ import { useCommands } from '../../hooks/useCommands';
 import { AppDispatch } from '../../store/redux';
 import { addPlayers } from '../../store/slice/appSlice';
 
-const RootRouteStyled = styled('div')`
+const RootRouteContainer = styled('div')`
   margin: 15px;
 `;
 
@@ -22,7 +22,8 @@ export const RootRoute: FC = () => {
       .loadPlayers()
       .then((result) => {
         dispatch(addPlayers(result));
-        navigate('choose', { replace: true });
+        // navigate('choose', { replace: true });
+        navigate('choose');
       })
       .catch((e) => {
         Logger.error(e);
@@ -39,8 +40,8 @@ export const RootRoute: FC = () => {
   }
 
   return (
-    <RootRouteStyled>
+    <RootRouteContainer>
       <Button onClick={handleClick}>click</Button>
-    </RootRouteStyled>
+    </RootRouteContainer>
   );
 };

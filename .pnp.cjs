@@ -2512,6 +2512,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@jsix/be-api", "workspace:packages/rsix-be-api"],\
           ["@jsix/be-db", "workspace:packages/rsix-be-db"],\
+          ["@jsix/be-ws", "workspace:packages/rsix-be-ws"],\
           ["@jsix/fe-chat", "workspace:packages/rsix-fe-chat"],\
           ["@jsix/fe-checkers", "workspace:packages/rsix-fe-checkers"],\
           ["@jsix/fe-chess", "workspace:packages/rsix-fe-chess"],\
@@ -2559,9 +2560,17 @@ const RAW_RUNTIME_STATE =
       ["workspace:packages/rsix-be-ws", {\
         "packageLocation": "./packages/rsix-be-ws/",\
         "packageDependencies": [\
+          ["@jsix/be-db", "workspace:packages/rsix-be-db"],\
           ["@jsix/be-ws", "workspace:packages/rsix-be-ws"],\
+          ["@node-rpc/client", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:2.3.1"],\
+          ["@node-rpc/server", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:2.2.0"],\
+          ["@types/express", "npm:5.0.2"],\
           ["@types/node", "npm:22.15.21"],\
           ["@types/ws", "npm:8.18.1"],\
+          ["axios", "npm:0.19.0"],\
+          ["co-body", "npm:6.2.0"],\
+          ["express", "npm:5.1.0"],\
+          ["formidable", "npm:1.2.1"],\
           ["js-logger", "npm:1.6.1"],\
           ["nodemon", "npm:3.1.10"],\
           ["ts-node", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.9.2"],\

@@ -42,7 +42,7 @@ export class ClientRPCImpl implements ClientRPC {
       }
     }
     {
-      throw new Error('no api  yo');
+      throw new Error('no ApiRPC  yo');
     }
   }
 }

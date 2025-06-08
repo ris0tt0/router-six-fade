@@ -20,6 +20,11 @@ export const api: RPCFunctions<DbRPC, DBContext> = {
 
     return player[0];
   },
+  updatePlayer: (player) => async (context) => {
+    await context.db.addPlayers([player]);
+
+    return null;
+  },
 };
 
 const RpcServer = createServer({

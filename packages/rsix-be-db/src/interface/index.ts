@@ -26,4 +26,5 @@ export interface Initable {
 export interface DbRPC {
   getAllPlayers: () => Player[];
   selectPlayer: (id: string) => Player;
+  updatePlayer: (player: Player) => null;
 }

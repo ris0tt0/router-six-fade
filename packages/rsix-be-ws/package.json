@@ -2,6 +2,7 @@
   "name": "@jsix/be-ws",
   "version": "0.0.1",
   "private": true,
+  "main": "./src/index.ts",
   "packageManager": "yarn@4.9.1",
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/app.ts",
@@ -9,10 +10,18 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@jsix/be-db": "workspaces:*",
+    "@node-rpc/client": "^2.3.1",
+    "@node-rpc/server": "^2.2.0",
+    "axios": "0.19.0",
+    "co-body": "^6.2.0",
+    "express": "^5.1.0",
+    "formidable": "1.2.1",
     "js-logger": "^1.6.1",
     "ws": "^8.18.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.2",
     "@types/node": "^22.15.21",
     "@types/ws": "^8.18.1",
     "nodemon": "^3.1.10",

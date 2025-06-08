@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { RPCContext } from '../contexts/rpc';
-import { ClientRPC, ClientRPCImpl } from '../server/rpc';
+import { ClientRPC, ClientRPCImpl } from '../rpc/client';
 
 export const RPCProvider: FC<PropsWithChildren> = ({ children }) => {
   const [rpc, setRPC] = useState<ClientRPC | null>(null);
