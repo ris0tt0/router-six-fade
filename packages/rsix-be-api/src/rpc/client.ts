@@ -4,6 +4,7 @@ import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 import { DbRPC } from '@jsix/be-db';
+import { ClientWsRpc } from './wsClient';
 
 const Endpoint = 'http://localhost:5005/api/v1';
 
@@ -14,6 +15,11 @@ export interface ClientDbRpc extends Initable {
 
 export class ClientDbRpcImpl implements ClientDbRpc {
   private api: Callables<DbRPC> | null = null;
+  private wsClient: ClientWsRpc;
+
+  constructor(wsClient: ClientWsRpc) {
+    this.wsClient = wsClient;
+  }
 
   async init() {
     Logger.info('ClientRPC::init');

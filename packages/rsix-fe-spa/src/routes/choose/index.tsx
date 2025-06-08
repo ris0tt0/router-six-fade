@@ -4,6 +4,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/redux';
 import Logger from 'js-logger';
+import { useCommands } from '../../hooks/useCommands';
 
 const ChoosePlayersContainer = styled('div')`
   display: flex;
@@ -41,8 +42,13 @@ const OnlineStatus: FC<{ player: Player }> = ({ player }) => {
 };
 
 const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
+  const commands = useCommands();
+
   const handleSelect = () => {
     Logger.info('handle-click', player.id);
+    commands.choosePlayer(player.id).then((player) => {
+      Logger.info('player selected', player);
+    });
   };
 
   return (

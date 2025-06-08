@@ -18,6 +18,11 @@ export class Commands implements ClientCommands {
 
     return result;
   }
+  async choosePlayer(playerId: string) {
+    const result = await this.rpc.choosePlayer(playerId);
+
+    return result;
+  }
   async setPlayer() {
     return null;
   }
