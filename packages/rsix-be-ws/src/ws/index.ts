@@ -1,7 +1,11 @@
+import { Initable } from '@jsix/be-db';
 import Logger from 'js-logger';
 import { WebSocketServer } from 'ws';
 
-export class SocketServer {
+export interface SocketServer extends Initable {
+  sendMessage(message: string): Promise<void>;
+}
+export class SocketServerImpl implements SocketServer {
   private wss: WebSocketServer | null = null;
 
   async init() {
@@ -9,6 +13,17 @@ export class SocketServer {
     this.wss = new WebSocketServer({ port: 5003 });
     this.addEventListeners();
 
+    return null;
+  }
+  async sendMessage(message: string) {
+    Logger.info('SocketServer::sendMessage', message, this.wss?.clients.size);
+    this.wss?.clients.forEach((client) => {
+      if (client.readyState === client.OPEN) {
+        client.send(message);
+      } else {
+        Logger.warn('SocketServer::sendMessage - client not open', client);
+      }
+    });
     return;
   }
   addEventListeners() {

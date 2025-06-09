@@ -11,7 +11,7 @@ export class MemoryDB implements DataBaseSix {
       id: 'aa',
       status: 'offline',
     },
-    nn: { name: 'William Gates', id: 'bb', status: 'offline' },
+    nn: { name: 'William Gates', id: 'nn', status: 'offline' },
     cc: { name: 'teh Pwnerer', id: 'cc', status: 'offline' },
     dd: { name: 'Mr Gray', id: 'dd', status: 'online' },
     ee: { name: 'Mr offline', id: 'ee', status: 'invisible' },
