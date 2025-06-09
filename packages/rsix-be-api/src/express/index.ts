@@ -1,7 +1,7 @@
 import { Initable } from '@jsix/be-db';
 import express, { Router } from 'express';
 import Logger from 'js-logger';
-import { ClientDbRpc } from '../rpc/client';
+import { ClientDbRpc } from '../rpc/dbClient';
 import { ServerRPC } from '../rpc/server';
 
 const port = process.env.PORT || 5004;

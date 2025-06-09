@@ -3,7 +3,7 @@ import express, { Router } from 'express';
 import Logger from 'js-logger';
 import { ServerRPC } from '../rpc/server';
 
-const port = process.env.PORT || 5004;
+const port = process.env.PORT || 5009;
 export class ExpressServer implements Initable {
   private app: express.Application | null = null;
   private rcpServer: ServerRPC;

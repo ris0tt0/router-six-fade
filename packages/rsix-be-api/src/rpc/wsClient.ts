@@ -1,15 +1,12 @@
-import { Initable, Player } from '@jsix/be-db';
+import { Initable } from '@jsix/be-db';
+import { WsRPC } from '@jsix/be-ws';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
-import { WsRPC } from '@jsix/be-ws';
 
-const Endpoint = 'http://localhost:5005/api/v1';
-
+const Endpoint = 'http://localhost:5009/api/v1';
 export interface ClientWsRpc extends Initable {
-  // loadPlayers(): Promise<Player[]>;
-  // getPlayer(id: string): Promise<Player>;
   sendMessage(message: string): Promise<void>;
 }
 

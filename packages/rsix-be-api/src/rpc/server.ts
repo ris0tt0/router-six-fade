@@ -4,16 +4,17 @@ import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeseri
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
 import { ApiRPC } from '../interface';
-import { ClientDbRpc } from './client';
+import { ClientDbRpc } from './dbClient';
+import { ApiCommands } from '../commands';
 
 export interface APIContext {
-  client: ClientDbRpc;
+  commands: ApiCommands;
 }
 
 const api: RPCFunctions<ApiRPC, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
     const retVal = new Promise<Player[]>((resolve, reject) => {
-      context.client
+      context.commands
         .loadPlayers()
         .then((items) => resolve(items))
         .catch((e) => reject(e));
@@ -23,8 +24,8 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
   },
   selectPlayer: (id) => (context: APIContext) => {
     const retVal = new Promise<Player>((resolve, reject) => {
-      context.client
-        .getPlayer(id)
+      context.commands
+        .selectPlayer(id)
         .then((player) => resolve(player))
         .catch((e) => reject(e));
     });
@@ -34,10 +35,10 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
 
 export class ServerRPC implements Initable {
   private rpc: any | null = null;
-  private client: ClientDbRpc;
+  private commands: ApiCommands;
 
-  constructor(rpcClient: ClientDbRpc) {
-    this.client = rpcClient;
+  constructor(commands: ApiCommands) {
+    this.commands = commands;
   }
   async init() {
     Logger.info('ServerRPC::init');
@@ -52,7 +53,7 @@ export class ServerRPC implements Initable {
   request = async (req: Request, res: Response) => {
     try {
       const result = await this.rpc.handleAPIRequest(req, {
-        client: this.client,
+        commands: this.commands,
       });
 
       await res.send(result);

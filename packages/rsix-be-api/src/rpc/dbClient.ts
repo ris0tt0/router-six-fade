@@ -15,11 +15,6 @@ export interface ClientDbRpc extends Initable {
 
 export class ClientDbRpcImpl implements ClientDbRpc {
   private api: Callables<DbRPC> | null = null;
-  private wsClient: ClientWsRpc;
-
-  constructor(wsClient: ClientWsRpc) {
-    this.wsClient = wsClient;
-  }
 
   async init() {
     Logger.info('ClientRPC::init');
