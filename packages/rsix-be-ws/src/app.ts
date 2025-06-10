@@ -35,10 +35,3 @@ app
   .init()
   .then(() => Logger.info('app initialized'))
   .catch((e) => Logger.error(e));
-
-// const socketServer = new SocketServer();
-
-// socketServer
-//   .init()
-//   .then(() => Logger.info('socket server initialized'))
-//   .catch((e) => Logger.error(e));

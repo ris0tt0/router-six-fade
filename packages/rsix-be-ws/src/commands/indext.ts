@@ -4,7 +4,7 @@ import { SocketServer } from '../ws';
 
 export interface WsCommands extends Initable {
   sendMessage(message: string): Promise<void>;
-  sendPlayer(player: Player): Promise<void>;
+  sendPlayers(player: Player[]): Promise<void>;
 }
 
 export class WsCommandsImpl implements WsCommands {
@@ -22,8 +22,10 @@ export class WsCommandsImpl implements WsCommands {
     this.wss.sendMessage(message);
     return;
   }
-  async sendPlayer(player: Player) {
-    Logger.info('WsCommandsImpl::sendPlayer', player);
+  async sendPlayers(players: Player[]) {
+    Logger.info('WsCommandsImpl::sendPlayer', players);
+    // const json = JSON.stringify(players);
+    this.wss.sendPlayers(players);
     return;
   }
 }

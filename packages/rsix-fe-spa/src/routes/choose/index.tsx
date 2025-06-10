@@ -1,10 +1,10 @@
 import { Player } from '@jsix/be-db';
-import { Button, Paper, styled } from '@mui/material';
+import { Avatar, Button, Paper, styled } from '@mui/material';
+import Logger from 'js-logger';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/redux';
-import Logger from 'js-logger';
 import { useCommands } from '../../hooks/useCommands';
+import { RootState } from '../../store/redux';
 
 const ChoosePlayersContainer = styled('div')`
   display: flex;
@@ -38,14 +38,13 @@ const OnlineStatusContainer = styled('div')`
 `;
 
 const OnlineStatus: FC<{ player: Player }> = ({ player }) => {
-  return <OnlineStatusContainer>status: {player.status}</OnlineStatusContainer>;
+  return <OnlineStatusContainer>{player.status}</OnlineStatusContainer>;
 };
 
 const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
   const commands = useCommands();
 
   const handleSelect = () => {
-    Logger.info('handle-click', player.id);
     commands.choosePlayer(player.id).then((player) => {
       Logger.info('player selected', player);
     });
@@ -53,10 +52,14 @@ const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
 
   return (
     <PlayerItem>
-      <h3>{player.name}</h3>
+      <div>{player.name}</div>
       <OnlineStatus player={player} />
       <div>
-        <Button variant="outlined" onClick={handleSelect}>
+        <Button
+          disabled={player.status === 'online'}
+          variant="outlined"
+          onClick={handleSelect}
+        >
           select
         </Button>
       </div>

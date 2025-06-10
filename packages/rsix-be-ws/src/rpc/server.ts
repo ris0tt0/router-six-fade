@@ -27,6 +27,24 @@ const api: RPCFunctions<WsRPC, APIContext> = {
     });
     return retVal;
   },
+  sendPlayers(players) {
+    return (context: APIContext) => {
+      const retVal = new Promise<void>((resolve, reject) => {
+        Logger.info('sendPlayers called with players:', players);
+        context.commands
+          .sendPlayers(players)
+          .then(() => {
+            Logger.info('Players sent successfully:', players);
+            resolve();
+          })
+          .catch((e) => {
+            Logger.error('Error sending players:', e);
+            reject(e);
+          });
+      });
+      return retVal;
+    };
+  },
 };
 
 export class ServerRPC implements Initable {

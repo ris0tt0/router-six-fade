@@ -1,7 +1,6 @@
 import { Initable, OnlineStatus, Player } from '@jsix/be-db';
 import { ClientDbRpc } from '../rpc/dbClient';
 import { ClientWsRpc } from '../rpc/wsClient';
-import Logger from 'js-logger';
 
 export interface ApiCommands extends Initable {
   loadPlayers(): Promise<Player[]>;
@@ -20,25 +19,25 @@ export class ApiCommandsImpl implements ApiCommands {
     // Initialization logic if needed
     return null;
   }
-
   async loadPlayers() {
     const players = await this.dbRpc.loadPlayers();
     return players;
   }
 
   async selectPlayer(id: string) {
-    Logger.info('ApiCommandsImpl::selectPlayer1', id);
+    // Fetch the player from the database
     const player = await this.dbRpc.getPlayer(id);
-    Logger.info('ApiCommandsImpl::selectPlayer2', id);
-    const onlinePlayer = {
+    // update the player status to 'online'
+    const onlinePlayer: Player = {
       ...player,
       status: 'online' as OnlineStatus,
     };
-    Logger.info('ApiCommandsImpl::selectPlayer3', onlinePlayer);
-    // await this.dbRpc.updatePlayer(onlinePlayer);
 
-    await this.wsRpc.sendMessage(onlinePlayer.id);
-    Logger.info('ApiCommandsImpl::selectPlayer4', id);
-    return player;
+    // Update the player status in the database
+    await this.dbRpc.setPlayer(onlinePlayer);
+    // Notify the WebSocket clients about the online player
+    await this.wsRpc.sendPlayers([onlinePlayer]);
+
+    return onlinePlayer;
   }
 }

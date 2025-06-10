@@ -1,7 +1,7 @@
 /**
  * Player online status.
  */
-export type OnlineStatus = 'online' | 'offline' | 'busy' | 'invisible';
+export type OnlineStatus = 'online' | 'offline' | 'busy';
 
 /**
  * Player interface.
@@ -26,5 +26,5 @@ export interface Initable {
 export interface DbRPC {
   getAllPlayers: () => Player[];
   selectPlayer: (id: string) => Player;
-  updatePlayer: (player: Player) => null;
+  updatePlayers: (players: Player[]) => null;
 }

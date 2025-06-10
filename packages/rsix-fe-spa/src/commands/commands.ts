@@ -1,14 +1,20 @@
+import Logger from 'js-logger';
 import { ClientCommands } from '.';
 import { ClientRPC } from '../rpc/client';
+import { Dispatch } from '@reduxjs/toolkit';
+import { addPlayers } from '../store/slice/appSlice';
 
 export type CommandsParams = {
   rpc: ClientRPC;
+  dispatch: Dispatch;
 };
-export class Commands implements ClientCommands {
+export class SpaCommands implements ClientCommands {
   private readonly rpc: ClientRPC;
+  private readonly dispatch: Dispatch;
 
-  constructor({ rpc }: CommandsParams) {
+  constructor({ dispatch, rpc }: CommandsParams) {
     this.rpc = rpc;
+    this.dispatch = dispatch;
   }
   async init() {
     return null;
@@ -20,6 +26,10 @@ export class Commands implements ClientCommands {
   }
   async choosePlayer(playerId: string) {
     const result = await this.rpc.choosePlayer(playerId);
+
+    Logger.info(`commands::choosePlayer ${playerId} chosen`, result);
+
+    this.dispatch(addPlayers([result]));
 
     return result;
   }

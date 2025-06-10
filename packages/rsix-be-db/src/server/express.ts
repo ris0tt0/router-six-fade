@@ -20,8 +20,8 @@ export const api: RPCFunctions<DbRPC, DBContext> = {
 
     return player[0];
   },
-  updatePlayer: (player) => async (context) => {
-    await context.db.addPlayers([player]);
+  updatePlayers: (players) => async (context) => {
+    await context.db.addPlayers(players);
 
     return null;
   },
