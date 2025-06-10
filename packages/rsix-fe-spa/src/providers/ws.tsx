@@ -8,9 +8,9 @@ export const WebSocketProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:5003');
-    const handleOpen = () => {
+    const handleOpen = (event: any) => {
       // socket.send('r6 client');
-      Logger.info('Socket Provider-Connected to server');
+      Logger.info('Socket Provider-Connected to server', event);
     };
     const handleMessage = (event: MessageEvent) => {
       const result = JSON.parse(event.data);

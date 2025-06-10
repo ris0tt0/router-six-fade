@@ -5,9 +5,9 @@
   "main": "./src/index.ts",
   "packageManager": "yarn@4.9.1",
   "scripts": {
+    "dev": "webpack serve --mode=development",
     "build:dev": "webpack --mode=development",
-    "build": "webpack --mode=production",
-    "dev": "webpack serve --mode=development"
+    "build": "webpack --mode=production"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

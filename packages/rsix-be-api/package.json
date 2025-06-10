@@ -21,11 +21,13 @@
     "axios": "0.19.0",
     "co-body": "^6.2.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "formidable": "1.2.1",
     "js-logger": "^1.6.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
+    "@types/express-session": "^1.18.2",
     "@types/node": "^22.15.21",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",

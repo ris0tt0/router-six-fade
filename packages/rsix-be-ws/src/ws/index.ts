@@ -46,28 +46,44 @@ export class SocketServerImpl implements SocketServer {
     });
     return;
   }
+  private onError = (error: Event) => {
+    Logger.error('SocketServer::onError - error occurred:', this, error);
+  };
+  private onMessage = (event: MessageEvent) => {
+    // not implemented because the client doesn't send a ws message.
+    // the socket server has RCP for api access
+    Logger.info('SocketServer::onMessage - received:', this, event.data);
+  };
+  private onClose = (event: CloseEvent) => {
+    Logger.info('SocketServer::onClose - connection closed', this);
+  };
+  private onConnection = (ws: WebSocket) => {
+    ws.addEventListener('error', this.onError);
+    ws.addEventListener('message', this.onMessage);
+    ws.addEventListener('close', this.onClose);
+
+    const messageToSend = JSON.stringify({
+      type: 'connected',
+      data: 'Welcome to the WebSocket server!',
+    });
+    ws.send(messageToSend);
+  };
   addEventListeners() {
     if (this.wss) {
       Logger.info('SocketServer::addEventListeners');
 
-      this.wss.addListener('connection', (ws) => {
-        Logger.info('SocketServer::addEventListeners - connection established');
-        ws.addEventListener('error', Logger.error);
-        ws.addEventListener('message', (event) => {
-          Logger.log('SocketServer::addEventListeners - received:', event.data);
-        });
-        ws.addEventListener('close', (event) => {
-          Logger.info(
-            'SocketServer::addEventListeners - connection closed',
-            event
-          );
-        });
-        const messageToSend = JSON.stringify({
-          type: 'connected',
-          data: 'Welcome to the WebSocket server!',
-        });
-        ws.send(messageToSend);
+      this.wss.addListener('connection', this.onConnection);
+    }
+  }
+  removeEventListeners() {
+    if (this.wss) {
+      Logger.info('SocketServer::removeEventListeners');
+      this.wss.clients.forEach((client) => {
+        client.removeEventListener('error', Logger.error);
+        // client.removeEventListener('message', this.onMessage);
+        // client.removeEventListener('close', this.onClose);
       });
+      this.wss.removeListener('connection', this.onConnection);
     }
   }
 }
