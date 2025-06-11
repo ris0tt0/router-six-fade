@@ -52,6 +52,18 @@ const api: RPCFunctions<WsRPC, APIContext> = {
       return retVal;
     };
   },
+  setClientSessionId: (sessionId, socketId) => (context: APIContext) => {
+    const retVal = new Promise<void>((resolve, reject) => {
+      Logger.info(
+        'setClientSessionId called with sessionId:',
+        sessionId,
+        'socketId:',
+        socketId
+      );
+    });
+
+    return retVal;
+  },
 };
 
 export class ServerRPC implements Initable {

@@ -16,6 +16,12 @@ export interface ApiCommands extends Initable {
    * and notifies WebSocket clients about the online player.
    */
   selectPlayer(id: string): Promise<Player>;
+  /**
+   * Sets the WebSocket ID for the client session.
+   * @param id - The WebSocket ID to set.
+   * @param sessionId - The session ID associated with the WebSocket connection.
+   */
+  setWsId(id: string, sessionId: string): Promise<void>;
 }
 
 export class ApiCommandsImpl implements ApiCommands {
@@ -35,8 +41,9 @@ export class ApiCommandsImpl implements ApiCommands {
     return players;
   }
 
-  async setWsId(id: string) {
-    
+  async setWsId(id: string, sessionId: string) {
+    await this.wsRpc.setWsId(id, sessionId);
+    return;
   }
   async selectPlayer(id: string) {
     // Fetch the player from the database

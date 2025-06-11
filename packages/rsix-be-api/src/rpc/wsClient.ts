@@ -9,6 +9,7 @@ const Endpoint = 'http://localhost:5009/api/v1';
 export interface ClientWsRpc extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(players: Player[]): Promise<void>;
+  setWsId(id: string, sessionId: string): Promise<void>;
 }
 
 export class ClientWsRpcImpl implements ClientWsRpc {
@@ -70,6 +71,30 @@ export class ClientWsRpcImpl implements ClientWsRpc {
       throw new Error('no api  yo');
     }
   }
+  async setWsId(id: string, sessionId: string) {
+    if (this.api) {
+      const response = await this.api.setClientSessionId(sessionId, id).call();
+
+      switch (response.type) {
+        case 'fail': {
+          Logger.log('error', response.code, response.error);
+          throw new Error(response.error);
+        }
+        case 'noResponse': {
+          Logger.log('no response');
+          throw new Error('no response');
+        }
+        case 'success': {
+          Logger.log('success', response.code, response.data);
+          return response.data;
+        }
+      }
+    }
+    {
+      throw new Error('no api  yo');
+    }
+  }
+
   // async getPlayer(id: string) {
   //   if (this.api) {
   //     const response = await this.api.selectPlayer(id).call();

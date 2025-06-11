@@ -44,16 +44,8 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
   },
   setWsId: (id) => (context: APIContext) => {
     const retVal = new Promise<null>((resolve, reject) => {
-      // Logger.info(
-      //   'selectPlayer called with id:',
-      //   id,
-      //   'request:',
-      //   context.request.session.id
-      // );
-      // context.commands
-      //   .selectPlayer(id)
-      //   .then((player) => resolve(player))
-      //   .catch((e) => reject(e));
+      Logger.info('RCO id', id);
+      context.commands.setWsId(id, context.request.session.id);
       resolve(null);
     });
     return retVal;
