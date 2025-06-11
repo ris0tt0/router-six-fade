@@ -1,10 +1,22 @@
 import Logger from 'js-logger';
 import { FC, PropsWithChildren, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addPlayers } from '../store/slice/appSlice';
+import { useCommands } from '../hooks/useCommands';
+import { addPlayers, setPlayerId } from '../store/slice/appSlice';
+import { Initable } from '@jsix/be-db';
+
+interface WebSocketClient extends Initable {}
+
+export class WeSocketClientImpl implements WebSocketClient {
+  async init() {
+    // Initialization logic if needed
+    return null;
+  }
+}
 
 export const WebSocketProvider: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch();
+  // const commands = useCommands();
 
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:5003');
@@ -19,6 +31,10 @@ export const WebSocketProvider: FC<PropsWithChildren> = ({ children }) => {
       } else if (result.type === 'players') {
         Logger.log('Socket Provider-Players data', result.data);
         dispatch(addPlayers(result.data));
+      } else if (result.type === 'connected') {
+        Logger.info('Socket Provider-Connected to server', result);
+        dispatch(setPlayerId(result.data));
+        // commands.setPlayerWsId(result.data);
       } else {
         Logger.warn('Socket Provider-Unknown message type', result);
       }

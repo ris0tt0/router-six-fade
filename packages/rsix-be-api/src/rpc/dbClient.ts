@@ -33,15 +33,15 @@ export class ClientDbRpcImpl implements ClientDbRpc {
 
       switch (response.type) {
         case 'fail': {
-          Logger.log('error', response.code, response.error);
+          // Logger.log('error', response.code, response.error);
           throw new Error(response.error);
         }
         case 'noResponse': {
-          Logger.log('no response');
+          // Logger.log('no response');
           throw new Error('no response');
         }
         case 'success': {
-          Logger.log('success', response.code, response.data);
+          // Logger.log('success', response.code, response.data);
           return response.data;
         }
       }

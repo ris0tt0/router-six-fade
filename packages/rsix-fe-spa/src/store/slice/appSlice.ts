@@ -4,10 +4,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface AppState {
   players: Record<string, Player>;
+  playerId?: string;
 }
 
 const initialState: AppState = {
   players: {},
+  playerId: '',
 };
 
 export const appSlice = createSlice({
@@ -19,9 +21,12 @@ export const appSlice = createSlice({
         state.players[player.id] = player;
       });
     },
+    setPlayerId: (state, action: PayloadAction<string>) => {
+      state.playerId = action.payload;
+    },
   },
 });
 
-export const { addPlayers } = appSlice.actions;
+export const { addPlayers, setPlayerId } = appSlice.actions;
 
 export default appSlice.reducer;

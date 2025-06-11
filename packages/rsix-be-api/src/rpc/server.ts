@@ -3,17 +3,22 @@ import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
-import { ApiRPC } from '../interface';
-import { ClientDbRpc } from './dbClient';
 import { ApiCommands } from '../commands';
+import { ApiRPC } from '../interface';
 
 export interface APIContext {
   commands: ApiCommands;
+  request: Request;
 }
 
 const api: RPCFunctions<ApiRPC, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
     const retVal = new Promise<Player[]>((resolve, reject) => {
+      Logger.info(
+        'loadPlayers session.id:',
+        context.request.session,
+        context.request.session.id
+      );
       context.commands
         .loadPlayers()
         .then((items) => resolve(items))
@@ -24,10 +29,32 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
   },
   selectPlayer: (id) => (context: APIContext) => {
     const retVal = new Promise<Player>((resolve, reject) => {
+      Logger.info(
+        'selectPlayer called with id:',
+        id,
+        'request:',
+        context.request.session.id
+      );
       context.commands
         .selectPlayer(id)
         .then((player) => resolve(player))
         .catch((e) => reject(e));
+    });
+    return retVal;
+  },
+  setWsId: (id) => (context: APIContext) => {
+    const retVal = new Promise<null>((resolve, reject) => {
+      // Logger.info(
+      //   'selectPlayer called with id:',
+      //   id,
+      //   'request:',
+      //   context.request.session.id
+      // );
+      // context.commands
+      //   .selectPlayer(id)
+      //   .then((player) => resolve(player))
+      //   .catch((e) => reject(e));
+      resolve(null);
     });
     return retVal;
   },
@@ -53,6 +80,7 @@ export class ServerRPC implements Initable {
   request = async (req: Request, res: Response) => {
     try {
       const result = await this.rpc.handleAPIRequest(req, {
+        request: req,
         commands: this.commands,
       });
 

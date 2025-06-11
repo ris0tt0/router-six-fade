@@ -3,7 +3,18 @@ import { ClientDbRpc } from '../rpc/dbClient';
 import { ClientWsRpc } from '../rpc/wsClient';
 
 export interface ApiCommands extends Initable {
+  /**
+   * Loads all players from the database.
+   * @returns A promise that resolves to an array of Player objects.
+   */
   loadPlayers(): Promise<Player[]>;
+  /**
+   *  Selects the player by their ID and updates their status to 'online'.
+   * @param id - The ID of the player to select.
+   * @returns A promise that resolves to the selected Player object with updated status.
+   * This method fetches the player from the database, updates their status to 'online',
+   * and notifies WebSocket clients about the online player.
+   */
   selectPlayer(id: string): Promise<Player>;
 }
 
@@ -24,6 +35,9 @@ export class ApiCommandsImpl implements ApiCommands {
     return players;
   }
 
+  async setWsId(id: string) {
+    
+  }
   async selectPlayer(id: string) {
     // Fetch the player from the database
     const player = await this.dbRpc.getPlayer(id);

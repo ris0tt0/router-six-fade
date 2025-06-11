@@ -8,6 +8,7 @@ import Logger from 'js-logger';
 export interface ClientRPC extends Initable {
   loadPlayers(): Promise<Player[]>;
   choosePlayer(playerId: string): Promise<Player>;
+  setWsId(wsid: string): Promise<null>;
 }
 
 export class ClientRPCImpl implements ClientRPC {
@@ -26,7 +27,7 @@ export class ClientRPCImpl implements ClientRPC {
   async loadPlayers() {
     if (this.api) {
       const response = await this.api.loadPlayers().call();
-
+      Logger.info('ClientRPC::loadPlayers - response:', response);
       switch (response.type) {
         case 'fail': {
           Logger.log('error', response.code, response.error);
@@ -49,6 +50,29 @@ export class ClientRPCImpl implements ClientRPC {
   async choosePlayer(playerId: string) {
     if (this.api) {
       const response = await this.api.selectPlayer(playerId).call();
+
+      switch (response.type) {
+        case 'fail': {
+          Logger.log('error', response.code, response.error);
+          throw new Error(response.error);
+        }
+        case 'noResponse': {
+          Logger.log('no response');
+          throw new Error('no response');
+        }
+        case 'success': {
+          Logger.log('success', response.code, response.data);
+          return response.data;
+        }
+      }
+    }
+    {
+      throw new Error('no ApiRPC  yo');
+    }
+  }
+  async setWsId(wsid: string) {
+    if (this.api) {
+      const response = await this.api.setWsId(wsid).call();
 
       switch (response.type) {
         case 'fail': {

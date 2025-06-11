@@ -3,8 +3,8 @@ import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
-import { WsRPC } from '../interface';
 import { WsCommands } from '../commands/indext';
+import { WsRPC } from '../interface';
 
 export interface APIContext {
   commands: WsCommands;
@@ -25,6 +25,13 @@ const api: RPCFunctions<WsRPC, APIContext> = {
           reject(e);
         });
     });
+    return retVal;
+  },
+  selectPlayer: (id: string) => (context: APIContext) => {
+    const retVal = new Promise<void>((resolve, reject) => {
+      // context.commands
+    });
+
     return retVal;
   },
   sendPlayers(players) {

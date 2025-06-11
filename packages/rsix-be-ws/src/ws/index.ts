@@ -1,4 +1,5 @@
 import { Initable, Player } from '@jsix/be-db';
+import { randomUUID, UUID } from 'crypto';
 import Logger from 'js-logger';
 import { WebSocketServer } from 'ws';
 
@@ -6,8 +7,10 @@ export interface SocketServer extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(players: Player[]): Promise<void>;
 }
+
 export class SocketServerImpl implements SocketServer {
   private wss: WebSocketServer | null = null;
+  private ids = new Map<WebSocket, UUID>();
 
   async init() {
     Logger.info('SocketServer::init');
@@ -55,16 +58,22 @@ export class SocketServerImpl implements SocketServer {
     Logger.info('SocketServer::onMessage - received:', this, event.data);
   };
   private onClose = (event: CloseEvent) => {
-    Logger.info('SocketServer::onClose - connection closed', this);
+    const userId = this.ids.get(event.target as WebSocket);
+    Logger.info('SocketServer::onClose - connection closed', userId, this);
   };
   private onConnection = (ws: WebSocket) => {
     ws.addEventListener('error', this.onError);
     ws.addEventListener('message', this.onMessage);
     ws.addEventListener('close', this.onClose);
 
+    const id = randomUUID;
+    const tempId = id();
+
+    this.ids.set(ws, tempId);
+
     const messageToSend = JSON.stringify({
       type: 'connected',
-      data: 'Welcome to the WebSocket server!',
+      data: tempId,
     });
     ws.send(messageToSend);
   };

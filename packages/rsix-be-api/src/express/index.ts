@@ -24,6 +24,8 @@ export class ExpressServer implements Initable {
       var sessionOptions = {
         secret: 'keyboard cat one 4',
         cookie: {} as { secure: boolean },
+        resave: true,
+        saveUninitialized: true,
       };
 
       if (this.app.get('env') === 'production') {

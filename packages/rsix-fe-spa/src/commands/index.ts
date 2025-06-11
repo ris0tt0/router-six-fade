@@ -4,4 +4,5 @@ export interface ClientCommands extends Initable {
   loadPlayers(): Promise<Player[]>;
   setPlayer(): Promise<null>;
   choosePlayer(playerId: string): Promise<Player>;
+  setPlayerWsId(id: string): Promise<null>;
 }

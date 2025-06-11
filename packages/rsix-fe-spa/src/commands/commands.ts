@@ -36,4 +36,8 @@ export class SpaCommands implements ClientCommands {
   async setPlayer() {
     return null;
   }
+  async setPlayerWsId(id: string) {
+    const result = await this.rpc.setWsId(id);
+    return null;
+  }
 }
