@@ -6,6 +6,7 @@ export interface WsCommands extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(player: Player[]): Promise<void>;
   setPlayer(id: string): Promise<void>;
+  setPlayerIdSocketId(playerId: string, socketId: string): Promise<void>;
 }
 
 export class WsCommandsImpl implements WsCommands {
@@ -34,5 +35,8 @@ export class WsCommandsImpl implements WsCommands {
     // This method is not implemented in the original code.
     // You can add logic here to handle player selection if needed.
     return;
+  }
+  async setPlayerIdSocketId(playerId: string, socketId: string) {
+    return this.wss.setPlayerIdSocketId(playerId, socketId);
   }
 }

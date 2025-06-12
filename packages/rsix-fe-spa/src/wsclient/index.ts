@@ -1,12 +1,15 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import Logger from 'js-logger';
-import { addPlayers, setPlayerId } from '../store/slice/appSlice';
+import { addPlayers } from '../store/slice/appSlice';
 
 export interface WebSocketClient {
+  wsid: string | null;
   connect(): Promise<string>;
 }
 
 export class WebSocketClientImpl implements WebSocketClient {
+  public wsid: string | null = null;
+
   private socket: WebSocket | null = null;
   private readonly dispatch: Dispatch;
 
@@ -20,12 +23,14 @@ export class WebSocketClientImpl implements WebSocketClient {
       const handleMessage = (event: MessageEvent) => {
         const result = JSON.parse(event.data);
         if (result.type === 'connected') {
+          this.wsid = result.data;
           resolve(result.data);
+          this.socket?.removeEventListener('message', handleMessage);
         }
-        this.socket?.removeEventListener('message', handleMessage);
       };
 
       this.socket.addEventListener('open', this.handleOpen);
+      this.socket.addEventListener('close', this.handleClose);
       this.socket.addEventListener('message', this.handleMessage);
       this.socket.addEventListener('message', handleMessage);
     });
@@ -35,6 +40,14 @@ export class WebSocketClientImpl implements WebSocketClient {
 
   private handleOpen = (event: any) => {
     Logger.info('WebSocketClientImpl::handleOpen', event);
+  };
+  private handleClose = (event: CloseEvent) => {
+    Logger.info('WebSocketClientImpl::handleClose', event);
+    this.socket?.removeEventListener('message', this.handleMessage);
+    this.socket?.removeEventListener('open', this.handleOpen);
+    this.socket?.removeEventListener('close', this.handleClose);
+    this.socket = null;
+    this.wsid = null;
   };
   private handleMessage = (event: MessageEvent) => {
     const result = JSON.parse(event.data);

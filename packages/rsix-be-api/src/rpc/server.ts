@@ -4,6 +4,7 @@ import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeseri
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
 import { ApiCommands } from '../commands';
+import { ApiSession } from '../express';
 import { ApiRPC } from '../interface';
 
 export interface APIContext {
@@ -14,10 +15,12 @@ export interface APIContext {
 const api: RPCFunctions<ApiRPC, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
     const retVal = new Promise<Player[]>((resolve, reject) => {
+      const session: ApiSession = context.request.session as ApiSession;
       Logger.info(
         'loadPlayers session.id:',
-        context.request.session,
-        context.request.session.id
+        session.id,
+        'playerID',
+        session.playerId
       );
       context.commands
         .loadPlayers()
@@ -37,15 +40,24 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
       );
       context.commands
         .selectPlayer(id)
-        .then((player) => resolve(player))
+        .then((player) => {
+          const session: ApiSession = context.request.session as ApiSession;
+
+          if (!session.playerId) {
+            session.playerId = player.id;
+          }
+          resolve(player);
+        })
         .catch((e) => reject(e));
     });
     return retVal;
   },
   setWsId: (id) => (context: APIContext) => {
     const retVal = new Promise<null>((resolve, reject) => {
-      Logger.info('RCO id', id);
-      context.commands.setWsId(id, context.request.session.id);
+      const session: ApiSession = context.request.session as ApiSession;
+
+      Logger.info('RCO id', id, session.playerId);
+      context.commands.setWsId(id, session.id);
       resolve(null);
     });
     return retVal;

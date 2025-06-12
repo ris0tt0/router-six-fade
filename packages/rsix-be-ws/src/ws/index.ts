@@ -6,11 +6,16 @@ import { WebSocketServer } from 'ws';
 export interface SocketServer extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(players: Player[]): Promise<void>;
+  setPlayerIdSocketId(playerId: string, socketId: string): Promise<void>;
 }
 
+type PlayerSocket = {
+  playerId?: string;
+  socketId: UUID;
+};
 export class SocketServerImpl implements SocketServer {
   private wss: WebSocketServer | null = null;
-  private ids = new Map<WebSocket, UUID>();
+  private ids = new Map<WebSocket, PlayerSocket>();
 
   async init() {
     Logger.info('SocketServer::init');
@@ -32,6 +37,25 @@ export class SocketServerImpl implements SocketServer {
         Logger.warn('SocketServer::sendMessage - client not open', client);
       }
     });
+    return;
+  }
+  async setPlayerIdSocketId(playerId: string, socketId: string) {
+    Logger.info('SocketServer::setPlayerIdSocketId', playerId, socketId);
+
+    const ids = Array.from(this.ids.entries()).find(
+      ([, value]) => value.socketId === socketId
+    );
+    if (ids) {
+      const item = this.ids.get(ids[0]);
+      if (item) {
+        const updatedItem: PlayerSocket = {
+          ...item,
+          playerId: playerId,
+        };
+        this.ids.set(ids[0], updatedItem);
+      }
+    }
+
     return;
   }
   async sendPlayers(players: Player[]) {
@@ -59,7 +83,7 @@ export class SocketServerImpl implements SocketServer {
   };
   private onClose = (event: CloseEvent) => {
     const userId = this.ids.get(event.target as WebSocket);
-    Logger.info('SocketServer::onClose - connection closed', userId, this);
+    Logger.info('SocketServer::onClose - connection closed', userId);
   };
   private onConnection = (ws: WebSocket) => {
     ws.addEventListener('error', this.onError);
@@ -67,13 +91,16 @@ export class SocketServerImpl implements SocketServer {
     ws.addEventListener('close', this.onClose);
 
     const id = randomUUID;
-    const tempId = id();
+    const socketId = id();
 
-    this.ids.set(ws, tempId);
+    this.ids.set(ws, {
+      playerId: undefined,
+      socketId,
+    });
 
     const messageToSend = JSON.stringify({
       type: 'connected',
-      data: tempId,
+      data: socketId,
     });
     ws.send(messageToSend);
   };

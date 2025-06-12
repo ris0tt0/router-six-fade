@@ -1,11 +1,15 @@
 import { Initable } from '@jsix/be-db';
 import express, { Router } from 'express';
-import session from 'express-session';
+import session, { Session } from 'express-session';
 import Logger from 'js-logger';
 import { ClientDbRpc } from '../rpc/dbClient';
 import { ServerRPC } from '../rpc/server';
 
 const port = process.env.PORT || 5004;
+
+export interface ApiSession extends Session {
+  playerId: string | null;
+}
 export class ExpressServer implements Initable {
   private app: express.Application | null = null;
   private rcpServer: ServerRPC;
@@ -21,7 +25,7 @@ export class ExpressServer implements Initable {
       const v1Router = Router();
       this.app = express();
 
-      var sessionOptions = {
+      const sessionOptions = {
         secret: 'keyboard cat one 4',
         cookie: {} as { secure: boolean },
         resave: true,

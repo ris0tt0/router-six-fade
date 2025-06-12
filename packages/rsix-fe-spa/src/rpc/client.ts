@@ -27,18 +27,16 @@ export class ClientRPCImpl implements ClientRPC {
   async loadPlayers() {
     if (this.api) {
       const response = await this.api.loadPlayers().call();
-      Logger.info('ClientRPC::loadPlayers - response:', response);
       switch (response.type) {
         case 'fail': {
-          Logger.log('error', response.code, response.error);
+          Logger.warn('error', response.code, response.error);
           throw new Error(response.error);
         }
         case 'noResponse': {
-          Logger.log('no response');
+          Logger.warn('no response');
           throw new Error('no response');
         }
         case 'success': {
-          Logger.log('success', response.code, response.data);
           return response.data;
         }
       }
@@ -53,15 +51,14 @@ export class ClientRPCImpl implements ClientRPC {
 
       switch (response.type) {
         case 'fail': {
-          Logger.log('error', response.code, response.error);
+          Logger.warn('error', response.code, response.error);
           throw new Error(response.error);
         }
         case 'noResponse': {
-          Logger.log('no response');
+          Logger.warn('no response');
           throw new Error('no response');
         }
         case 'success': {
-          Logger.log('success', response.code, response.data);
           return response.data;
         }
       }
@@ -76,15 +73,14 @@ export class ClientRPCImpl implements ClientRPC {
 
       switch (response.type) {
         case 'fail': {
-          Logger.log('error', response.code, response.error);
+          Logger.warn('error', response.code, response.error);
           throw new Error(response.error);
         }
         case 'noResponse': {
-          Logger.log('no response');
+          Logger.warn('no response');
           throw new Error('no response');
         }
         case 'success': {
-          Logger.log('success', response.code, response.data);
           return response.data;
         }
       }

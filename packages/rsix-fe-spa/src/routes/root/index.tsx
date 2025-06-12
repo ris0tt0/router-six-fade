@@ -22,8 +22,8 @@ export const RootRoute: FC = () => {
       .loadPlayers()
       .then((result) => {
         dispatch(addPlayers(result));
-        // navigate('choose', { replace: true });
-        navigate('choose');
+        // navigate('/choose', { replace: true });
+        navigate('/choose');
       })
       .catch((e) => {
         Logger.error(e);

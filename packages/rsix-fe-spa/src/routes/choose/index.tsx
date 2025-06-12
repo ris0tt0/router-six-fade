@@ -5,6 +5,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useCommands } from '../../hooks/useCommands';
 import { RootState } from '../../store/redux';
+import { useNavigate } from 'react-router-dom';
 
 const ChoosePlayersContainer = styled('div')`
   display: flex;
@@ -43,10 +44,12 @@ const OnlineStatus: FC<{ player: Player }> = ({ player }) => {
 
 const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
   const commands = useCommands();
+  const navigate = useNavigate();
 
   const handleSelect = () => {
     commands.choosePlayer(player.id).then((player) => {
       Logger.info('player selected', player);
+      navigate('/player');
     });
   };
 

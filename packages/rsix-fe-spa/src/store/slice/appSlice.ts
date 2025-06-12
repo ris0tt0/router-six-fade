@@ -4,12 +4,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface AppState {
   players: Record<string, Player>;
-  playerId?: string;
+  playerId: string | null;
 }
 
 const initialState: AppState = {
   players: {},
-  playerId: '',
+  playerId: null,
 };
 
 export const appSlice = createSlice({

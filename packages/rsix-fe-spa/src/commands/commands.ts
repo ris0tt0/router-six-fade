@@ -2,7 +2,7 @@ import Logger from 'js-logger';
 import { ClientCommands } from '.';
 import { ClientRPC } from '../rpc/client';
 import { Dispatch } from '@reduxjs/toolkit';
-import { addPlayers } from '../store/slice/appSlice';
+import { addPlayers, setPlayerId } from '../store/slice/appSlice';
 import { WebSocketClient } from '../wsclient';
 
 export type CommandsParams = {
@@ -13,11 +13,11 @@ export type CommandsParams = {
 export class ClientCommandsImpl implements ClientCommands {
   private readonly rpc: ClientRPC;
   private readonly dispatch: Dispatch;
-  private readonly socket: WebSocketClient;
+  private readonly socketClient: WebSocketClient;
 
   constructor({ dispatch, rpc, socket }: CommandsParams) {
     this.rpc = rpc;
-    this.socket = socket;
+    this.socketClient = socket;
     this.dispatch = dispatch;
   }
   async init() {
@@ -25,9 +25,11 @@ export class ClientCommandsImpl implements ClientCommands {
     return null;
   }
   async loadPlayers() {
-    const id = await this.socket.connect();
-    Logger.info('commands::loadPlayers - connected with id', id);
-    await this.rpc.setWsId(id);
+    if (this.socketClient.wsid === null) {
+      const id = await this.socketClient.connect();
+      await this.rpc.setWsId(id);
+    }
+
     const result = await this.rpc.loadPlayers();
 
     return result;
@@ -38,11 +40,9 @@ export class ClientCommandsImpl implements ClientCommands {
     Logger.info(`commands::choosePlayer ${playerId} chosen`, result);
 
     this.dispatch(addPlayers([result]));
+    this.dispatch(setPlayerId(result.id));
 
     return result;
-  }
-  async setPlayer() {
-    return null;
   }
   async setPlayerWsId(id: string) {
     const result = await this.rpc.setWsId(id);

@@ -60,6 +60,8 @@ const api: RPCFunctions<WsRPC, APIContext> = {
         'socketId:',
         socketId
       );
+
+      context.commands.setPlayerIdSocketId(sessionId, socketId);
     });
 
     return retVal;
