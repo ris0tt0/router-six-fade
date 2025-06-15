@@ -17,7 +17,7 @@ export class ClientRPCImpl implements ClientRPC {
   async init() {
     Logger.info('ClientRPC::init');
     this.api = createClient<ApiRPC>({
-      endpoint: 'api/v1',
+      endpoint: 'rpc/v1',
       serializer: jsonSerializer,
       xhr: axiosXHR,
     });

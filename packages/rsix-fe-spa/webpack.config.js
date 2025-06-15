@@ -19,7 +19,7 @@ const config = {
     },
     proxy: [
       {
-        context: ['/api'],
+        context: ['/api', '/rpc'],
         target: 'http://localhost:5004',
       },
     ],

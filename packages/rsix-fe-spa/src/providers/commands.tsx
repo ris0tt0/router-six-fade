@@ -6,6 +6,7 @@ import { CommandsContext } from '../contexts/commands';
 import { ClientRPCImpl } from '../rpc/client';
 import { WebSocketClient, WebSocketClientImpl } from '../wsclient';
 import Logger from 'js-logger';
+import { ClientApiImpl } from '../api';
 
 export const CommandsProvider: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch();
@@ -14,9 +15,12 @@ export const CommandsProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const rpc = new ClientRPCImpl();
+    const api = ClientApiImpl.getInstance();
     const socket = new WebSocketClientImpl({ dispatch });
+
     const commands: ClientCommands = new ClientCommandsImpl({
       rpc,
+      api,
       dispatch,
       socket,
     });

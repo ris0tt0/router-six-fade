@@ -22,7 +22,8 @@ export class ExpressServer implements Initable {
 
   init() {
     const retVal = new Promise<null>((resolve, reject) => {
-      const v1Router = Router();
+      const v1RpcRouter = Router();
+      const v1ApiRouter = Router();
       this.app = express();
 
       const sessionOptions = {
@@ -38,9 +39,22 @@ export class ExpressServer implements Initable {
       }
 
       this.app.use(session(sessionOptions));
-      this.app.use('/api/v1', v1Router);
+      this.app.use('/rpc/v1', v1RpcRouter);
+      this.app.use('/api/v1', v1ApiRouter);
 
-      v1Router.post('/', this.rcpServer.request);
+      v1RpcRouter.post('/', this.rcpServer.request);
+
+      v1ApiRouter.get('/playerId', (req, res) => {
+        const session = req.session as ApiSession;
+
+        res.json({ id: session.playerId ?? null });
+      });
+      v1ApiRouter.post('/login', (req, res) => {
+        const session = req.session as ApiSession;
+
+        // res.json({ id: session.playerId ?? null });
+        res.status(401).send('unauth');
+      });
 
       this.app.listen(port, () => {
         Logger.log(`express on port ${port}`);

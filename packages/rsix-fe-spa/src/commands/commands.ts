@@ -4,18 +4,22 @@ import { ClientRPC } from '../rpc/client';
 import { Dispatch } from '@reduxjs/toolkit';
 import { addPlayers, setPlayerId } from '../store/slice/appSlice';
 import { WebSocketClient } from '../wsclient';
+import { ClientApi } from '../api';
 
 export type CommandsParams = {
+  api: ClientApi;
   rpc: ClientRPC;
   socket: WebSocketClient;
   dispatch: Dispatch;
 };
 export class ClientCommandsImpl implements ClientCommands {
+  private readonly api: ClientApi;
   private readonly rpc: ClientRPC;
   private readonly dispatch: Dispatch;
   private readonly socketClient: WebSocketClient;
 
-  constructor({ dispatch, rpc, socket }: CommandsParams) {
+  constructor({ dispatch, api, rpc, socket }: CommandsParams) {
+    this.api = api;
     this.rpc = rpc;
     this.socketClient = socket;
     this.dispatch = dispatch;
