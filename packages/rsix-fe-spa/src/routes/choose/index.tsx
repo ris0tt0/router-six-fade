@@ -52,10 +52,15 @@ const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
   const navigate = useNavigate();
 
   const handleSelect = () => {
-    commands.choosePlayer(player.id).then((player) => {
-      Logger.info('player selected', player);
-      navigate('/player');
-    });
+    commands
+      .choosePlayer(player.id)
+      .then((player) => {
+        Logger.info('player selected', player);
+        navigate('/player');
+      })
+      .catch((error) => {
+        Logger.warn(error);
+      });
   };
 
   return (

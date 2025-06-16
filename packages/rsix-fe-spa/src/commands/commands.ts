@@ -44,14 +44,16 @@ export class ClientCommandsImpl implements ClientCommands {
     return null;
   }
   async choosePlayer(playerId: string) {
-    const result = await this.rpc.choosePlayer(playerId);
+    Logger.info('choosePlayer', playerId);
+    const player = await this.rpc.choosePlayer(playerId);
 
-    Logger.info(`commands::choosePlayer ${playerId} chosen`, result);
+    Logger.info('commands::choosePlayer', this.socketClient.wsid);
+    Logger.info(`commands::choosePlayer ${playerId} player`, player);
 
-    this.dispatch(addPlayers([result]));
-    this.dispatch(setPlayerId(result.id));
+    this.dispatch(addPlayers([player]));
+    this.dispatch(setPlayerId(player.id));
 
-    return result;
+    return player;
   }
   async setPlayerWsId(id: string) {
     const result = await this.rpc.setWsId(id);

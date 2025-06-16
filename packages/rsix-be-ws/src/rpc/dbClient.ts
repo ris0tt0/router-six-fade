@@ -32,19 +32,19 @@ export class ClientDbRpcImpl implements ClientDbRpc {
       switch (response.type) {
         case 'fail': {
           Logger.log(
-            'api::dbClient::loadPlayers',
+            'ws::dbClient:::loadPlayers',
             response.code,
             response.error
           );
           throw new Error(response.error);
         }
         case 'noResponse': {
-          Logger.log('api::dbClient::loadPlayers no response');
+          Logger.log('ws::dbClient:::loadPlayers no response');
           throw new Error('no response');
         }
         case 'success': {
           Logger.log(
-            'api::dbClient::loadPlayers',
+            'ws::dbClient:::loadPlayers',
             response.code,
             response.data
           );
@@ -62,15 +62,15 @@ export class ClientDbRpcImpl implements ClientDbRpc {
 
       switch (response.type) {
         case 'fail': {
-          Logger.log('api::dbClient::getPlayer', response.code, response.error);
+          Logger.log('ws::dbClient::getPlayer', response.code, response.error);
           throw new Error(response.error);
         }
         case 'noResponse': {
-          Logger.log('api::dbClient::getPlayer no response');
-          throw new Error('no response');
+          Logger.log('ws::dbClient::getPlayer no response');
+          throw new Error('ws::dbClient no response');
         }
         case 'success': {
-          Logger.log('api::dbClient::getPlayer', response.code, response.data);
+          Logger.log('ws::dbClient::getPlayer', response.code, response.data);
           return response.data;
         }
       }
@@ -88,19 +88,19 @@ export class ClientDbRpcImpl implements ClientDbRpc {
           switch (response.type) {
             case 'fail': {
               Logger.log(
-                'api::dbClient::setPlayer',
+                'ws::dbClient:::setPlayer',
                 response.code,
                 response.error
               );
               throw new Error(response.error);
             }
             case 'noResponse': {
-              Logger.log('api::dbClient::setPlayer no response');
+              Logger.log('ws::dbClient:::setPlayer no response');
               throw new Error('no response');
             }
             case 'success': {
               Logger.log(
-                'api::dbClient::setPlayer',
+                'sws::dbClient:::setPlayer',
                 response.code,
                 response.data
               );

@@ -33,7 +33,12 @@ export const Login: FC = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInputs>();
+  } = useForm<LoginInputs>({
+    defaultValues: {
+      login: '',
+      password: '',
+    },
+  });
   const navigate = useNavigate();
 
   const handleloginSubmit: SubmitHandler<LoginInputs> = (data) => {

@@ -1,4 +1,5 @@
 import { Player } from '@jsix/be-db';
+import { UUID } from 'crypto';
 
 export interface ApiRPC {
   loadPlayers: () => Player[];
@@ -10,7 +11,7 @@ export interface ApiRPC {
    * It allows the server to send real-time updates to the client over WebSocket.
    * @returns null
    */
-  setWsId: (wsid: string) => null;
+  setWsId: (wsid: UUID) => null;
 }
 
 export const RPC_V1 = 'rpc/v1';

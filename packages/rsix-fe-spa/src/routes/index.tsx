@@ -14,16 +14,18 @@ import { PlayerRoute } from './player';
 import Logger from 'js-logger';
 import { ClientRPCImpl } from '../rpc/client';
 
-const ChooseLoader = async () => {
+const ChooseLoader = async (args: any) => {
   const rpc = ClientRPCImpl.getInstace();
 
   const players = await rpc.loadPlayers();
+  Logger.info('ChooseLoader', players, args);
 
   return players;
 };
 
-const PlayerLoader = async () => {};
-
+const PlayerLoader = async ({ context, params, request }: any) => {
+  Logger.info('PlayerLoader', context, params, request);
+};
 const RootLoader = async (args: LoaderFunctionArgs) => {
   const api = ClientApiImpl.getInstance();
   const currentPath = new URL(args.request.url).pathname;
@@ -68,7 +70,12 @@ const router = createBrowserRouter([
         HydrateFallback: RootLoading,
         Component: ChoosePlayerRoute,
       },
-      { path: 'player', Component: PlayerRoute },
+      {
+        path: 'player',
+        loader: PlayerLoader,
+
+        Component: PlayerRoute,
+      },
     ],
   },
 ]);

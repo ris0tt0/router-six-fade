@@ -3,6 +3,7 @@ import { Initable, Player } from '@jsix/be-db';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
+import { UUID } from 'crypto';
 import Logger from 'js-logger';
 
 export interface ClientRPC extends Initable {
@@ -16,7 +17,7 @@ export class ClientRPCImpl implements ClientRPC {
 
   protected static instance: ClientRPCImpl | null = null;
 
-  private api: Callables<ApiRPC> = createClient<ApiRPC>({
+  private apiRpc: Callables<ApiRPC> = createClient<ApiRPC>({
     endpoint: RPC_V1,
     serializer: jsonSerializer,
     xhr: axiosXHR,
@@ -40,8 +41,8 @@ export class ClientRPCImpl implements ClientRPC {
   }
 
   async loadPlayers() {
-    if (this.api) {
-      const response = await this.api.loadPlayers().call();
+    if (this.apiRpc) {
+      const response = await this.apiRpc.loadPlayers().call();
       switch (response.type) {
         case 'fail': {
           Logger.warn('error', response.code, response.error);
@@ -61,8 +62,9 @@ export class ClientRPCImpl implements ClientRPC {
     }
   }
   async choosePlayer(playerId: string) {
-    if (this.api) {
-      const response = await this.api.selectPlayer(playerId).call();
+    if (this.apiRpc) {
+      Logger.info('rpc,client::chooseplayer', playerId);
+      const response = await this.apiRpc.selectPlayer(playerId).call();
 
       switch (response.type) {
         case 'fail': {
@@ -83,8 +85,8 @@ export class ClientRPCImpl implements ClientRPC {
     }
   }
   async setWsId(wsid: string) {
-    if (this.api) {
-      const response = await this.api.setWsId(wsid).call();
+    if (this.apiRpc) {
+      const response = await this.apiRpc.setWsId(wsid as UUID).call();
 
       switch (response.type) {
         case 'fail': {

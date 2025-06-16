@@ -1,5 +1,6 @@
-import { Initable, OnlineStatus, Player } from '@jsix/be-db';
-import { ClientDbRpc } from '../rpc/dbClient';
+import { ClientDbRpc, Initable, OnlineStatus, Player } from '@jsix/be-db';
+import { UUID } from 'crypto';
+import Logger from 'js-logger';
 import { ClientWsRpc } from '../rpc/wsClient';
 
 export interface ApiCommands extends Initable {
@@ -21,7 +22,8 @@ export interface ApiCommands extends Initable {
    * @param id - The WebSocket ID to set.
    * @param sessionId - The session ID associated with the WebSocket connection.
    */
-  setWsId(id: string, sessionId: string): Promise<void>;
+  setWsId(socketId: UUID, sessionId: string): Promise<void>;
+  setSocketId(socketId: UUID, playerId: string): Promise<void>;
 }
 
 export class ApiCommandsImpl implements ApiCommands {
@@ -46,8 +48,15 @@ export class ApiCommandsImpl implements ApiCommands {
     return players;
   }
 
-  async setWsId(id: string, sessionId: string) {
-    await this.wsRpc.setWsId(id, sessionId);
+  async setWsId(socketId: UUID, sessionId: string) {
+    await this.wsRpc.setWsId(socketId, sessionId);
+    return;
+  }
+  async setSocketId(socketId: UUID, playerId: string) {
+    Logger.info('api::commands::setSocketId', socketId, playerId);
+
+    await this.wsRpc.setPlayerId(socketId, playerId);
+
     return;
   }
   async selectPlayer(id: string) {
@@ -58,7 +67,6 @@ export class ApiCommandsImpl implements ApiCommands {
       ...player,
       status: 'online' as OnlineStatus,
     };
-
     // Update the player status in the database
     await this.dbRpc.setPlayer(onlinePlayer);
     // Notify the WebSocket clients about the online player

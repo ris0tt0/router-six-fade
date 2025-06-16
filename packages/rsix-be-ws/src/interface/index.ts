@@ -1,4 +1,5 @@
 import { Player } from '@jsix/be-db';
+import { UUID } from 'crypto';
 
 /**
  * WebSocket RPC interface for sending messages and player data.
@@ -36,5 +37,6 @@ export interface WsRPC {
    * @param sessionId The session ID to associate with the WebSocket connection.
    * @param socketId The socket ID of the WebSocket connection.
    */
-  setClientSessionId(sessionId: string, socketId: string): Promise<void>;
+  setClientSessionId(sessionId: string, socketId: UUID): Promise<void>;
+  setClientPlayerId(playerId: string, socketId: UUID): Promise<void>;
 }

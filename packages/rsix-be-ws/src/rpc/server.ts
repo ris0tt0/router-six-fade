@@ -52,6 +52,18 @@ const api: RPCFunctions<WsRPC, APIContext> = {
       return retVal;
     };
   },
+  setClientPlayerId: (playerId, socketId) => (context: APIContext) => {
+    const retVal = new Promise<void>((resolve, reject) => {
+      context.commands.setPlayerIdSocketId({
+        socketId,
+        playerId,
+      });
+
+      resolve();
+    });
+
+    return retVal;
+  },
   setClientSessionId: (sessionId, socketId) => (context: APIContext) => {
     const retVal = new Promise<void>((resolve, reject) => {
       Logger.info(
@@ -61,7 +73,10 @@ const api: RPCFunctions<WsRPC, APIContext> = {
         socketId
       );
 
-      context.commands.setPlayerIdSocketId(sessionId, socketId);
+      context.commands.setSessionIdSocketId({
+        sessionId,
+        socketId,
+      });
     });
 
     return retVal;

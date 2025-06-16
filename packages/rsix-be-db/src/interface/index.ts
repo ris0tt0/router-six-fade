@@ -13,6 +13,14 @@ export interface Player {
   status: OnlineStatus;
 }
 
+export interface Game {
+  id: string;
+  owners: Player[];
+  players: Player[];
+}
+
+
+
 /**
  * initialization interface.
  */
@@ -38,4 +46,10 @@ export interface DbRPC {
   getAllPlayers: () => Player[];
   selectPlayer: (id: string) => Player;
   updatePlayers: (players: Player[]) => null;
+}
+
+export interface ClientDbRpc extends Initable {
+  loadPlayers(): Promise<Player[]>;
+  getPlayer(id: string): Promise<Player>;
+  setPlayer(player: Player): Promise<Player>;
 }

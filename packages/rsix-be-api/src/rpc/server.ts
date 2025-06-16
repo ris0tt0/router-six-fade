@@ -14,12 +14,12 @@ export interface APIContext {
 const api: RPCFunctions<ApiRPC, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
     const retVal = new Promise<Player[]>((resolve, reject) => {
-      Logger.info(
-        'loadPlayers session.id:',
-        context.request.session.id,
-        'playerID',
-        context.request.session.playerId
-      );
+      // Logger.info(
+      //   'loadPlayers session.id:',
+      //   context.request.session.id,
+      //   'playerID',
+      //   context.request.session.playerId
+      // );
       context.commands
         .loadPlayers()
         .then((items) => resolve(items))
@@ -30,27 +30,31 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
   },
   selectPlayer: (id) => (context: APIContext) => {
     const retVal = new Promise<Player>((resolve, reject) => {
-      Logger.info(
-        'selectPlayer called with id:',
-        id,
-        'request:',
-        context.request.session.id
-      );
-      context.commands
-        .selectPlayer(id)
-        .then((player) => {
-          if (!context.request.session.playerId) {
-            context.request.session.playerId = player.id;
-          }
-          resolve(player);
-        })
-        .catch((e) => reject(e));
+      Logger.info('api::selectPlayuer', id, context.request.session);
+      if (context.request.session.socketId) {
+        const socketId = context.request.session.socketId;
+        Logger.info('api::selectPlayuer', socketId);
+
+        Promise.all([
+          context.commands.setSocketId(socketId, id),
+          context.commands.selectPlayer(id),
+        ])
+          .then(([, player]) => {
+            // save the player in the session
+            // context.request.session.playerId = player.id;
+            resolve(player);
+          })
+          .catch((e) => reject(e));
+      } else {
+        reject('no socketId');
+      }
     });
     return retVal;
   },
   setWsId: (id) => (context: APIContext) => {
     const retVal = new Promise<null>((resolve, reject) => {
       Logger.info('RCO id', id, context.request.session.playerId);
+      context.request.session.socketId = id;
       context.commands.setWsId(id, context.request.session.id);
       resolve(null);
     });

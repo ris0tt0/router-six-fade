@@ -1,22 +1,41 @@
-import { Initable, Player } from '@jsix/be-db';
+import { ClientDbRpc, Initable, Player } from '@jsix/be-db';
 import { randomUUID, UUID } from 'crypto';
 import Logger from 'js-logger';
 import { WebSocketServer } from 'ws';
 
+export type PlayerData = {
+  playerId: string | null;
+  sessionId: string | null;
+  socketId: UUID;
+};
 export interface SocketServer extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(players: Player[]): Promise<void>;
-  setPlayerIdSocketId(playerId: string, socketId: string): Promise<void>;
+  setPlayerIdSocketId({
+    socketId,
+    playerId,
+  }: {
+    socketId: UUID;
+    playerId: string;
+  }): Promise<void>;
+  setSessionIdSocketId({
+    socketId,
+    sessionId,
+  }: {
+    socketId: UUID;
+    sessionId: string;
+  }): Promise<void>;
 }
 
-type PlayerSocket = {
-  playerId?: string;
-  socketId: UUID;
-};
 export class SocketServerImpl implements SocketServer {
   public isInitialized: boolean = false;
+  private clientDbRpc: ClientDbRpc;
   private wss: WebSocketServer | null = null;
-  private ids = new Map<WebSocket, PlayerSocket>();
+  private ids = new Map<WebSocket, PlayerData>();
+
+  constructor(clientDbRpc: ClientDbRpc) {
+    this.clientDbRpc = clientDbRpc;
+  }
 
   async init() {
     Logger.info('SocketServer::init');
@@ -46,18 +65,52 @@ export class SocketServerImpl implements SocketServer {
     });
     return;
   }
-  async setPlayerIdSocketId(playerId: string, socketId: string) {
-    Logger.info('SocketServer::setPlayerIdSocketId', playerId, socketId);
+  async setPlayerIdSocketId({
+    socketId,
+    playerId,
+  }: {
+    socketId: UUID;
+    playerId: string;
+  }) {
+    Logger.info('SocketServer::setPlayerIdSocketId', socketId, playerId);
 
     const ids = Array.from(this.ids.entries()).find(
       ([, value]) => value.socketId === socketId
     );
     if (ids) {
       const item = this.ids.get(ids[0]);
+      Logger.info('setPlayerIdSocketId item', item);
       if (item) {
-        const updatedItem: PlayerSocket = {
+        const updatedItem: PlayerData = {
           ...item,
-          playerId: playerId,
+          playerId,
+        };
+        this.ids.set(ids[0], updatedItem);
+      }
+    }
+
+    return;
+  }
+
+  async setSessionIdSocketId({
+    socketId,
+    sessionId,
+  }: {
+    socketId: UUID;
+    sessionId: string;
+  }) {
+    Logger.info('SocketServer::setSessionIdSocketId', socketId, sessionId);
+
+    const ids = Array.from(this.ids.entries()).find(
+      ([, value]) => value.socketId === socketId
+    );
+    if (ids) {
+      const item = this.ids.get(ids[0]);
+      Logger.info('setSessionIdSocketId item', item);
+      if (item) {
+        const updatedItem: PlayerData = {
+          ...item,
+          sessionId,
         };
         this.ids.set(ids[0], updatedItem);
       }
@@ -89,8 +142,26 @@ export class SocketServerImpl implements SocketServer {
     Logger.info('SocketServer::onMessage - received:', this, event.data);
   };
   private onClose = (event: CloseEvent) => {
-    const userId = this.ids.get(event.target as WebSocket);
-    Logger.info('SocketServer::onClose - connection closed', userId);
+    const playerData = this.ids.get(event.target as WebSocket);
+    if (playerData?.playerId) {
+      this.clientDbRpc
+        .getPlayer(playerData.playerId)
+        .then((player) => {
+          const updated: Player = {
+            ...player,
+            status: 'offline',
+          };
+          return updated;
+        })
+        .then((player) => this.clientDbRpc.setPlayer(player))
+        .then((player) => this.sendPlayers([player]))
+        .finally(() => this.ids.delete(event.target as WebSocket));
+    }
+    Logger.info(
+      'SocketServer::onClose - connection closed',
+      playerData,
+      this.ids
+    );
   };
   private onConnection = (ws: WebSocket) => {
     ws.addEventListener('error', this.onError);
@@ -101,7 +172,8 @@ export class SocketServerImpl implements SocketServer {
     const socketId = id();
 
     this.ids.set(ws, {
-      playerId: undefined,
+      playerId: null,
+      sessionId: null,
       socketId,
     });
 

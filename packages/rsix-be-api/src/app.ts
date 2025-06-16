@@ -1,7 +1,7 @@
 import Logger from 'js-logger';
 import { ExpressServer } from './express';
-import { Initable } from '@jsix/be-db';
-import { ClientDbRpc, ClientDbRpcImpl } from './rpc/dbClient';
+import { ClientDbRpc, Initable } from '@jsix/be-db';
+import { ClientDbRpcImpl } from './rpc/dbClient';
 import { ServerRPC } from './rpc/server';
 import { ClientWsRpc, ClientWsRpcImpl } from './rpc/wsClient';
 import { ApiCommands, ApiCommandsImpl } from './commands';
