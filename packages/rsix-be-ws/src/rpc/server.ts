@@ -69,6 +69,7 @@ const api: RPCFunctions<WsRPC, APIContext> = {
 };
 
 export class ServerRPC implements Initable {
+  public isInitialized: boolean = false;
   private rpc: any | null = null;
   private commands: WsCommands;
   constructor(commands: WsCommands) {
@@ -81,6 +82,12 @@ export class ServerRPC implements Initable {
       deserializer: jsonDeserializer,
     });
 
+    this.isInitialized = true;
+
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
 

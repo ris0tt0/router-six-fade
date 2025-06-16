@@ -8,6 +8,7 @@ import { WsCommands, WsCommandsImpl } from './commands/indext';
 Logger.useDefaults();
 
 class App implements Initable {
+  public isInitialized: boolean = false;
   private socketServer: SocketServer;
   private expressServer: ExpressServer;
   private serverRPC: ServerRPC;
@@ -24,7 +25,12 @@ class App implements Initable {
     await this.serverRPC.init();
     await this.socketServer.init();
     await this.expressServer.init();
+    this.isInitialized = true;
 
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
 }

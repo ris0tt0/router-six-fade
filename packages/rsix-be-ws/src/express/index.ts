@@ -5,9 +5,9 @@ import { ServerRPC } from '../rpc/server';
 
 const port = process.env.PORT || 5009;
 export class ExpressServer implements Initable {
+  public isInitialized: boolean = false;
   private app: express.Application | null = null;
   private rcpServer: ServerRPC;
-  // private rcpClient: ClientDbRpc;
 
   constructor(rcpServer: ServerRPC) {
     this.rcpServer = rcpServer;
@@ -24,10 +24,15 @@ export class ExpressServer implements Initable {
 
       this.app.listen(port, () => {
         Logger.log(`express on port ${port}`);
+        this.isInitialized = true;
         resolve(null);
       });
     });
 
     return retVal;
+  }
+  async destroy() {
+    this.isInitialized = false;
+    return null;
   }
 }

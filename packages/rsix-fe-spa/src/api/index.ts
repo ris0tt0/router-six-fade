@@ -2,18 +2,21 @@ import { Initable } from '@jsix/be-db';
 import Axios from 'axios';
 import Logger from 'js-logger';
 
+export type UserDetails = {
+  id: string | null;
+  isAuthed: boolean;
+};
+export type LoginDetails = {
+  login: string;
+  password: string;
+};
 export interface ClientApi extends Initable {
-  getPlayerId(): Promise<{ id: string | null }>;
-  postLogin({
-    login,
-    password,
-  }: {
-    login: string;
-    password: string;
-  }): Promise<boolean>;
+  getUserDetails(): Promise<UserDetails>;
+  postLogin({ login, password }: LoginDetails): Promise<boolean>;
 }
 
 export class ClientApiImpl implements ClientApi {
+  public isInitialized: boolean = true;
   protected static instance: ClientApi | null = null;
 
   static getInstance(): ClientApi {
@@ -24,24 +27,32 @@ export class ClientApiImpl implements ClientApi {
     return ClientApiImpl.instance;
   }
 
-  constructor() {
-    Logger.info('ClientApiImpl::ctor');
-  }
-
   private axios = Axios.create({
     baseURL: '/api/v1',
   });
 
+  constructor() {
+    Logger.info('ClientDataImpl::ctor');
+  }
+
   async init() {
+    Logger.info('ClientApiImpl::init');
     return null;
   }
-  async getPlayerId() {
-    const result = await this.axios.get<{ id: string | null }>('/playerId');
+  async destroy() {
+    return null;
+  }
+  async getUserDetails() {
+    const result = await this.axios.get<UserDetails>('/userDetails');
     return result.data;
   }
-  async postLogin(login: { login: string; password: string }) {
+  async postLogin(login: LoginDetails) {
     const result = await this.axios.post('/login', login);
 
-    return true;
+    Logger.info('postLogin', result);
+    if (result.status === 200) {
+      return true;
+    }
+    return false;
   }
 }

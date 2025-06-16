@@ -34,7 +34,7 @@ export const CommandsProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   if (commands === null) {
-    return null; // or a loading spinner
+    return null;
   }
 
   return (

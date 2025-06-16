@@ -15,6 +15,7 @@ export interface ClientDbRpc extends Initable {
 }
 
 export class ClientDbRpcImpl implements ClientDbRpc {
+  public isInitialized: boolean = false;
   private api: Callables<DbRPC> | null = null;
 
   async init() {
@@ -24,6 +25,11 @@ export class ClientDbRpcImpl implements ClientDbRpc {
       serializer: jsonSerializer,
       xhr: axiosXHR,
     });
+    this.isInitialized = true;
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
 

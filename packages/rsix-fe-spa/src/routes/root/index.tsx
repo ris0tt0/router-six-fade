@@ -19,13 +19,13 @@ export const RootRoute: FC = () => {
 
   const handleClick = () => {
     commands
-      .loadPlayers()
-      .then((result) => {
-        dispatch(addPlayers(result));
+      .connectSocket()
+      .then(() => {
+        // dispatch(addPlayers(result));
         // navigate('/choose', { replace: true });
-        navigate('choose');
+        // navigate('choose');
       })
-      .catch((e) => {
+      .catch((e: Error) => {
         Logger.error(e);
         setError(true);
       });

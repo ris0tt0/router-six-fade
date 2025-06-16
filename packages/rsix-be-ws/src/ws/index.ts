@@ -14,6 +14,7 @@ type PlayerSocket = {
   socketId: UUID;
 };
 export class SocketServerImpl implements SocketServer {
+  public isInitialized: boolean = false;
   private wss: WebSocketServer | null = null;
   private ids = new Map<WebSocket, PlayerSocket>();
 
@@ -22,6 +23,12 @@ export class SocketServerImpl implements SocketServer {
     this.wss = new WebSocketServer({ port: 5003 });
     this.addEventListeners();
 
+    this.isInitialized = true;
+
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
   async sendMessage(message: string) {

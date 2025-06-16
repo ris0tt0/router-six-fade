@@ -33,6 +33,7 @@ const RpcServer = createServer({
 });
 
 export class ExpressServer implements Initable {
+  public isInitialized: boolean = false;
   private app: express.Application | null = null;
   private db: DataBaseSix;
 
@@ -50,6 +51,7 @@ export class ExpressServer implements Initable {
 
       this.app.listen(port, () => {
         Logger.log(`db on port ${port}`);
+        this.isInitialized = true;
         resolve(null);
       });
 
@@ -57,6 +59,10 @@ export class ExpressServer implements Initable {
     });
 
     return retVal;
+  }
+  async destroy() {
+    this.isInitialized = false;
+    return null;
   }
 
   rcpRequest = async (req: Request, res: Response) => {

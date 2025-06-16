@@ -13,6 +13,8 @@ export type CommandsParams = {
   dispatch: Dispatch;
 };
 export class ClientCommandsImpl implements ClientCommands {
+  public isInitialized: boolean = false;
+
   private readonly api: ClientApi;
   private readonly rpc: ClientRPC;
   private readonly dispatch: Dispatch;
@@ -26,17 +28,20 @@ export class ClientCommandsImpl implements ClientCommands {
   }
   async init() {
     await this.rpc.init();
+    this.isInitialized = true;
     return null;
   }
-  async loadPlayers() {
+  async destroy() {
+    this.isInitialized = false;
+    return null;
+  }
+  async connectSocket() {
     if (this.socketClient.wsid === null) {
       const id = await this.socketClient.connect();
       await this.rpc.setWsId(id);
     }
 
-    const result = await this.rpc.loadPlayers();
-
-    return result;
+    return null;
   }
   async choosePlayer(playerId: string) {
     const result = await this.rpc.choosePlayer(playerId);

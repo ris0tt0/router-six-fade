@@ -5,6 +5,8 @@ import { Player } from '../interface';
  * Just a simple in memory data.
  */
 export class MemoryDB implements DataBaseSix {
+  public isInitialized: boolean = false;
+
   private db: Record<string, Player> = {
     aa: {
       name: 'jackson one',
@@ -27,6 +29,11 @@ export class MemoryDB implements DataBaseSix {
   };
 
   async init() {
+    this.isInitialized = true;
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
   async getAllPlayers() {

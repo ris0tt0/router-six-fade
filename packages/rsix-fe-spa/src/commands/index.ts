@@ -11,10 +11,10 @@ import { Initable, Player } from '@jsix/be-db';
  * - setPlayerWsId: Takes a WebSocket ID as an argument and returns a Promise that resolves to null
  */
 export interface ClientCommands extends Initable {
-  /* * Initializes the client commands.
+  /* * Initializes the client socket connection.
    * @returns A Promise that resolves to null.
    */
-  loadPlayers(): Promise<Player[]>;
+  connectSocket(): Promise<null>;
   /* * Chooses a player based on the provided playerId.
    * @param playerId - The ID of the player to choose.
    * @returns A Promise that resolves to the chosen Player object.

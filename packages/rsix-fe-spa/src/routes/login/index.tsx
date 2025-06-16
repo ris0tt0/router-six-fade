@@ -3,6 +3,7 @@ import Logger from 'js-logger';
 import React, { FC, FormEvent } from 'react';
 import { ClientApiImpl } from '../../api';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const LoginContainer = styled('div')`
   display: flex;
@@ -31,9 +32,9 @@ export const Login: FC = () => {
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginInputs>();
+  const navigate = useNavigate();
 
   const handleloginSubmit: SubmitHandler<LoginInputs> = (data) => {
     const api = ClientApiImpl.getInstance();
@@ -42,6 +43,9 @@ export const Login: FC = () => {
       .postLogin(data)
       .then((result) => {
         Logger.info('post login', result);
+        if (result) {
+          navigate('/choose');
+        }
       })
       .catch((e) => {
         Logger.warn('post ling error', e);

@@ -13,6 +13,7 @@ export interface ClientWsRpc extends Initable {
 }
 
 export class ClientWsRpcImpl implements ClientWsRpc {
+  public isInitialized: boolean = false;
   private api: Callables<WsRPC> | null = null;
 
   async init() {
@@ -22,9 +23,13 @@ export class ClientWsRpcImpl implements ClientWsRpc {
       serializer: jsonSerializer,
       xhr: axiosXHR,
     });
+    this.isInitialized = true;
     return null;
   }
-
+  async destroy() {
+    this.isInitialized = false;
+    return null;
+  }
   async sendMessage(message: string) {
     if (this.api) {
       const response = await this.api.sendMessage(message).call();

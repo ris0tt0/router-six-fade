@@ -7,7 +7,6 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'rsixclient-checkers-[name].js',
-    clean: true,
     library: {
       // note there's no `name` here
       type: 'umd',

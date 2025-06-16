@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import {
   createBrowserRouter,
+  LoaderFunctionArgs,
   Outlet,
   redirect,
   RouterProvider,
@@ -8,19 +9,38 @@ import {
 import { ClientApiImpl } from '../api';
 import { AboutRoute } from './about';
 import { ChoosePlayerRoute } from './choose';
-import { PlayerRoute } from './player';
-import { RootRoute } from './root';
 import { Login } from './login';
+import { PlayerRoute } from './player';
+import Logger from 'js-logger';
+import { ClientRPCImpl } from '../rpc/client';
 
-const RootLoader = async () => {
+const ChooseLoader = async () => {
+  const rpc = ClientRPCImpl.getInstace();
+
+  const players = await rpc.loadPlayers();
+
+  return players;
+};
+
+const PlayerLoader = async () => {};
+
+const RootLoader = async (args: LoaderFunctionArgs) => {
   const api = ClientApiImpl.getInstance();
+  const currentPath = new URL(args.request.url).pathname;
+  const result = await api.getUserDetails();
 
-  const result = await api.getPlayerId();
+  Logger.info('RootLoader result', currentPath, result);
 
-  if (result.id === null) {
+  if (!result.isAuthed) {
     return redirect('/login');
   }
 
+  if (result.id === null && currentPath !== '/choose') {
+    return redirect('/choose');
+  }
+  if (result.id && currentPath !== '/player') {
+    return redirect('/player');
+  }
   return result;
 };
 
@@ -37,12 +57,18 @@ const router = createBrowserRouter([
   { path: '/login', Component: Login },
   {
     path: '/',
+    id: 'app',
     loader: RootLoader,
     Component: ProtectedRoute,
     HydrateFallback: RootLoading,
     children: [
-      { path: '/', Component: PlayerRoute },
-      { path: 'choose', Component: ChoosePlayerRoute },
+      {
+        path: 'choose',
+        loader: ChooseLoader,
+        HydrateFallback: RootLoading,
+        Component: ChoosePlayerRoute,
+      },
+      { path: 'player', Component: PlayerRoute },
     ],
   },
 ]);

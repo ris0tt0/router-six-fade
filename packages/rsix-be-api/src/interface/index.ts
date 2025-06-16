@@ -12,3 +12,5 @@ export interface ApiRPC {
    */
   setWsId: (wsid: string) => null;
 }
+
+export const RPC_V1 = 'rpc/v1';

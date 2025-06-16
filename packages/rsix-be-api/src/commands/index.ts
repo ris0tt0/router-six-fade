@@ -25,6 +25,7 @@ export interface ApiCommands extends Initable {
 }
 
 export class ApiCommandsImpl implements ApiCommands {
+  public isInitialized: boolean = false;
   private wsRpc: ClientWsRpc;
   private dbRpc: ClientDbRpc;
 
@@ -33,7 +34,11 @@ export class ApiCommandsImpl implements ApiCommands {
     this.dbRpc = dbRpc;
   }
   async init() {
-    // Initialization logic if needed
+    this.isInitialized = true;
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
   async loadPlayers() {

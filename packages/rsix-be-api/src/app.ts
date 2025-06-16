@@ -9,6 +9,7 @@ import { ApiCommands, ApiCommandsImpl } from './commands';
 Logger.useDefaults();
 
 class App implements Initable {
+  public isInitialized: boolean = false;
   private express: ExpressServer;
   private dbClient: ClientDbRpc;
   private wsClient: ClientWsRpc;
@@ -29,6 +30,12 @@ class App implements Initable {
     await this.rcpServer.init();
     await this.express.init();
 
+    this.isInitialized = true;
+
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
 }

@@ -1,7 +1,11 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/redux';
 import { Player } from '@jsix/be-db';
+import Logger from 'js-logger';
+import React, { FC, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouteLoaderData } from 'react-router-dom';
+import { RootState } from '../../store/redux';
+import { UserDetails } from '../../api';
+import { useCommands } from '../../hooks/useCommands';
 
 const useCurrentPlayer = () => {
   const playerData = useSelector<RootState, Record<string, Player>>(
@@ -18,7 +22,18 @@ const useCurrentPlayer = () => {
 };
 
 export const PlayerRoute: FC = () => {
+  const commands = useCommands();
+  const data = useRouteLoaderData<UserDetails>('app');
   const player = useCurrentPlayer();
+
+  useEffect(() => {
+    if (player === null) {
+      if (data && data.id !== null) {
+        commands.choosePlayer(data.id);
+        commands.connectSocket();
+      }
+    }
+  }, [player]);
 
   if (player)
     return (
@@ -29,5 +44,5 @@ export const PlayerRoute: FC = () => {
       </div>
     );
 
-  return null;
+  return <div>no player!</div>;
 };

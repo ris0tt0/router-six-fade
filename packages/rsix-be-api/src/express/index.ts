@@ -7,10 +7,8 @@ import { ServerRPC } from '../rpc/server';
 
 const port = process.env.PORT || 5004;
 
-export interface ApiSession extends Session {
-  playerId: string | null;
-}
 export class ExpressServer implements Initable {
+  public isInitialized: boolean = false;
   private app: express.Application | null = null;
   private rcpServer: ServerRPC;
   private rcpClient: ClientDbRpc;
@@ -25,6 +23,8 @@ export class ExpressServer implements Initable {
       const v1RpcRouter = Router();
       const v1ApiRouter = Router();
       this.app = express();
+
+      v1ApiRouter.use(express.json());
 
       const sessionOptions = {
         secret: 'keyboard cat one 4',
@@ -44,16 +44,24 @@ export class ExpressServer implements Initable {
 
       v1RpcRouter.post('/', this.rcpServer.request);
 
-      v1ApiRouter.get('/playerId', (req, res) => {
-        const session = req.session as ApiSession;
-
-        res.json({ id: session.playerId ?? null });
+      v1ApiRouter.get('/userDetails', (req, res) => {
+        res.json({
+          id: req.session.playerId ?? null,
+          isAuthed: req.session.isAuthed ?? false,
+        });
       });
       v1ApiRouter.post('/login', (req, res) => {
-        const session = req.session as ApiSession;
+        Logger.info('/login', req.body);
+        const { login = '', password = '' } = req.body;
+
+        if (login === 'jay' && password === 'two') {
+          req.session.isAuthed = true;
+          res.json({ isAuthed: true, id: req.session.playerId ?? null });
+          return;
+        }
 
         // res.json({ id: session.playerId ?? null });
-        res.status(401).send('unauth');
+        res.status(401).send('<p>unknown</p>');
       });
 
       this.app.listen(port, () => {
@@ -62,6 +70,11 @@ export class ExpressServer implements Initable {
       });
     });
 
+    this.isInitialized = true;
+
     return retVal;
+  }
+  async destroy() {
+    return null;
   }
 }

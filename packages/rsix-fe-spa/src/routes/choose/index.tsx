@@ -1,11 +1,16 @@
 import { Player } from '@jsix/be-db';
-import { Avatar, Button, Paper, styled } from '@mui/material';
+import { Button, Paper, styled } from '@mui/material';
 import Logger from 'js-logger';
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  useLoaderData,
+  useNavigate,
+  useRouteLoaderData,
+} from 'react-router-dom';
 import { useCommands } from '../../hooks/useCommands';
 import { RootState } from '../../store/redux';
-import { useNavigate } from 'react-router-dom';
+import { addPlayers } from '../../store/slice/appSlice';
 
 const ChoosePlayersContainer = styled('div')`
   display: flex;
@@ -71,8 +76,20 @@ const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
 };
 
 export const ChoosePlayerRoute: FC = () => {
+  const commands = useCommands();
+  const data = useLoaderData();
+  const dispatch = useDispatch();
   const playerData = useSelector<RootState>((state) => state.app.players);
   const [players, setPlayers] = useState<Player[] | null>(null);
+
+  useEffect(() => {
+    commands.connectSocket();
+  }, []);
+
+  useEffect(() => {
+    Logger.info('ChoosePlayerRoute datda', data);
+    dispatch(addPlayers(data));
+  }, [data]);
 
   useEffect(() => {
     if (playerData) {

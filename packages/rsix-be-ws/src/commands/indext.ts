@@ -10,13 +10,18 @@ export interface WsCommands extends Initable {
 }
 
 export class WsCommandsImpl implements WsCommands {
+  public isInitialized: boolean = false;
   private wss: SocketServer;
 
   constructor(wss: SocketServer) {
     this.wss = wss;
   }
   async init() {
-    // Initialization logic if needed
+    this.isInitialized = false;
+    return null;
+  }
+  async destroy() {
+    this.isInitialized = false;
     return null;
   }
   async sendMessage(message: string) {
