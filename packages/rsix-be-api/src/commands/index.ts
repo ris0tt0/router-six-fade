@@ -1,4 +1,4 @@
-import { ClientDbRpc, Initable, OnlineStatus, Player } from '@jsix/be-db';
+import { ClientDbRpc, Initable, Player, StatusOnline } from '@jsix/be-db';
 import { UUID } from 'crypto';
 import Logger from 'js-logger';
 import { ClientWsRpc } from '../rpc/wsClient';
@@ -16,7 +16,7 @@ export interface ApiCommands extends Initable {
    * This method fetches the player from the database, updates their status to 'online',
    * and notifies WebSocket clients about the online player.
    */
-  selectPlayer(id: string): Promise<Player>;
+  selectPlayer(id: UUID): Promise<Player>;
   /**
    * Sets the WebSocket ID for the client session.
    * @param id - The WebSocket ID to set.
@@ -59,13 +59,13 @@ export class ApiCommandsImpl implements ApiCommands {
 
     return;
   }
-  async selectPlayer(id: string) {
+  async selectPlayer(id: UUID) {
     // Fetch the player from the database
     const player = await this.dbRpc.getPlayer(id);
     // update the player status to 'online'
     const onlinePlayer: Player = {
       ...player,
-      status: 'online' as OnlineStatus,
+      status: StatusOnline,
     };
     // Update the player status in the database
     await this.dbRpc.setPlayer(onlinePlayer);

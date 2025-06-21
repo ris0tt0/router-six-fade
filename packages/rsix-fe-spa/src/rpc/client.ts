@@ -61,7 +61,7 @@ export class ClientRPCImpl implements ClientRPC {
       throw new Error('no ApiRPC  yo');
     }
   }
-  async choosePlayer(playerId: string) {
+  async choosePlayer(playerId: UUID) {
     if (this.apiRpc) {
       Logger.info('rpc,client::chooseplayer', playerId);
       const response = await this.apiRpc.selectPlayer(playerId).call();

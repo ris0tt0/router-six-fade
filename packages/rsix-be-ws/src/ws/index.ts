@@ -1,10 +1,10 @@
-import { ClientDbRpc, Initable, Player } from '@jsix/be-db';
+import { ClientDbRpc, Initable, Player, StatusOffline } from '@jsix/be-db';
 import { randomUUID, UUID } from 'crypto';
 import Logger from 'js-logger';
 import { WebSocketServer } from 'ws';
 
 export type PlayerData = {
-  playerId: string | null;
+  playerId: UUID | null;
   sessionId: string | null;
   socketId: UUID;
 };
@@ -70,7 +70,7 @@ export class SocketServerImpl implements SocketServer {
     playerId,
   }: {
     socketId: UUID;
-    playerId: string;
+    playerId: UUID;
   }) {
     Logger.info('SocketServer::setPlayerIdSocketId', socketId, playerId);
 
@@ -149,7 +149,7 @@ export class SocketServerImpl implements SocketServer {
         .then((player) => {
           const updated: Player = {
             ...player,
-            status: 'offline',
+            status: StatusOffline,
           };
           return updated;
         })

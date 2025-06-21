@@ -2,6 +2,7 @@ import { ClientDbRpc, DbRPC, Player } from '@jsix/be-db';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
+import { UUID } from 'crypto';
 import Logger from 'js-logger';
 
 const Endpoint = 'http://localhost:5005/api/v1';
@@ -56,7 +57,7 @@ export class ClientDbRpcImpl implements ClientDbRpc {
       throw new Error('no api  yo');
     }
   }
-  async getPlayer(id: string) {
+  async getPlayer(id: UUID) {
     if (this.dbRpc) {
       const response = await this.dbRpc.selectPlayer(id).call();
 

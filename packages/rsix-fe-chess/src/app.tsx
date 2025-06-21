@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { MUIProvider } from './providers/mui';
+import { Board } from './board';
 
 export const App: FC = () => {
   return (
     <MUIProvider>
-      <div>chess app</div>
+      <h2>chess app</h2>
+      <Board />
     </MUIProvider>
   );
 };

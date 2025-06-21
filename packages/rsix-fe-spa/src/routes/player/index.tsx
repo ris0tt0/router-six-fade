@@ -1,11 +1,10 @@
 import { Player } from '@jsix/be-db';
-import Logger from 'js-logger';
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouteLoaderData } from 'react-router-dom';
-import { RootState } from '../../store/redux';
 import { UserDetails } from '../../api';
 import { useCommands } from '../../hooks/useCommands';
+import { RootState } from '../../store/redux';
 
 const useCurrentPlayer = () => {
   const playerData = useSelector<RootState, Record<string, Player>>(
@@ -41,6 +40,7 @@ export const PlayerRoute: FC = () => {
         <div>{player.name}</div>
         <div>{player.description}</div>
         <div>player id:{player.id}</div>
+        <div>game ids:{player.gameIds}</div>
       </div>
     );
 

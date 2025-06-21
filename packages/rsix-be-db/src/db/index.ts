@@ -1,14 +1,33 @@
-import { Initable, Player } from '../interface';
+import { UUID } from 'crypto';
+import { Game, Initable, Player } from '../interface';
+export interface DataGames extends Initable {
+  /**
+   * Gets Games for provided ids.
+   * @param ids list of game ids
+   */
+  getGames(ids: UUID[]): Promise<Game[]>;
+  /**
+   * Get all games for testing
+   */
+  getAllGamesForPlayer(id: UUID): Promise<Game[]>;
+  /**
+   * Adds the game to the database
+   * @param games Game object
+   */
+  addGames(games: Game[]): Promise<null>;
+  /**
+   * Removes the games from the database
+   * @param games game ids to remove
+   */
+  removeGames(games: Game[]): Promise<null>;
+}
 
-/**
- * Interface for this database
- */
-export interface DataBaseSix extends Initable {
+export interface DataPlayers extends Initable {
   /**
    * Gets Players for provided ids.
    * @param ids list of player ids
    */
-  getPlayers(ids: string[]): Promise<Player[]>;
+  getPlayers(ids: UUID[]): Promise<Player[]>;
   /**
    * Get all players for testing
    */
@@ -24,3 +43,7 @@ export interface DataBaseSix extends Initable {
    */
   removePlayers(players: Player[]): Promise<null>;
 }
+/**
+ * Interface for this database
+ */
+export interface DataBaseSix extends DataPlayers, DataGames {}

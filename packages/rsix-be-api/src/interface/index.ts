@@ -3,7 +3,7 @@ import { UUID } from 'crypto';
 
 export interface ApiRPC {
   loadPlayers: () => Player[];
-  selectPlayer: (id: string) => Player;
+  selectPlayer: (id: UUID) => Player;
   /**
    * sets the websocket id for the current session
    * @param wsid  - The WebSocket ID to set for the current session.

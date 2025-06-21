@@ -1,13 +1,9 @@
-import { Player } from '@jsix/be-db';
+import { Player, StatusOnline } from '@jsix/be-db';
 import { Button, Paper, styled } from '@mui/material';
 import Logger from 'js-logger';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useLoaderData,
-  useNavigate,
-  useRouteLoaderData,
-} from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useCommands } from '../../hooks/useCommands';
 import { RootState } from '../../store/redux';
 import { addPlayers } from '../../store/slice/appSlice';
@@ -69,7 +65,7 @@ const ChoosePlayerItem: FC<{ player: Player }> = ({ player }) => {
       <OnlineStatus player={player} />
       <div>
         <Button
-          disabled={player.status === 'online'}
+          disabled={player.status === StatusOnline}
           variant="outlined"
           onClick={handleSelect}
         >
