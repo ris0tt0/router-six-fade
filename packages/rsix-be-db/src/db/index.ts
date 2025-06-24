@@ -1,5 +1,9 @@
-import { UUID } from 'crypto';
-import { Game, Initable, Player } from '../interface';
+import { Initable } from '../interface';
+import { GameDataTypes } from '../interface/data/apps';
+import { UUID } from '../interface/data';
+import { Game } from '../interface/data/game';
+import { Player } from '../interface/data/player';
+
 export interface DataGames extends Initable {
   /**
    * Gets Games for provided ids.
@@ -15,6 +19,7 @@ export interface DataGames extends Initable {
    * @param games Game object
    */
   addGames(games: Game[]): Promise<null>;
+  updateGames(games: Game[]): Promise<Game[]>;
   /**
    * Removes the games from the database
    * @param games game ids to remove
@@ -22,6 +27,10 @@ export interface DataGames extends Initable {
   removeGames(games: Game[]): Promise<null>;
 }
 
+export interface DataGameData extends Initable {
+  getDatas(ids: UUID[]): Promise<GameDataTypes[]>;
+  updateDatas(datas: GameDataTypes[]): Promise<GameDataTypes[]>;
+}
 export interface DataPlayers extends Initable {
   /**
    * Gets Players for provided ids.
@@ -46,4 +55,4 @@ export interface DataPlayers extends Initable {
 /**
  * Interface for this database
  */
-export interface DataBaseSix extends DataPlayers, DataGames {}
+export interface DataBaseSix extends DataPlayers, DataGames, DataGameData {}

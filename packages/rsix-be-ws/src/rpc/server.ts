@@ -1,17 +1,17 @@
-import { Initable } from '@jsix/be-db';
+import { Initable } from '@jsix/be-db/interface';
 import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
 import { WsCommands } from '../commands/indext';
-import { WsRPC } from '../interface';
+import { WsRPC } from '../interface/rpc';
 
-export interface APIContext {
+export interface WsContext {
   commands: WsCommands;
 }
 
-const api: RPCFunctions<WsRPC, APIContext> = {
-  sendMessage: (message: string) => (context: APIContext) => {
+const api: RPCFunctions<WsRPC, WsContext> = {
+  sendMessage: (message: string) => (context: WsContext) => {
     const retVal = new Promise<void>((resolve, reject) => {
       Logger.info('sendMessage called with message:', message);
       context.commands
@@ -27,7 +27,7 @@ const api: RPCFunctions<WsRPC, APIContext> = {
     });
     return retVal;
   },
-  selectPlayer: (id: string) => (context: APIContext) => {
+  selectPlayer: (id: string) => (context: WsContext) => {
     const retVal = new Promise<void>((resolve, reject) => {
       // context.commands
     });
@@ -35,7 +35,7 @@ const api: RPCFunctions<WsRPC, APIContext> = {
     return retVal;
   },
   sendPlayers(players) {
-    return (context: APIContext) => {
+    return (context: WsContext) => {
       const retVal = new Promise<void>((resolve, reject) => {
         Logger.info('sendPlayers called with players:', players);
         context.commands
@@ -52,7 +52,7 @@ const api: RPCFunctions<WsRPC, APIContext> = {
       return retVal;
     };
   },
-  setClientPlayerId: (playerId, socketId) => (context: APIContext) => {
+  setClientPlayerId: (playerId, socketId) => (context: WsContext) => {
     const retVal = new Promise<void>((resolve, reject) => {
       context.commands.setPlayerIdSocketId({
         socketId,
@@ -64,7 +64,7 @@ const api: RPCFunctions<WsRPC, APIContext> = {
 
     return retVal;
   },
-  setClientSessionId: (sessionId, socketId) => (context: APIContext) => {
+  setClientSessionId: (sessionId, socketId) => (context: WsContext) => {
     const retVal = new Promise<void>((resolve, reject) => {
       Logger.info(
         'setClientSessionId called with sessionId:',
@@ -77,6 +77,15 @@ const api: RPCFunctions<WsRPC, APIContext> = {
         sessionId,
         socketId,
       });
+    });
+
+    return retVal;
+  },
+  updateGameDatas: (ids, datas) => (context: WsContext) => {
+    const retVal = new Promise<void>((resolve, reject) => {
+      Logger.info('updateGameDatas::ids', ids, 'datas:', datas);
+
+      context.commands.updateGameDatas(ids, datas).then(() => resolve());
     });
 
     return retVal;

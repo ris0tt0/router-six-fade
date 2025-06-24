@@ -1,5 +1,11 @@
-import { ClientDbRpc, Initable, Player, StatusOnline } from '@jsix/be-db';
-import { UUID } from 'crypto';
+import { Initable } from '@jsix/be-db/interface';
+import { Game, Player, StatusOnline, UUID } from '@jsix/be-db/interface/data';
+import {
+  ChessGameData,
+  ChessType,
+  GameDataTypes,
+} from '@jsix/be-db/interface/data/apps';
+import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
 import Logger from 'js-logger';
 import { ClientWsRpc } from '../rpc/wsClient';
 
@@ -24,6 +30,12 @@ export interface ApiCommands extends Initable {
    */
   setWsId(socketId: UUID, sessionId: string): Promise<void>;
   setSocketId(socketId: UUID, playerId: string): Promise<void>;
+
+  getPlayers(ids: UUID[]): Promise<Player[]>;
+  getGames(ids: UUID[]): Promise<Game[]>;
+  updateGames(games: Game[]): Promise<Game[]>;
+  getDatas(ids: UUID[]): Promise<GameDataTypes[]>;
+  updateDatas(games: GameDataTypes[]): Promise<GameDataTypes[]>;
 }
 
 export class ApiCommandsImpl implements ApiCommands {
@@ -46,6 +58,21 @@ export class ApiCommandsImpl implements ApiCommands {
   async loadPlayers() {
     const players = await this.dbRpc.loadPlayers();
     return players;
+  }
+  async getPlayers(ids: UUID[]) {
+    const players = await this.dbRpc.getPlayers(ids);
+
+    return players;
+  }
+  async getGames(ids: UUID[]) {
+    const games = await this.dbRpc.getGames(ids);
+
+    return games;
+  }
+  async updateGames(games: Game[]) {
+    const result = await this.dbRpc.updateGames(games);
+
+    return result;
   }
 
   async setWsId(socketId: UUID, sessionId: string) {
@@ -73,5 +100,22 @@ export class ApiCommandsImpl implements ApiCommands {
     await this.wsRpc.sendPlayers([onlinePlayer]);
 
     return onlinePlayer;
+  }
+  async getDatas(ids: UUID[]) {
+    const datas = await this.dbRpc.getDatas(ids);
+    return datas;
+  }
+  async updateDatas(games: GameDataTypes[]) {
+    const updated = await this.dbRpc.updateDatas(games);
+    const ids = [] as UUID[];
+    games.map((game) => {
+      if (game.type === ChessType) {
+        const chessData = game as ChessGameData;
+        ids.push(chessData.darkPlayerId);
+        ids.push(chessData.lightPlayerId);
+      }
+    });
+    await this.wsRpc.updateGameDatas(ids, updated);
+    return updated;
   }
 }

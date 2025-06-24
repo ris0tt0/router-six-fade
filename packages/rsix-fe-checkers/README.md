@@ -1,1 +1,1 @@
-# SPA client.
+# checkers client.

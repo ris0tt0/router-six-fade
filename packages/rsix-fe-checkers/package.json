@@ -2,26 +2,28 @@
   "name": "@jsix/fe-checkers",
   "version": "0.0.1",
   "private": true,
-  "main": "./src/index.ts",
+  "exports": {
+    ".": null
+  },
   "packageManager": "yarn@4.9.1",
   "scripts": {
     "build:dev": "webpack --mode=development",
-    "build": "webpack --mode=production",
+    "build": "tsc && webpack --mode=production",
     "dev": "webpack serve --mode=development"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@jsix/be-api": "workspaces:*",
-    "@jsix/be-db": "workspaces:*",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "@mui/system": "^7.1.0",
     "@node-rpc/client": "^2.3.1",
+    "@reduxjs/toolkit": "^2.8.2",
     "axios": "0.19.0",
     "js-logger": "^1.6.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.0",
     "zustand": "^5.0.5"
   },

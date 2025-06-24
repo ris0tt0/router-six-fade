@@ -1,6 +1,7 @@
+import { addDatas } from '@jsix/fe-redux/store/slice/dataSlice';
+import { addPlayers } from '@jsix/fe-redux/store/slice/playerSlice';
 import { Dispatch } from '@reduxjs/toolkit';
 import Logger from 'js-logger';
-import { addPlayers } from '../store/slice/appSlice';
 
 export interface WebSocketClient {
   wsid: string | null;
@@ -56,6 +57,9 @@ export class WebSocketClientImpl implements WebSocketClient {
     } else if (result.type === 'players') {
       Logger.log('WebSocketClientImpl::players', result.data);
       this.dispatch(addPlayers(result.data));
+    } else if (result.type === 'updateGameDatas') {
+      Logger.log('WebSocketClientImpl::updateGameDatas', result.data);
+      this.dispatch(addDatas(result.data));
     } else {
       Logger.warn('WebSocketClientImpl unknown type:', result.type);
     }

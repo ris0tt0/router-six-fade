@@ -1,4 +1,4 @@
-import { Initable } from '@jsix/be-db';
+import { Initable } from '@jsix/be-db/interface';
 import Axios from 'axios';
 import Logger from 'js-logger';
 

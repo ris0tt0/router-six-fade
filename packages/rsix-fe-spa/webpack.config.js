@@ -3,11 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const config = {
-  entry: './src/index.ts',
+  entry: {
+    main: './src/index.ts',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'rsixclient-[name].js',
+    filename: 'spa-[name].js',
     library: {
+      name: 'rsix-spa',
       type: 'umd',
     },
   },
@@ -38,12 +41,12 @@ const config = {
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
-        exclude: [/node_modules/, /\/\.yarn\/\_\_virtual\_\_/],
+        exclude: [/node_modules/],
       },
       {
         test: /\.ts(x)?$/,
         loader: 'ts-loader',
-        exclude: [/node_modules/, /\/\.yarn\/\_\_virtual\_\_/],
+        exclude: [/node_modules/],
       },
     ],
   },

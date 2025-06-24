@@ -1,4 +1,4 @@
-import { ClientDbRpc, Initable } from '@jsix/be-db';
+import { Initable } from '@jsix/be-db/interface';
 import express, { Router } from 'express';
 import session from 'express-session';
 import Logger from 'js-logger';
@@ -10,10 +10,8 @@ export class ExpressServer implements Initable {
   public isInitialized: boolean = false;
   private app: express.Application | null = null;
   private rcpServer: ServerRPC;
-  private rcpClient: ClientDbRpc;
 
-  constructor(rcpServer: ServerRPC, rcpClient: ClientDbRpc) {
-    this.rcpClient = rcpClient;
+  constructor(rcpServer: ServerRPC) {
     this.rcpServer = rcpServer;
   }
 

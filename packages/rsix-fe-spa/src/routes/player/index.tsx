@@ -1,22 +1,30 @@
-import { Player } from '@jsix/be-db';
+import { useCurrentGames } from '@jsix/fe-redux/hooks/useCurrentGames';
+import { useCurrentPlayer } from '@jsix/fe-redux/hooks/useCurrentPlayer';
 import React, { FC, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useRouteLoaderData } from 'react-router-dom';
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import { UserDetails } from '../../api';
 import { useCommands } from '../../hooks/useCommands';
-import { RootState } from '../../store/redux';
 
-const useCurrentPlayer = () => {
-  const playerData = useSelector<RootState, Record<string, Player>>(
-    (state) => state.app.players
-  );
-  const playerId = useSelector<RootState, string | null>(
-    (state) => state.app.playerId
-  );
+const GamesList: FC = () => {
+  const games = useCurrentGames();
 
-  if (playerId) {
-    return playerData ? playerData[playerId] : null;
+  if (games) {
+    const listItems = games.map((game) => {
+      return (
+        <li key={game.id}>
+          <Link to={`/games/${game.id}`}>{game.title}</Link>
+        </li>
+      );
+    });
+
+    return (
+      <div>
+        <div>Games:</div>
+        <ul>{listItems}</ul>
+      </div>
+    );
   }
+
   return null;
 };
 
@@ -41,6 +49,7 @@ export const PlayerRoute: FC = () => {
         <div>{player.description}</div>
         <div>player id:{player.id}</div>
         <div>game ids:{player.gameIds}</div>
+        <GamesList />
       </div>
     );
 

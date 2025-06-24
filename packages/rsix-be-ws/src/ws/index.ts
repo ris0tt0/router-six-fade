@@ -1,5 +1,8 @@
-import { ClientDbRpc, Initable, Player, StatusOffline } from '@jsix/be-db';
-import { randomUUID, UUID } from 'crypto';
+import { Initable } from '@jsix/be-db/interface';
+import { Player, StatusOffline, UUID } from '@jsix/be-db/interface/data';
+import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
+import { randomUUID } from 'crypto';
 import Logger from 'js-logger';
 import { WebSocketServer } from 'ws';
 
@@ -25,6 +28,7 @@ export interface SocketServer extends Initable {
     socketId: UUID;
     sessionId: string;
   }): Promise<void>;
+  updateGameDatas(ids: UUID[], datas: GameDataTypes[]): Promise<null>;
 }
 
 export class SocketServerImpl implements SocketServer {
@@ -48,6 +52,31 @@ export class SocketServerImpl implements SocketServer {
   }
   async destroy() {
     this.isInitialized = false;
+    return null;
+  }
+
+  async updateGameDatas(ids: UUID[], datas: GameDataTypes[]) {
+    Logger.info('SocketServer::updateGameDatas', ids, datas);
+
+    ids.map((id) => {
+      const entries = this.ids.entries();
+      entries.some(([ws, data]) => {
+        if (data.playerId === id) {
+          Logger.info('updateGmedatas', ids);
+
+          const messageToSend = JSON.stringify({
+            type: 'updateGameDatas',
+            data: datas,
+          });
+
+          ws.send(messageToSend);
+
+          return true;
+        }
+        return false;
+      });
+    });
+
     return null;
   }
   async sendMessage(message: string) {
@@ -77,6 +106,7 @@ export class SocketServerImpl implements SocketServer {
     const ids = Array.from(this.ids.entries()).find(
       ([, value]) => value.socketId === socketId
     );
+
     if (ids) {
       const item = this.ids.get(ids[0]);
       Logger.info('setPlayerIdSocketId item', item);

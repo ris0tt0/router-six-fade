@@ -1,12 +1,13 @@
-import { Player, StatusOnline } from '@jsix/be-db';
+import { Player, StatusOnline } from '@jsix/be-db/interface/data';
+import { playersSelector } from '@jsix/fe-redux/selectors/player';
+import { RootState } from '@jsix/fe-redux/store/index';
+import { addPlayers } from '@jsix/fe-redux/store/slice/playerSlice';
 import { Button, Paper, styled } from '@mui/material';
 import Logger from 'js-logger';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useCommands } from '../../hooks/useCommands';
-import { RootState } from '../../store/redux';
-import { addPlayers } from '../../store/slice/appSlice';
 
 const ChoosePlayersContainer = styled('div')`
   display: flex;
@@ -80,7 +81,9 @@ export const ChoosePlayerRoute: FC = () => {
   const commands = useCommands();
   const data = useLoaderData();
   const dispatch = useDispatch();
-  const playerData = useSelector<RootState>((state) => state.app.players);
+  const playerData = useSelector<RootState, Record<string, Player>>(
+    playersSelector
+  );
   const [players, setPlayers] = useState<Player[] | null>(null);
 
   useEffect(() => {

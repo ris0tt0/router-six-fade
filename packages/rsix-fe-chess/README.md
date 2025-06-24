@@ -1,1 +1,1 @@
-# SPA client.
+# chess client.

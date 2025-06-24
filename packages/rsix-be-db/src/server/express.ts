@@ -2,8 +2,11 @@ import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import express, { Request, Response, Router } from 'express';
 import Logger from 'js-logger';
-import { DbRPC, Initable } from '../interface';
 import { DataBaseSix } from '../db';
+import { Initable } from '../interface';
+import { Game, UUID } from '../interface/data';
+import { DbRPC, RPC_V1 } from '../interface/rpc';
+import { GameDataTypes } from '../interface/data/apps';
 
 const port = process.env.PORT || 5005;
 
@@ -20,10 +23,35 @@ export const api: RPCFunctions<DbRPC, DBContext> = {
 
     return player[0];
   },
+  getPlayers: (ids: UUID[]) => async (context) => {
+    const players = await context.db.getPlayers(ids);
+
+    return players;
+  },
+  getGames: (ids: UUID[]) => async (context) => {
+    const games = await context.db.getGames(ids);
+
+    return games;
+  },
+  updateGames: (ids: Game[]) => async (context) => {
+    const games = await context.db.updateGames(ids);
+
+    return games;
+  },
   updatePlayers: (players) => async (context) => {
     await context.db.addPlayers(players);
 
     return null;
+  },
+  getDatas: (ids: UUID[]) => async (context) => {
+    const data = await context.db.getDatas(ids);
+
+    return data;
+  },
+  updateDatas: (datas: GameDataTypes[]) => async (context) => {
+    const data = await context.db.updateDatas(datas);
+
+    return data;
   },
 };
 
@@ -45,7 +73,7 @@ export class ExpressServer implements Initable {
     const retVal = new Promise<null>((resolve, reject) => {
       this.app = express();
       const v1Router = Router();
-      this.app.use('/api/v1', v1Router);
+      this.app.use(`/${RPC_V1}`, v1Router);
 
       v1Router.post('/', this.rcpRequest);
 

@@ -1,10 +1,12 @@
-import { Initable, Player } from '@jsix/be-db';
+import { Game, Player, UUID } from '@jsix/be-db/interface/data';
+import { Initable } from '@jsix/be-db/interface';
 import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
 import { ApiCommands } from '../commands';
-import { ApiRPC } from '../interface';
+import { ApiRPC } from '../interface/rpc';
+import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
 
 export interface APIContext {
   commands: ApiCommands;
@@ -14,12 +16,6 @@ export interface APIContext {
 const api: RPCFunctions<ApiRPC, APIContext> = {
   loadPlayers: () => (context: APIContext) => {
     const retVal = new Promise<Player[]>((resolve, reject) => {
-      // Logger.info(
-      //   'loadPlayers session.id:',
-      //   context.request.session.id,
-      //   'playerID',
-      //   context.request.session.playerId
-      // );
       context.commands
         .loadPlayers()
         .then((items) => resolve(items))
@@ -53,11 +49,42 @@ const api: RPCFunctions<ApiRPC, APIContext> = {
   },
   setWsId: (id) => (context: APIContext) => {
     const retVal = new Promise<null>((resolve, reject) => {
-      Logger.info('RCO id', id, context.request.session.playerId);
       context.request.session.socketId = id;
       context.commands.setWsId(id, context.request.session.id);
       resolve(null);
     });
+    return retVal;
+  },
+  getPlayers: (ids: UUID[]) => (context: APIContext) => {
+    const retVal = new Promise<Player[]>((resolve, reject) => {
+      context.commands.getPlayers(ids).then((players) => resolve(players));
+    });
+    return retVal;
+  },
+  getGames: (ids: UUID[]) => (context: APIContext) => {
+    const retVal = new Promise<Game[]>((resolve, reject) => {
+      context.commands.getGames(ids).then((games) => resolve(games));
+    });
+    return retVal;
+  },
+  updateGames: (games: Game[]) => (context: APIContext) => {
+    const retVal = new Promise<Game[]>((resolve, reject) => {
+      context.commands.updateGames(games).then((games) => resolve(games));
+    });
+
+    return retVal;
+  },
+  getGameDatas: (ids: UUID[]) => (context: APIContext) => {
+    const retVal = new Promise<GameDataTypes[]>((resolve, reject) => {
+      context.commands.getDatas(ids).then((data) => resolve(data));
+    });
+    return retVal;
+  },
+  updateGameDatas: (games: GameDataTypes[]) => (context: APIContext) => {
+    const retVal = new Promise<GameDataTypes[]>((resolve, reject) => {
+      context.commands.updateDatas(games).then((games) => resolve(games));
+    });
+
     return retVal;
   },
 };

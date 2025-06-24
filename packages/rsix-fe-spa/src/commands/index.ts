@@ -1,4 +1,6 @@
-import { Initable, Player } from '@jsix/be-db';
+import { Initable } from '@jsix/be-db/interface';
+import { Player } from '@jsix/be-db/interface/data';
+import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
 
 /**
  * ClientCommands interface defines the commands available for the client side.
@@ -25,4 +27,6 @@ export interface ClientCommands extends Initable {
    * @returns A Promise that resolves to null.
    */
   setPlayerWsId(id: string): Promise<null>;
+
+  updateGameData(datas: GameDataTypes[]): Promise<GameDataTypes[]>;
 }

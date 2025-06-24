@@ -1,17 +1,19 @@
-import { Initable, Player } from '@jsix/be-db';
-import { WsRPC } from '@jsix/be-ws';
+import { Player, UUID } from '@jsix/be-db/interface/data';
+import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { Initable } from '@jsix/be-db/interface';
+import { RPC_V1, WsRPC } from '@jsix/be-ws/interface/rpc';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
-import { UUID } from 'crypto';
 import Logger from 'js-logger';
 
-const Endpoint = 'http://localhost:5009/api/v1';
+const URL = process.env.RPC_WS_URL ?? 'http://localhost:5009';
 export interface ClientWsRpc extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(players: Player[]): Promise<void>;
   setWsId(socketId: UUID, sessionId: string): Promise<void>;
   setPlayerId(socketId: UUID, playerId: string): Promise<void>;
+  updateGameDatas(ids: UUID[], datas: GameDataTypes[]): Promise<void>;
 }
 
 export class ClientWsRpcImpl implements ClientWsRpc {
@@ -19,9 +21,8 @@ export class ClientWsRpcImpl implements ClientWsRpc {
   private wsRpc: Callables<WsRPC> | null = null;
 
   async init() {
-    Logger.info('ClientWsRPC::init');
     this.wsRpc = createClient<WsRPC>({
-      endpoint: Endpoint,
+      endpoint: `${URL}/${RPC_V1}`,
       serializer: jsonSerializer,
       xhr: axiosXHR,
     });
@@ -145,6 +146,37 @@ export class ClientWsRpcImpl implements ClientWsRpc {
         }
         case 'success': {
           Logger.log('api::wsClient::setWsId', response.code, response.data);
+          return response.data;
+        }
+      }
+    }
+    {
+      throw new Error('no api  yo');
+    }
+  }
+  async updateGameDatas(ids: UUID[], datas: GameDataTypes[]) {
+    if (this.wsRpc) {
+      const response = await this.wsRpc.updateGameDatas(ids, datas).call();
+
+      switch (response.type) {
+        case 'fail': {
+          Logger.log(
+            'api::wsClient::updateGameDatas',
+            response.code,
+            response.error
+          );
+          throw new Error(response.error);
+        }
+        case 'noResponse': {
+          Logger.log('api::wsClient::updateGameDatas no response');
+          throw new Error('no response');
+        }
+        case 'success': {
+          Logger.log(
+            'api::wsClient::updateGameDatas',
+            response.code,
+            response.data
+          );
           return response.data;
         }
       }

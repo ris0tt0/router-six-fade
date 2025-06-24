@@ -2,12 +2,14 @@
   "name": "@jsix/fe-spa",
   "version": "0.0.1",
   "private": true,
-  "main": "./src/index.ts",
   "packageManager": "yarn@4.9.1",
+  "exports": {
+    ".": null
+  },
   "scripts": {
     "dev": "webpack serve --mode=development",
-    "build:dev": "webpack --mode=development",
-    "build": "webpack --mode=production"
+    "build:dev": "tsc && webpack --mode=development",
+    "build": "tsc && webpack --mode=production"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,6 +19,7 @@
     "@jsix/fe-chat": "workspaces:*",
     "@jsix/fe-checkers": "workspaces:*",
     "@jsix/fe-chess": "workspaces:*",
+    "@jsix/fe-redux": "workspaces:*",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "@mui/system": "^7.1.0",

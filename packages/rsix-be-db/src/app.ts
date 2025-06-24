@@ -1,11 +1,8 @@
-import Logger from 'js-logger';
-import { ExpressServer } from './server/express';
 import { DataBaseSix } from './db';
 import { MemoryDB } from './db/memory';
+import { ExpressServer } from './server/express';
 
-Logger.useDefaults();
-
-class Application {
+export class Application {
   private express: ExpressServer;
   private database: DataBaseSix;
 
@@ -19,10 +16,3 @@ class Application {
     return null;
   }
 }
-
-const app = new Application();
-
-app
-  .init()
-  .then(() => Logger.info('db server init'))
-  .catch((e) => Logger.error(e));

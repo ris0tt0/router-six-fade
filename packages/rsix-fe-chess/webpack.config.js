@@ -3,12 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const config = {
-  entry: './src/index.ts',
+  entry: {
+    main: './src/index.ts',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'rsixclient-chess-[name].js',
+    filename: 'chess-[name].js',
     library: {
-      // note there's no `name` here
+      name: 'rsix-chess',
       type: 'umd',
     },
   },
@@ -42,7 +44,7 @@ const config = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.ts(x)?$/,
+        test: /\.([cm]?ts|tsx)$/,
         loader: 'ts-loader',
         exclude: [/node_modules/],
       },
@@ -51,6 +53,12 @@ const config = {
   devtool: 'eval-source-map',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    // Add support for TypeScripts fully qualified ESM imports.
+    extensionAlias: {
+      '.js': ['.js', '.ts'],
+      '.cjs': ['.cjs', '.cts'],
+      '.mjs': ['.mjs', '.mts'],
+    },
   },
 };
 

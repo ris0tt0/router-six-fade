@@ -13,6 +13,8 @@ import { Login } from './login';
 import { PlayerRoute } from './player';
 import Logger from 'js-logger';
 import { ClientRPCImpl } from '../rpc/client';
+import { GamesRoute } from './games';
+import { GamesRouteDetail } from './games/gameDetail';
 
 const ChooseLoader = async (args: any) => {
   const rpc = ClientRPCImpl.getInstace();
@@ -23,15 +25,10 @@ const ChooseLoader = async (args: any) => {
   return players;
 };
 
-const PlayerLoader = async ({ context, params, request }: any) => {
-  Logger.info('PlayerLoader', context, params, request);
-};
 const RootLoader = async (args: LoaderFunctionArgs) => {
   const api = ClientApiImpl.getInstance();
   const currentPath = new URL(args.request.url).pathname;
   const result = await api.getUserDetails();
-
-  Logger.info('RootLoader result', currentPath, result);
 
   if (!result.isAuthed) {
     return redirect('/login');
@@ -72,9 +69,14 @@ const router = createBrowserRouter([
       },
       {
         path: 'player',
-        loader: PlayerLoader,
-
         Component: PlayerRoute,
+      },
+      {
+        path: 'games',
+        children: [
+          { index: true, Component: GamesRoute },
+          { path: ':gameId', Component: GamesRouteDetail },
+        ],
       },
     ],
   },

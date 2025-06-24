@@ -3,12 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const config = {
-  entry: './src/index.ts',
+  entry: {
+    main: './src/index.ts',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'rsixclient-checkers-[name].js',
+    filename: 'checkers-[name].js',
     library: {
-      // note there's no `name` here
+      name: 'rsix-checkers',
       type: 'umd',
     },
   },

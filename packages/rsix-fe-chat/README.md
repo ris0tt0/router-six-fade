@@ -1,1 +1,1 @@
-# SPA client.
+# chat client.

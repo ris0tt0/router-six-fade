@@ -1,14 +1,12 @@
-import Logger from 'js-logger';
+import { Initable } from '@jsix/be-db/interface';
+import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
+import { ApiCommands, ApiCommandsImpl } from './commands';
 import { ExpressServer } from './express';
-import { ClientDbRpc, Initable } from '@jsix/be-db';
 import { ClientDbRpcImpl } from './rpc/dbClient';
 import { ServerRPC } from './rpc/server';
 import { ClientWsRpc, ClientWsRpcImpl } from './rpc/wsClient';
-import { ApiCommands, ApiCommandsImpl } from './commands';
 
-Logger.useDefaults();
-
-class App implements Initable {
+export class App implements Initable {
   public isInitialized: boolean = false;
   private express: ExpressServer;
   private dbClient: ClientDbRpc;
@@ -21,7 +19,7 @@ class App implements Initable {
     this.dbClient = new ClientDbRpcImpl();
     this.commands = new ApiCommandsImpl(this.wsClient, this.dbClient);
     this.rcpServer = new ServerRPC(this.commands);
-    this.express = new ExpressServer(this.rcpServer, this.dbClient);
+    this.express = new ExpressServer(this.rcpServer);
   }
 
   async init() {
@@ -39,10 +37,3 @@ class App implements Initable {
     return null;
   }
 }
-
-const app = new App();
-
-app
-  .init()
-  .then(() => Logger.info('App init'))
-  .catch((e) => Logger.error(e));

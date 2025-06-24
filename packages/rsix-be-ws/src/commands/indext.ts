@@ -1,5 +1,7 @@
-import { ClientDbRpc, Initable, Player } from '@jsix/be-db';
-import { UUID } from 'crypto';
+import { Initable } from '@jsix/be-db/interface';
+import { Player, UUID } from '@jsix/be-db/interface/data';
+import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
 import Logger from 'js-logger';
 import { SocketServer } from '../ws';
 
@@ -21,6 +23,7 @@ export interface WsCommands extends Initable {
     socketId: UUID;
     sessionId: string;
   }): Promise<void>;
+  updateGameDatas(ids: UUID[], datas: GameDataTypes[]): Promise<void>;
 }
 
 export class WsCommandsImpl implements WsCommands {
@@ -63,5 +66,8 @@ export class WsCommandsImpl implements WsCommands {
   }
   async setSessionIdSocketId(param: { socketId: UUID; sessionId: string }) {
     return this.wss.setSessionIdSocketId(param);
+  }
+  async updateGameDatas(ids: UUID[], datas: GameDataTypes[]) {
+    this.wss.updateGameDatas(ids, datas);
   }
 }

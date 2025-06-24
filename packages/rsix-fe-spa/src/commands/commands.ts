@@ -1,10 +1,17 @@
+import { UUID } from '@jsix/be-db/interface/data';
+import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { addDatas } from '@jsix/fe-redux/store/slice/dataSlice';
+import { addGames } from '@jsix/fe-redux/store/slice/gamesSlice';
+import {
+  addPlayers,
+  setPlayerId,
+} from '@jsix/fe-redux/store/slice/playerSlice';
+import { Dispatch } from '@reduxjs/toolkit';
 import Logger from 'js-logger';
 import { ClientCommands } from '.';
-import { ClientRPC } from '../rpc/client';
-import { Dispatch } from '@reduxjs/toolkit';
-import { addPlayers, setPlayerId } from '../store/slice/appSlice';
-import { WebSocketClient } from '../wsclient';
 import { ClientApi } from '../api';
+import { ClientRPC } from '../rpc/client';
+import { WebSocketClient } from '../wsclient';
 
 export type CommandsParams = {
   api: ClientApi;
@@ -43,20 +50,57 @@ export class ClientCommandsImpl implements ClientCommands {
 
     return null;
   }
-  async choosePlayer(playerId: string) {
+  async choosePlayer(playerId: UUID) {
     Logger.info('choosePlayer', playerId);
-    const player = await this.rpc.choosePlayer(playerId);
+    await this.rpc.choosePlayer(playerId);
 
-    Logger.info('commands::choosePlayer', this.socketClient.wsid);
-    Logger.info(`commands::choosePlayer ${playerId} player`, player);
+    const [currentPlayer] = await this.rpc.getPlayers([playerId]);
+    const games = await this.rpc.getGames(currentPlayer.gameIds);
 
-    this.dispatch(addPlayers([player]));
-    this.dispatch(setPlayerId(player.id));
+    const allIds = games.reduce((retVal, game) => {
+      game.ownerIds.forEach((id) => {
+        retVal.add(id);
+      });
+      game.playerIds.forEach((id) => {
+        retVal.add(id);
+      });
 
-    return player;
+      return retVal;
+    }, new Set<UUID>());
+
+    const gameIds = games.reduce((retVal, game) => {
+      retVal.push(game.dataId);
+      return retVal;
+    }, [] as UUID[]);
+
+    const gameDatas = await this.rpc.getDatas(gameIds);
+
+    const allPlayers = await this.rpc.getPlayers(Array.from(allIds));
+
+    Logger.info(
+      'commands::choosePlayer1',
+      gameIds,
+      gameDatas,
+      this.socketClient.wsid
+    );
+    Logger.info(`commands::choosePlayer ${playerId} player`, allPlayers[0]);
+
+    this.dispatch(addGames(games));
+    this.dispatch(addDatas(gameDatas));
+    this.dispatch(addPlayers([...allPlayers, currentPlayer]));
+    this.dispatch(setPlayerId(currentPlayer.id));
+
+    return allPlayers[0];
   }
+
   async setPlayerWsId(id: string) {
     const result = await this.rpc.setWsId(id);
     return null;
+  }
+
+  async updateGameData(datas: GameDataTypes[]) {
+    const results = await this.rpc.updateDatas(datas);
+
+    return results;
   }
 }

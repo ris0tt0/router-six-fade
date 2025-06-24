@@ -10,8 +10,11 @@
 # Documentation here: https://yarnpkg.com/features/caching#zero-installs
 
 #!.yarn/cache
+
+tsconfig.tsbuildinfo
 .pnp.*
 dist/
+lib/
 client/
 .vscode/
 .DS_Store

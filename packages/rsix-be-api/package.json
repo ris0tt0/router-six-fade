@@ -2,24 +2,24 @@
   "name": "@jsix/be-api",
   "version": "0.0.1",
   "private": true,
-  "main": "./src/index.ts",
+  "exports": {
+    ".": null,
+    "./interface/*": "./src/interface/*.ts"
+  },
   "packageManager": "yarn@4.9.1",
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node src/app.ts",
-    "start": "yarn build && node dist/app.js",
+    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "start": "yarn build && node lib/index.js",
     "build": "tsc"
   },
   "dependencies": {
-    "@jsix/be-api": "workspaces:*",
     "@jsix/be-db": "workspaces:*",
     "@jsix/be-ws": "workspaces:*",
-    "@jsix/fe-chat": "workspaces:*",
-    "@jsix/fe-checkers": "workspaces:*",
-    "@jsix/fe-chess": "workspaces:*",
     "@node-rpc/client": "^2.3.1",
     "@node-rpc/server": "^2.2.0",
     "axios": "0.19.0",
     "co-body": "^6.2.0",
+    "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "formidable": "1.2.1",

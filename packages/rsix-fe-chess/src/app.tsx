@@ -1,12 +1,24 @@
+import { ChessGameData } from '@jsix/be-db/interface/data/apps';
+import Logger from 'js-logger';
 import React, { FC } from 'react';
+import { Board } from './components/board';
+import { DashBoard } from './components/dashBoard';
 import { MUIProvider } from './providers/mui';
-import { Board } from './board';
+import { ReduxProvider } from './providers/redux';
+import { DataProvider, GAME_ID } from './providers/testing';
 
 export const App: FC = () => {
+  const handleChessGameUpdate = (data: ChessGameData) => {
+    Logger.info('App::chess', data);
+  };
   return (
     <MUIProvider>
-      <h2>chess app</h2>
-      <Board />
+      <ReduxProvider>
+        <DataProvider>
+          <DashBoard />
+          <Board dataId={GAME_ID} onGameUpdate={handleChessGameUpdate} />
+        </DataProvider>
+      </ReduxProvider>
     </MUIProvider>
   );
 };
