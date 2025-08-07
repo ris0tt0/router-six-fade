@@ -1,4 +1,5 @@
-import { Paper, styled } from '@mui/material';
+import { Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React, { FC } from 'react';
 
 const HelloContainer = styled(Paper)`

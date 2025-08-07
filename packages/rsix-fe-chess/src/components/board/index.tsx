@@ -1,13 +1,14 @@
-import { ChessGameData } from '@jsix/be-db/interface/data/apps';
 import { UUID } from '@jsix/be-db/interface/data';
+import { ChessGameData } from '@jsix/be-db/interface/data/apps';
 import { useCurrentPlayer } from '@jsix/fe-redux/hooks/useCurrentPlayer';
 import { useData } from '@jsix/fe-redux/hooks/useData';
 import { usePlayer } from '@jsix/fe-redux/hooks/usePlayer';
 import { addDatas } from '@jsix/fe-redux/store/slice/dataSlice';
-import { Paper, styled } from '@mui/material';
+import { Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { Chess, Square } from 'chess.js';
 import Logger from 'js-logger';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { useDispatch } from 'react-redux';
 

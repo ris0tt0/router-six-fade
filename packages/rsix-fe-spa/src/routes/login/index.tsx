@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
 import Logger from 'js-logger';
 import React, { FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
