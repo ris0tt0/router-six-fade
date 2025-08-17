@@ -1,4 +1,4 @@
-import { UUID } from '@jsix/be-db/interface/data';
+import { UUID } from '@jsix/be-db/model/data';
 import { setPlayerId } from '@jsix/fe-redux/store/slice/playerSlice';
 import { FormControl, MenuItem, Paper, Select } from '@mui/material';
 import { styled } from '@mui/material/styles';

@@ -1,4 +1,4 @@
-import { Game } from '@jsix/be-db/interface/data';
+import { Game } from '@jsix/be-db/model/data';
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { currentPlayerSelector } from './player';

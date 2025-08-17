@@ -1,10 +1,12 @@
-import { Initable } from '@jsix/be-db/interface';
-import { Player, StatusOffline, UUID } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
-import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
+import { Initable } from '@jsix/be-db/model';
+import { Player, StatusOffline, UUID } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import { ClientDbRpc } from '@jsix/be-db/model/rpc';
 import { randomUUID } from 'crypto';
 import Logger from 'js-logger';
 import { WebSocketServer } from 'ws';
+
+const PORT = process.env.WS_PORT;
 
 export type PlayerData = {
   playerId: UUID | null;
@@ -42,11 +44,13 @@ export class SocketServerImpl implements SocketServer {
   }
 
   async init() {
-    Logger.info('SocketServer::init');
-    this.wss = new WebSocketServer({ port: 5003 });
-    this.addEventListeners();
+    if (PORT) {
+      this.wss = new WebSocketServer({ port: parseInt(PORT, 10) });
+      this.addEventListeners();
 
-    this.isInitialized = true;
+      this.isInitialized = true;
+      Logger.info('SocketServer::init', PORT);
+    }
 
     return null;
   }
@@ -59,7 +63,7 @@ export class SocketServerImpl implements SocketServer {
     Logger.info('SocketServer::updateGameDatas', ids, datas);
 
     ids.map((id) => {
-      const entries = this.ids.entries();
+      const entries = Array.from(this.ids.entries());
       entries.some(([ws, data]) => {
         if (data.playerId === id) {
           Logger.info('updateGmedatas', ids);

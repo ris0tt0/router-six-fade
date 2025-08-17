@@ -1,5 +1,5 @@
-import { Initable } from '@jsix/be-db/interface';
-import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
+import { Initable } from '@jsix/be-db/model';
+import { ClientDbRpc } from '@jsix/be-db/model/rpc';
 import { ApiCommands, ApiCommandsImpl } from './commands';
 import { ExpressServer } from './express';
 import { ClientDbRpcImpl } from './rpc/dbClient';

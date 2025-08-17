@@ -1,5 +1,5 @@
-import { UUID } from '@jsix/be-db/interface/data';
-import { ChessGameData } from '@jsix/be-db/interface/data/apps';
+import { UUID } from '@jsix/be-db/model/data';
+import { ChessGameData } from '@jsix/be-db/model/data/apps';
 import { Board } from '@jsix/fe-chess/components/board/index';
 import { useGame } from '@jsix/fe-redux/hooks/useGame';
 import Logger from 'js-logger';

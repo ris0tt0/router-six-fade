@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button, Container, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Logger from 'js-logger';
 import React, { FC } from 'react';
@@ -6,19 +6,20 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ClientApiImpl } from '../../api';
 
-const LoginContainer = styled('div')`
+const LoginContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  border: 1px red solid;
+  height: 100vh;
 `;
 
 const LoginFormContainer = styled('form')`
   display: flex;
   width: 400px;
   justify-content: end;
-  border: 1px blue solid;
+  border: 1px ${({ theme }) => theme.palette.primary.dark} solid;
   padding: 10px;
   gap: 10px;
   flex-direction: column;
@@ -58,7 +59,7 @@ export const Login: FC = () => {
       });
   };
   return (
-    <LoginContainer>
+    <LoginContainer maxWidth="md">
       <h2>Login</h2>
       <LoginFormContainer onSubmit={handleSubmit(handleloginSubmit)}>
         <Controller
@@ -72,7 +73,9 @@ export const Login: FC = () => {
           render={({ field }) => <TextField type="password" {...field} />}
         />
         <div>
-          <Button type="submit">submit</Button>
+          <Button variant="outlined" type="submit">
+            submit
+          </Button>
         </div>
       </LoginFormContainer>
     </LoginContainer>

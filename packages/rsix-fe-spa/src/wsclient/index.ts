@@ -3,6 +3,8 @@ import { addPlayers } from '@jsix/fe-redux/store/slice/playerSlice';
 import { Dispatch } from '@reduxjs/toolkit';
 import Logger from 'js-logger';
 
+const URL = process.env.WS_URL;
+
 export interface WebSocketClient {
   wsid: string | null;
   connect(): Promise<string>;
@@ -20,20 +22,24 @@ export class WebSocketClientImpl implements WebSocketClient {
 
   connect() {
     const retVal = new Promise<string>((resolve, reject) => {
-      this.socket = new WebSocket('ws://localhost:5003');
-      const handleMessage = (event: MessageEvent) => {
-        const result = JSON.parse(event.data);
-        if (result.type === 'connected') {
-          this.wsid = result.data;
-          resolve(result.data);
-          this.socket?.removeEventListener('message', handleMessage);
-        }
-      };
+      if (URL) {
+        this.socket = new WebSocket(URL);
+        const handleMessage = (event: MessageEvent) => {
+          const result = JSON.parse(event.data);
+          if (result.type === 'connected') {
+            this.wsid = result.data;
+            resolve(result.data);
+            this.socket?.removeEventListener('message', handleMessage);
+          }
+        };
 
-      this.socket.addEventListener('open', this.handleOpen);
-      this.socket.addEventListener('close', this.handleClose);
-      this.socket.addEventListener('message', this.handleMessage);
-      this.socket.addEventListener('message', handleMessage);
+        this.socket.addEventListener('open', this.handleOpen);
+        this.socket.addEventListener('close', this.handleClose);
+        this.socket.addEventListener('message', this.handleMessage);
+        this.socket.addEventListener('message', handleMessage);
+      } else {
+        reject(new Error('WebSocket URL is not defined'));
+      }
     });
 
     return retVal;

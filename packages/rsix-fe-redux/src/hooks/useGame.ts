@@ -1,4 +1,4 @@
-import { UUID } from '@jsix/be-db/interface/data';
+import { UUID } from '@jsix/be-db/model/data';
 import { useSelector } from 'react-redux';
 import { gamesSelector } from '../selectors/games';
 

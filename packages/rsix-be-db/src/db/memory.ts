@@ -1,10 +1,10 @@
 import { DataBaseSix } from '.';
-import { UUID } from '../interface/data';
-import { GameDataTypes } from '../interface/data/apps';
-import { ChessType } from '../interface/data/apps/chess';
-import { Game } from '../interface/data/game';
-import { StatusOffline } from '../interface/data/online';
-import { Player } from '../interface/data/player';
+import { UUID } from '../model/data';
+import { GameDataTypes } from '../model/data/apps';
+import { ChessType } from '../model/data/apps/chess';
+import { Game } from '../model/data/game';
+import { StatusOffline } from '../model/data/online';
+import { Player } from '../model/data/player';
 
 const ID00 = 'aaaa-aaaa-aaaa-aaaa-aaaa';
 const ID01 = 'aaaa-aaaa-aaaa-aaaa-aaab';

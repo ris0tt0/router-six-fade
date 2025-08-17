@@ -1,4 +1,4 @@
-import { Player } from '@jsix/be-db/interface/data';
+import { Player } from '@jsix/be-db/model/data';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 

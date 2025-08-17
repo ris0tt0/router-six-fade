@@ -4,12 +4,12 @@
   "private": true,
   "exports": {
     ".": null,
-    "./interface": "./src/interface/index.ts",
-    "./interface/rpc": "./src/interface/rpc/index.ts",
-    "./interface/data": "./src/interface/data/index.ts",
-    "./interface/data/apps": "./src/interface/data/apps/index.ts"
+    "./model": "./src/model/index.ts",
+    "./model/rpc": "./src/model/rpc/index.ts",
+    "./model/data": "./src/model/data/index.ts",
+    "./model/data/apps": "./src/model/data/apps/index.ts"
   },
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.9.2",
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "start": "yarn build && node lib/index.js",
@@ -18,7 +18,7 @@
   "dependencies": {
     "@node-rpc/server": "^2.2.0",
     "co-body": "^6.2.0",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "formidable": "1.2.1",
     "js-logger": "^1.6.1"

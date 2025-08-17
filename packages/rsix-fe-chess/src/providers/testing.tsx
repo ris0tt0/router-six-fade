@@ -1,5 +1,5 @@
-import { Player, StatusOffline, UUID } from '@jsix/be-db/interface/data';
-import { ChessType, GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { Player, StatusOffline, UUID } from '@jsix/be-db/model/data';
+import { ChessType, GameDataTypes } from '@jsix/be-db/model/data/apps';
 import { addDatas } from '@jsix/fe-redux/store/slice/dataSlice';
 import {
   addPlayers,

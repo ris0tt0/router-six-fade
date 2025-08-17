@@ -1,11 +1,11 @@
-import { Initable } from '@jsix/be-db/interface';
-import { Game, Player, StatusOnline, UUID } from '@jsix/be-db/interface/data';
+import { Initable } from '@jsix/be-db/model';
+import { Game, Player, StatusOnline, UUID } from '@jsix/be-db/model/data';
 import {
   ChessGameData,
   ChessType,
   GameDataTypes,
-} from '@jsix/be-db/interface/data/apps';
-import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
+} from '@jsix/be-db/model/data/apps';
+import { ClientDbRpc } from '@jsix/be-db/model/rpc';
 import Logger from 'js-logger';
 import { ClientWsRpc } from '../rpc/wsClient';
 

@@ -1,4 +1,4 @@
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import Logger from 'js-logger';

@@ -15,6 +15,7 @@ import Logger from 'js-logger';
 import { ClientRPCImpl } from '../rpc/client';
 import { GamesRoute } from './games';
 import { GamesRouteDetail } from './games/gameDetail';
+import { Container, LinearProgress, Stack } from '@mui/material';
 
 const ChooseLoader = async (args: any) => {
   const rpc = ClientRPCImpl.getInstace();
@@ -44,11 +45,26 @@ const RootLoader = async (args: LoaderFunctionArgs) => {
 };
 
 const RootLoading = () => {
-  return <div>loading root</div>;
+  return (
+    <Stack
+      sx={{
+        height: '100vh',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <LinearProgress variant="indeterminate" />
+    </Stack>
+  );
 };
 
 const ProtectedRoute = () => {
-  return <Outlet />;
+  return (
+    <Container maxWidth="md">
+      <Outlet />
+    </Container>
+  );
 };
 
 const router = createBrowserRouter([

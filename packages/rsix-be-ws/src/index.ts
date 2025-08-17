@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import Logger from 'js-logger';
-import { App } from './app';
+import App from './app';
 
 Logger.useDefaults();
 
@@ -8,5 +8,5 @@ const app = new App();
 
 app
   .init()
-  .then(() => Logger.info('api init'))
-  .catch((e) => Logger.error('api error', e));
+  .then(() => Logger.info('ws initialized'))
+  .catch((e) => Logger.error(e));

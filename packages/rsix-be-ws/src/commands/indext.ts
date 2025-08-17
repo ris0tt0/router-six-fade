@@ -1,7 +1,7 @@
-import { Initable } from '@jsix/be-db/interface';
-import { Player, UUID } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
-import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
+import { Initable } from '@jsix/be-db/model';
+import { Player, UUID } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import { ClientDbRpc } from '@jsix/be-db/model/rpc';
 import Logger from 'js-logger';
 import { SocketServer } from '../ws';
 

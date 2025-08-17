@@ -1,13 +1,10 @@
-import { Initable } from '@jsix/be-db/interface';
-import { ClientDbRpc } from '@jsix/be-db/interface/rpc';
-import Logger from 'js-logger';
+import { Initable } from '@jsix/be-db/model';
+import { ClientDbRpc } from '@jsix/be-db/model/rpc';
 import { WsCommands, WsCommandsImpl } from './commands/indext';
 import { ExpressServer } from './express';
 import { ClientDbRpcImpl } from './rpc/dbClient';
 import { ServerRPC } from './rpc/server';
 import { SocketServer, SocketServerImpl } from './ws';
-
-Logger.useDefaults();
 
 class App implements Initable {
   public isInitialized: boolean = false;
@@ -38,9 +35,4 @@ class App implements Initable {
   }
 }
 
-const app = new App();
-
-app
-  .init()
-  .then(() => Logger.info('app initialized'))
-  .catch((e) => Logger.error(e));
+export default App;

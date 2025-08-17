@@ -1,10 +1,10 @@
-import { Initable } from '@jsix/be-db/interface';
+import { Initable } from '@jsix/be-db/model';
 import { createServer, RPCFunctions } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
 import { WsCommands } from '../commands/indext';
-import { WsRPC } from '../interface/rpc';
+import { WsRPC } from '../model/rpc';
 
 export interface WsContext {
   commands: WsCommands;

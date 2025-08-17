@@ -3,12 +3,12 @@ import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeseri
 import express, { Request, Response, Router } from 'express';
 import Logger from 'js-logger';
 import { DataBaseSix } from '../db';
-import { Initable } from '../interface';
-import { Game, UUID } from '../interface/data';
-import { DbRPC, RPC_V1 } from '../interface/rpc';
-import { GameDataTypes } from '../interface/data/apps';
+import { Initable } from '../model';
+import { Game, UUID } from '../model/data';
+import { DbRPC, RPC_V1 } from '../model/rpc';
+import { GameDataTypes } from '../model/data/apps';
 
-const port = process.env.PORT || 5005;
+const port = process.env.PORT;
 
 export interface DBContext {
   db: DataBaseSix;

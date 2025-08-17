@@ -1,6 +1,6 @@
-import { Initable } from '@jsix/be-db/interface';
-import { Player } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { Initable } from '@jsix/be-db/model';
+import { Player } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
 
 /**
  * ClientCommands interface defines the commands available for the client side.

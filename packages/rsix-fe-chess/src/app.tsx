@@ -1,4 +1,4 @@
-import { ChessGameData } from '@jsix/be-db/interface/data/apps';
+import { ChessGameData } from '@jsix/be-db/model/data/apps';
 import Logger from 'js-logger';
 import React, { FC } from 'react';
 import { Board } from './components/board';

@@ -1,12 +1,12 @@
-import { Game, Player, UUID } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
-import { ClientDbRpc, DbRPC, RPC_V1 } from '@jsix/be-db/interface/rpc';
+import { Game, Player, UUID } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import { ClientDbRpc, DbRPC, RPC_V1 } from '@jsix/be-db/model/rpc';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 
-const DB_URL = 'http://localhost:5005';
+const URL = process.env.RPC_DB_URL;
 
 export class ClientDbRpcImpl implements ClientDbRpc {
   public isInitialized: boolean = false;
@@ -14,7 +14,7 @@ export class ClientDbRpcImpl implements ClientDbRpc {
 
   async init() {
     this.dbRpc = createClient<DbRPC>({
-      endpoint: `${DB_URL}/${RPC_V1}`,
+      endpoint: `${URL}/${RPC_V1}`,
       serializer: jsonSerializer,
       xhr: axiosXHR,
     });

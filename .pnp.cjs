@@ -90,7 +90,7 @@ const RAW_RUNTIME_STATE =
           ["babel-loader", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.0.0"],\
           ["chess.js", "npm:1.4.0"],\
           ["co-body", "npm:6.2.0"],\
-          ["dotenv", "npm:17.2.0"],\
+          ["dotenv", "npm:17.2.1"],\
           ["dotenv-webpack", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.1.0"],\
           ["express", "npm:5.1.0"],\
           ["express-session", "npm:1.18.1"],\
@@ -2538,7 +2538,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:22.15.21"],\
           ["axios", "npm:0.19.0"],\
           ["co-body", "npm:6.2.0"],\
-          ["dotenv", "npm:17.2.0"],\
+          ["dotenv", "npm:17.2.1"],\
           ["express", "npm:5.1.0"],\
           ["express-session", "npm:1.18.1"],\
           ["formidable", "npm:1.2.1"],\
@@ -2560,7 +2560,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:22.15.21"],\
           ["@types/ws", "npm:8.18.1"],\
           ["co-body", "npm:6.2.0"],\
-          ["dotenv", "npm:17.2.0"],\
+          ["dotenv", "npm:17.2.1"],\
           ["express", "npm:5.1.0"],\
           ["formidable", "npm:1.2.1"],\
           ["js-logger", "npm:1.6.1"],\
@@ -2584,7 +2584,7 @@ const RAW_RUNTIME_STATE =
           ["@types/ws", "npm:8.18.1"],\
           ["axios", "npm:0.19.0"],\
           ["co-body", "npm:6.2.0"],\
-          ["dotenv", "npm:17.2.0"],\
+          ["dotenv", "npm:17.2.1"],\
           ["express", "npm:5.1.0"],\
           ["formidable", "npm:1.2.1"],\
           ["js-logger", "npm:1.6.1"],\
@@ -5569,10 +5569,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dotenv", [\
-      ["npm:17.2.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/dotenv-npm-17.2.0-4ee4b4bbd1-10c0.zip/node_modules/dotenv/",\
+      ["npm:17.2.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/dotenv-npm-17.2.1-33fbb0afbc-10c0.zip/node_modules/dotenv/",\
         "packageDependencies": [\
-          ["dotenv", "npm:17.2.0"]\
+          ["dotenv", "npm:17.2.1"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -7163,7 +7163,7 @@ const RAW_RUNTIME_STATE =
           ["babel-loader", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:10.0.0"],\
           ["chess.js", "npm:1.4.0"],\
           ["co-body", "npm:6.2.0"],\
-          ["dotenv", "npm:17.2.0"],\
+          ["dotenv", "npm:17.2.1"],\
           ["dotenv-webpack", "virtual:81ab5885cf79dfa33ba377c0df94cf4fc153b6cf9fcd52c23d22d8f7f1bc5f73b222e77c73cd35065b38570556669260bc50b5a1bf552155be7521049156fa3b#npm:8.1.0"],\
           ["express", "npm:5.1.0"],\
           ["express-session", "npm:1.18.1"],\

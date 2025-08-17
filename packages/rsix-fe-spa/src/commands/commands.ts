@@ -1,5 +1,5 @@
-import { UUID } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { UUID } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
 import { addDatas } from '@jsix/fe-redux/store/slice/dataSlice';
 import { addGames } from '@jsix/fe-redux/store/slice/gamesSlice';
 import {

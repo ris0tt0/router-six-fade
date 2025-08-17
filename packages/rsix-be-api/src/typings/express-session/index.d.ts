@@ -1,4 +1,4 @@
-import { UUID } from '@jsix/be-db/interface/index';
+import { UUID } from '@jsix/be-db/model/index';
 import 'express-session';
 
 declare module 'express-session' {

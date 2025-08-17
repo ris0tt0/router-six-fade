@@ -1,8 +1,8 @@
-import { Initable } from '../interface';
-import { GameDataTypes } from '../interface/data/apps';
-import { UUID } from '../interface/data';
-import { Game } from '../interface/data/game';
-import { Player } from '../interface/data/player';
+import { Initable } from '../model';
+import { GameDataTypes } from '../model/data/apps';
+import { UUID } from '../model/data';
+import { Game } from '../model/data/game';
+import { Player } from '../model/data/player';
 
 export interface DataGames extends Initable {
   /**

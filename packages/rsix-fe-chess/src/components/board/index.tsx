@@ -1,5 +1,5 @@
-import { UUID } from '@jsix/be-db/interface/data';
-import { ChessGameData } from '@jsix/be-db/interface/data/apps';
+import { UUID } from '@jsix/be-db/model/data';
+import { ChessGameData } from '@jsix/be-db/model/data/apps';
 import { useCurrentPlayer } from '@jsix/fe-redux/hooks/useCurrentPlayer';
 import { useData } from '@jsix/fe-redux/hooks/useData';
 import { usePlayer } from '@jsix/fe-redux/hooks/usePlayer';

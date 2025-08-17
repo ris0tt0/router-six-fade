@@ -1,4 +1,4 @@
-import { Player, StatusOnline } from '@jsix/be-db/interface/data';
+import { Player, StatusOnline } from '@jsix/be-db/model/data';
 import { playersSelector } from '@jsix/fe-redux/selectors/player';
 import { RootState } from '@jsix/fe-redux/store/index';
 import { addPlayers } from '@jsix/fe-redux/store/slice/playerSlice';
@@ -14,7 +14,6 @@ const ChoosePlayersContainer = styled('div')`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border: 1px red solid;
 `;
 
 const PlayerItem = styled(Paper)`
@@ -32,12 +31,10 @@ const PlayerItem = styled(Paper)`
 const PlayerItemContainer = styled('div')`
   display: flex;
   flex-wrap: wrap;
-  border: 1px purple solid;
 `;
 
 const OnlineStatusContainer = styled('div')`
   display: flex;
-  border: 1px red solid;
   margin: 10px 0;
 `;
 

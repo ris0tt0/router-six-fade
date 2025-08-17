@@ -7,7 +7,7 @@
     "./components/board/*": "./src/components/board/*.tsx",
     "./components/moves/*": "./src/components/moves/*.tsx"
   },
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.9.2",
   "scripts": {
     "build:dev": "webpack --mode=development",
     "build": "tsc  && webpack --stats-error-details --mode=production",

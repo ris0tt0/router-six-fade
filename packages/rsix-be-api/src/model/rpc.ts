@@ -1,5 +1,5 @@
-import { Game, Player, UUID } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
+import { Game, Player, UUID } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
 
 export interface ApiRPC {
   /**

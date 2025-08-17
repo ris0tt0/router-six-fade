@@ -1,13 +1,13 @@
-import { Player, UUID } from '@jsix/be-db/interface/data';
-import { GameDataTypes } from '@jsix/be-db/interface/data/apps';
-import { Initable } from '@jsix/be-db/interface';
-import { RPC_V1, WsRPC } from '@jsix/be-ws/interface/rpc';
+import { Initable } from '@jsix/be-db/model';
+import { Player, UUID } from '@jsix/be-db/model/data';
+import { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import { RPC_V1, WsRPC } from '@jsix/be-ws/model/rpc';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';
 import Logger from 'js-logger';
 
-const URL = process.env.RPC_WS_URL ?? 'http://localhost:5009';
+const URL = process.env.RPC_WS_URL;
 export interface ClientWsRpc extends Initable {
   sendMessage(message: string): Promise<void>;
   sendPlayers(players: Player[]): Promise<void>;

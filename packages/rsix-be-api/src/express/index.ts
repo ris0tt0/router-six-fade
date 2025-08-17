@@ -1,10 +1,10 @@
-import { Initable } from '@jsix/be-db/interface';
+import { Initable } from '@jsix/be-db/model';
 import express, { Router } from 'express';
 import session from 'express-session';
 import Logger from 'js-logger';
 import { ServerRPC } from '../rpc/server';
 
-const port = process.env.PORT || 5004;
+const port = process.env.PORT;
 
 export class ExpressServer implements Initable {
   public isInitialized: boolean = false;

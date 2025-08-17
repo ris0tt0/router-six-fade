@@ -8,7 +8,7 @@
     "./selectors/*": "./src/selectors/*.ts",
     "./store/*": "./src/store/*.ts"
   },
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.9.2",
   "scripts": {
     "dev": "webpack serve --mode=development",
     "build:dev": "tsc && webpack --mode=development",

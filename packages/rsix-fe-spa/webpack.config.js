@@ -8,11 +8,8 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     filename: 'spa-[name].js',
-    library: {
-      name: 'rsix-spa',
-      type: 'umd',
-    },
   },
   devServer: {
     static: false,
