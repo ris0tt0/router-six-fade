@@ -1,21 +1,9 @@
-import { UUID } from './constants';
-import { Game } from './game';
-import {
-  GameTypes,
-  OnlineStatus,
-  StatusBusy,
-  StatusOffline,
-  StatusOnline,
-} from './online';
-import { Player } from './player';
+import type { GameTypes } from './apps';
+import type { UUID } from './constants';
+import type { Game } from './game';
+import type { OnlineStatus } from './online';
+import { StatusBusy, StatusOffline, StatusOnline } from './online';
+import type { Player } from './player';
 
-export {
-  Game,
-  GameTypes,
-  OnlineStatus,
-  Player,
-  StatusBusy,
-  StatusOffline,
-  StatusOnline,
-  UUID,
-};
+export { StatusBusy, StatusOffline, StatusOnline };
+export type { Game, GameTypes, OnlineStatus, Player, UUID };

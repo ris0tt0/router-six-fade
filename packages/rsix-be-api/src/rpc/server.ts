@@ -1,12 +1,13 @@
-import { Game, Player, UUID } from '@jsix/be-db/model/data';
-import { Initable } from '@jsix/be-db/model';
-import { createServer, RPCFunctions } from '@node-rpc/server';
+import type { Game, Player, UUID } from '@jsix/be-db/model/data';
+import type { Initable } from '@jsix/be-db/model';
+import type { RPCFunctions } from '@node-rpc/server';
+import { createServer } from '@node-rpc/server';
 import { jsonDeserializer } from '@node-rpc/server/dist/deserializers/jsonDeserializer';
 import { Request, Response } from 'express';
 import Logger from 'js-logger';
 import { ApiCommands } from '../commands';
 import { ApiRPC } from '../model/rpc';
-import { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import type { GameDataTypes } from '@jsix/be-db/model/data/apps';
 
 export interface APIContext {
   commands: ApiCommands;

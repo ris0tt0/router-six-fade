@@ -1,4 +1,4 @@
-import { UUID } from '../constants';
+import type { UUID } from '../';
 
 /**
  * the chat game type

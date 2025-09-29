@@ -1,5 +1,6 @@
-import { UUID } from '@jsix/be-db/model/index';
 import 'express-session';
+
+type UUID = `${string}-${string}-${string}-${string}-${string}`;
 
 declare module 'express-session' {
   interface SessionData {

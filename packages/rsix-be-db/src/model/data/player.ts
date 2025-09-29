@@ -1,5 +1,6 @@
-import { UUID } from './constants';
-import { OnlineStatus } from './online';
+// import { UUID } from './constants';
+// import type { OnlineStatus } from './online';
+import type { UUID, OnlineStatus } from './';
 
 /**
  * Player interface.

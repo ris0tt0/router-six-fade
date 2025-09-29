@@ -1,4 +1,4 @@
-import { Initable } from '@jsix/be-db/model';
+import type { Initable } from '@jsix/be-db/model';
 import express, { Router } from 'express';
 import session from 'express-session';
 import Logger from 'js-logger';

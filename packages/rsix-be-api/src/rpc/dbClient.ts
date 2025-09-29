@@ -1,6 +1,7 @@
-import { Game, Player, UUID } from '@jsix/be-db/model/data';
-import { GameDataTypes } from '@jsix/be-db/model/data/apps';
-import { ClientDbRpc, DbRPC, RPC_V1 } from '@jsix/be-db/model/rpc';
+import type { Game, Player, UUID } from '@jsix/be-db/model/data';
+import type { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import type { ClientDbRpc, DbRPC } from '@jsix/be-db/model/rpc';
+import { RPC_V1 } from '@jsix/be-db/model/rpc';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';

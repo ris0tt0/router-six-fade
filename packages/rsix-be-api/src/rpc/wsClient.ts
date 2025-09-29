@@ -1,7 +1,8 @@
-import { Initable } from '@jsix/be-db/model';
-import { Player, UUID } from '@jsix/be-db/model/data';
-import { GameDataTypes } from '@jsix/be-db/model/data/apps';
-import { RPC_V1, WsRPC } from '@jsix/be-ws/model/rpc';
+import type { Initable } from '@jsix/be-db/model';
+import type { Player, UUID } from '@jsix/be-db/model/data';
+import type { GameDataTypes } from '@jsix/be-db/model/data/apps';
+import type { WsRPC } from '@jsix/be-ws/model/rpc';
+import { RPC_V1 } from '@jsix/be-ws/model/rpc';
 import { Callables, createClient } from '@node-rpc/client';
 import { jsonSerializer } from '@node-rpc/client/dist/serializers/jsonSerializer';
 import { axiosXHR } from '@node-rpc/client/dist/xhr/axios';

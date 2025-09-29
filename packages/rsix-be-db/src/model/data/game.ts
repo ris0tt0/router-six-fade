@@ -1,4 +1,4 @@
-import { UUID } from './constants';
+import type { UUID } from './';
 
 /**
  * Game data object interface.

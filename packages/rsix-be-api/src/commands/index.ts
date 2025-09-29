@@ -1,13 +1,11 @@
-import { Initable } from '@jsix/be-db/model';
-import { Game, Player, StatusOnline, UUID } from '@jsix/be-db/model/data';
-import {
-  ChessGameData,
-  ChessType,
-  GameDataTypes,
-} from '@jsix/be-db/model/data/apps';
-import { ClientDbRpc } from '@jsix/be-db/model/rpc';
+import type { Initable } from '@jsix/be-db/model';
+import type { Game, Player, UUID } from '@jsix/be-db/model/data';
+import { StatusOnline } from '@jsix/be-db/model/data';
+import type { ChessGameData, GameDataTypes } from '@jsix/be-db/model/data/apps';
+import { ChessType } from '@jsix/be-db/model/data/apps';
+import type { ClientDbRpc } from '@jsix/be-db/model/rpc';
 import Logger from 'js-logger';
-import { ClientWsRpc } from '../rpc/wsClient';
+import type { ClientWsRpc } from '../rpc/wsClient';
 
 export interface ApiCommands extends Initable {
   /**

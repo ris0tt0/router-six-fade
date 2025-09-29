@@ -5,18 +5,15 @@ import { ChessGameData, ChessType } from './chess';
 /**
  * The game types supported.
  */
-export type GameTypes =
-  | typeof CheckersType
-  | typeof ChessType
-  | typeof ChatType;
+type GameTypes = typeof CheckersType | typeof ChessType | typeof ChatType;
 
-export type GameDataTypes = CheckersGameData | ChessGameData | ChatGameData;
+type GameDataTypes = CheckersGameData | ChessGameData | ChatGameData;
 
-export {
+export type {
+  GameTypes,
+  GameDataTypes,
   CheckersGameData,
-  CheckersType,
   ChessGameData,
-  ChessType,
   ChatGameData,
-  ChatType,
 };
+export { CheckersType, ChessType, ChatType };
